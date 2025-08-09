@@ -1,9 +1,10 @@
 import './App.css';
+import Home from './component/Home';
 
 function App() {
   return (
     <>
-      <p>Welcome to Domo</p>
+      <Home />
     </>
   );
 }

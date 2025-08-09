@@ -1,3 +1,23 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
+@font-face {
+  src: url('./assets/font/DXpopRegular.ttf');
+  font-family: 'dxpop';
+}
+
+@font-face {
+  src: url('./assets/font/Pretendard-Medium.ttf');
+  font-family: 'pre-medium';
+}
+
+@font-face {
+  src: url('./assets/font/Pretendard-Regular.ttf');
+  font-family: 'pre-regular';
+}
+
+@font-face {
+  src: url('./assets/font/Pretendard-SemiBold.ttf');
+  font-family: 'pre-semibold';
+}
