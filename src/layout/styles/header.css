@@ -1,0 +1,41 @@
+header {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+
+.nav {
+  max-width: 1200px;
+  height: 88px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo p {
+  color: #0052e9;
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'dxpop';
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  font-family: 'pre-semibold';
+}
+
+.navList a {
+  text-decoration: none;
+  color: #b7bbcf;
+  font-size: 24px;
+}
+
+.navList a:hover {
+  color: #0052e9;
+}
+
+.navList a .navList a.active {
+  font-weight: 600;
+}
