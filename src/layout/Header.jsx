@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../layout/styles/header.css';
 
 const Header = () => {
@@ -20,9 +21,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="/" className="active">
+              <Link to="/benefix" className="active">
                 혜택 보기
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
