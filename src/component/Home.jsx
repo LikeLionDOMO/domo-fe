@@ -16,7 +16,7 @@ const Home = () => {
           <div className="grid-container">
             {[...Array(8)].map((_, index) => (
               <div className="grid-item" key={index}>
-                <div className="grid-item-image"></div>
+                <div className="grid-item-image" />
                 <div className="grid-item-info">
                   <h3>코스이름</h3>
                   <p>짧은 설명 짧은 설명 짧은 설명</p>
