@@ -21,3 +21,7 @@
   src: url('./assets/font/Pretendard-SemiBold.ttf');
   font-family: 'pre-semibold';
 }
+
+body {
+  margin: 0;
+}

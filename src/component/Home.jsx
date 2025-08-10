@@ -4,10 +4,10 @@ import './styles/home.css';
 const Home = () => {
   return (
     <>
+      <section className="slider-section">
+        <Swiper />
+      </section>
       <main className="home-container">
-        <section className="slider-section">
-          <Swiper />
-        </section>
         <section className="grid-section">
           <h2 className="grid-title">
             <span className="span-domo-blue">도모</span>가 모아온 각 지역의

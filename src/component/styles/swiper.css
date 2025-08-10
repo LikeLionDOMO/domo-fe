@@ -1,10 +1,15 @@
+.slide-main {
+  margin: 0 auto;
+  margin-top: 56px;
+}
+
 .swiper-slide {
-  height: 400px;
+  height: 636px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  text-align: center;
+  text-align: start;
   background-size: cover;
   background-position: center;
 }
@@ -28,20 +33,22 @@
 }
 
 .slide-content h2 {
-  font-size: 36px;
+  font-size: 64px;
   font-weight: bold;
-  margin-bottom: 20px;
+  font-family: 'pre-semibold';
+  margin-bottom: 32px;
   line-height: 1.4;
 }
 
 .slide-content button {
-  background-color: #f1c40f;
-  color: #333;
+  background-color: #ffe17d;
+  color: #2c2f33;
   border: none;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 25px;
+  padding: 16px 42px;
+  font-size: 36px;
+  font-weight: 600;
+  font-family: 'pre-semibold';
+  border-radius: 42px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -52,6 +59,6 @@
 
 /* Customizing Swiper Navigation/Pagination to match the image */
 :root {
-  --swiper-navigation-color: #fff;
-  --swiper-pagination-color: #fff;
+  --swiper-navigation-color: rgba(255, 255, 255, 0.5);
+  --swiper-pagination-color: rgba(255, 255, 255, 0.5);
 }
