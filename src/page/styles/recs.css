@@ -1,0 +1,71 @@
+.recsPage {
+  width: 100%;
+  height: calc(100vh - 89px);
+  position: relative;
+  z-index: 0;
+
+  background-image: url("../../assets/img/recsBackground.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.recsPage_circle1 {
+  position: absolute;
+  z-index: 0;
+  width: 40vw;
+  height: 40vw;
+  left: -20vw;
+  top: -20vw;
+
+  background: var(--point-color-1);
+  filter: blur(200px);
+}
+
+.recsPage_circle2 {
+  position: absolute;
+  z-index: 0;
+  width: 45vw;
+  height: 45vw;
+  right: -22vw;
+  bottom: -22vw;
+
+  background: rgba(255, 255, 255, 0.5);
+  filter: blur(200px);
+}
+
+.recsPage_circle_move {
+  z-index: 0;
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+
+  background: rgba(255, 247, 221, 0.8);
+  filter: blur(200px);
+  animation: moveCircle 20s linear infinite alternate;
+}
+
+@keyframes moveCircle {
+  0% {
+    left: 10vw;
+    bottom: -25vw;
+  }
+  50% {
+    right: 20vw;
+    bottom: -10vw;
+  }
+  100% {
+    left: 10vw;
+    bottom: -25vw;
+  }
+}
+
+footer {
+  display: none;
+}
+
+header {
+  position: relative;
+  background-color: var(--black-0);
+  z-index: unset !important;
+}
