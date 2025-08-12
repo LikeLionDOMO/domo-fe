@@ -1,4 +1,4 @@
-import Swiper from './Swiper';
+import Swiper from '../component/Swiper';
 import './styles/home.css';
 
 const Home = () => {
