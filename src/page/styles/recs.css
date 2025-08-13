@@ -3,6 +3,7 @@
   height: calc(100vh - 89px);
   position: relative;
   z-index: 0;
+  padding: 5vh 20vw;
 
   background-image: url("../../assets/img/recsBackground.svg");
   background-size: cover;
@@ -10,6 +11,97 @@
   overflow: hidden;
 }
 
+.recsPage > .content {
+  position: relative;
+  /* width: 60vw; */
+  /* height: 70vh; */
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(71.06% 98.68% at 50% 51.84%, #ffffff 0%, rgba(255, 255, 255, 0.2) 100%);
+  border-radius: 30px;
+  z-index: 2;
+  padding: 0 5vw;
+}
+.recsPage > .content > div {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.recsPage > .content h2 {
+  font-size: clamp(1.25rem, 4vw, 2.25rem);
+  font-family: "pre-semibold";
+  line-height: 100%;
+  margin-bottom: 12px;
+}
+.recsPage > .content p {
+  font-family: "pre-regular";
+  font-size: 90%;
+  line-height: 27px;
+}
+
+.recsPage > .content p .point {
+  color: var(--main-color);
+  position: relative;
+}
+
+.recsPage > .content p .point::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -0.25rem; /* 글자 위로 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  background: var(--main-color); /* 점 색상 */
+  border-radius: 50%;
+}
+
+.recsPage > .content .image {
+  width: 100%;
+  height: 30%;
+  background-image: url("../../assets/img/recsMap.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.recsPage > .content .button {
+  width: 100%;
+  max-width: 360px;
+  min-height: 60px;
+  font-size: clamp(0.7rem, 0.9rem, 1.2rem);
+}
+
+@media screen and (max-width: 768px) {
+  .recsPage {
+    padding: 2rem;
+  }
+  .recsPage > .content {
+    padding: 0 1rem;
+    width: 100%;
+    gap: clamp(0.7rem, 1rem, 1.4rem);
+  }
+  .recsPage > .content h2 {
+    font-size: clamp(1.25rem, 6vw, 2.25rem);
+    line-height: 1.5;
+  }
+  .recsPage > .content p {
+    font-size: clamp(0.7rem, 0.9rem, 1.2rem);
+    line-height: 1.5;
+  }
+
+  .recsPage > .content .button {
+    font-size: 0.9rem;
+  }
+}
+
+/* 배경 */
 .recsPage_circle1 {
   position: absolute;
   z-index: 0;
@@ -51,7 +143,7 @@
     bottom: -25vw;
   }
   50% {
-    right: 20vw;
+    left: 50vw;
     bottom: -10vw;
   }
   100% {
@@ -60,6 +152,81 @@
   }
 }
 
+/* 모달 */
+.modal_background {
+  padding-bottom: 100px;
+}
+.modal_background > div {
+  width: 608px;
+  /* height: 320px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "pre-semibold";
+}
+
+.modal_background > div > div:nth-child(1) {
+  font-size: 1.75rem;
+  margin-bottom: 4.875rem;
+}
+
+.modal_background > div > div:nth-child(2) {
+  font-size: 16px;
+  border-radius: 12px;
+  width: 100%;
+
+  padding: 13px 16px;
+  background-color: var(--black-1);
+  color: var(--black-4);
+}
+
+.modal_background > div > div:nth-child(2) > div {
+  margin-right: 20px;
+  width: 2.25rem;
+  height: 2.25rem;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: var(--black-0);
+}
+
+.modal_background .checked {
+  color: var(--black-4);
+  font-weight: 700;
+}
+
+.modal_background .none > * {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .modal_background > div > div:nth-child(1) {
+    font-size: 1.35rem !important;
+    line-height: 1.75rem;
+  }
+}
+
+/* 다음버튼 위치 */
+.recsPage .NextButton {
+  position: absolute;
+  left: 50vw;
+  bottom: 15vh;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 23.5rem;
+  height: 4.65rem;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .recsPage .NextButton {
+    width: calc(100% - 2rem - (48px * 2));
+    left: calc(1rem + 48px);
+    bottom: 27vh;
+    transform: translateX(0);
+  }
+}
+
+/* 레이아웃 */
 footer {
   display: none;
 }

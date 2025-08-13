@@ -61,7 +61,6 @@ section {
 }
 body {
   line-height: 1;
-  font-family: "Noto Sans KR", "Roboto", "Nanum Gothic", "Ubuntu", "Gothic A1", sans-serif;
 }
 ol,
 ul {
@@ -91,6 +90,16 @@ a:active {
   text-decoration: none;
 }
 
+.flexWidthCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.flexHeightCenter {
+  display: flex;
+  align-items: center;
+}
+
 .flexCenter {
   display: flex;
   justify-content: center;
@@ -100,7 +109,12 @@ a:active {
 .flexBetween {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+}
+
+.flexBetweenCol {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .flexCol {

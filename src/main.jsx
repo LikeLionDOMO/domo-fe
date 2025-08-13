@@ -8,6 +8,7 @@ import Footer from "./layout/Footer.jsx";
 import Home from "./page/Home.jsx";
 import Benefix from "./page/Benefix.jsx";
 import Recs from "./page/Recs.jsx";
+import RecsInfo from "./page/RecsInfo.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,7 +17,11 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/benefix" element={<Benefix />} />
+
+        {/* 추천받기 */}
         <Route path="/recs" element={<Recs />} />
+        <Route path="/recs/info" element={<RecsInfo />} />
+        {/* <Route path="/recs" element={<Recs />} /> */}
       </Routes>
       <Footer />
     </BrowserRouter>
