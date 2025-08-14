@@ -1,14 +1,7 @@
 import { useState } from 'react';
 import CustomSwiper from '../component/Swiper';
-import {
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  InputAdornment,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import ReactPaginate from 'react-paginate';
+import Filter from '../component/Filter';
+import Pagination from '../component/Pagination';
 import './styles/benefix.css';
 
 // 임시 데이터 (2열 5행, 총 10개 이상)
@@ -42,37 +35,7 @@ const Benefix = () => {
           <span className="span-domo-blue">도모</span>가 도와주는 혜택 모아보기!
         </h2>
 
-        <div className="filter-container">
-          <Button variant="contained" className="region-search-btn">
-            지역 찾기
-          </Button>
-          <Select defaultValue="gyeonggi" className="filter-select">
-            <MenuItem value="gyeonggi">경기도</MenuItem>
-            <MenuItem value="seoul">서울특별시</MenuItem>
-          </Select>
-          <Select defaultValue="seongnam" className="filter-select">
-            <MenuItem value="seongnam">성남시</MenuItem>
-            <MenuItem value="suwon">수원시</MenuItem>
-          </Select>
-          <TextField
-            placeholder="검색어를 입력하세요"
-            className="filter-search-input"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Select defaultValue="latest" className="filter-select sort-select">
-            <MenuItem value="latest">최신순</MenuItem>
-            <MenuItem value="popular">인기순</MenuItem>
-          </Select>
-          <Button variant="contained" color="primary" className="search-btn">
-            검색
-          </Button>
-        </div>
+        <Filter />
 
         <div className="benefits-grid">
           {currentPageData.map((item) => (
@@ -84,16 +47,10 @@ const Benefix = () => {
           ))}
         </div>
 
-        <ReactPaginate
-          previousLabel={'<'}
-          nextLabel={'>'}
-          breakLabel={'...'}
+        <Pagination
           pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
           onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          activeClassName={'active'}
+          currentPage={currentPage}
         />
       </div>
     </>
