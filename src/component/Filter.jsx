@@ -217,7 +217,7 @@ const Filter = () => {
           }}
         >
           <MenuItem value="latest">최신순</MenuItem>
-          <MenuItem value="benefix">혜택순</MenuItem>
+          <MenuItem value="benefix">할인순</MenuItem>
           <MenuItem value="popular">인기순</MenuItem>
         </Select>
       </div>
