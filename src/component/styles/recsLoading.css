@@ -1,0 +1,52 @@
+.recsLoading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 52px 52px 0 0;
+  background-color: var(--black-0);
+
+  padding: 4rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.recsLoading h2 {
+  font-size: 1.4rem;
+  font-family: "pre-semibold";
+  line-height: 1.5;
+}
+
+.recsLoading > div:last-child {
+  width: 100% !important;
+  height: 70% !important;
+  max-height: 250px;
+
+  background-image: url("../../assets/img/recsMap.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto;
+}
+.recsLoading > .loadingBar > * > span {
+  color: var(--main-color);
+}
+.recsLoading > .loadingBar > * {
+  width: 70%;
+  height: 5px;
+  border-radius: 999px;
+  background-color: var(--black-1);
+  margin: 0 auto;
+}
+
+.recsLoading .MuiLinearProgress-bar1Indeterminate {
+  animation-duration: 3s !important;
+}
+.recsLoading .MuiLinearProgress-bar2Indeterminate {
+  animation-duration: 3s !important;
+  animation-delay: 1.5s !important; /* duration의 절반 */
+}
