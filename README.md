@@ -16,6 +16,8 @@
 
 - [swiper](https://swiperjs.com/) - 리액트 swiper
 
+- [lucide-react](https://lucide.dev/) - 리액트 icon
+
 ## 지도 api
 
 > kakao
