@@ -1,0 +1,29 @@
+.inputCP {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputCP > label {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.inputCP > label > .essential {
+  color: orange;
+  padding-left: 0.2rem;
+}
+
+.inputCP input {
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.1s ease-in-out;
+  background-color: var(--black-1);
+}
+
+.inputCP input:focus {
+  outline: none;
+}
