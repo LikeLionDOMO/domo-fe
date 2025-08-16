@@ -10,6 +10,7 @@ import Benefix from './page/Benefix.jsx';
 import Recs from './page/Recs.jsx';
 import RecsInfo from './page/RecsInfo.jsx';
 import ScrollToTop from './hook/useScrollTop.js';
+import NotFoundPage from './NotFoundPage.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,9 @@ createRoot(document.getElementById('root')).render(
       <ScrollToTop />
       <Header />
       <Routes>
+        {/* 404 페이지 처리 */}
+        <Route path="*" element={<NotFoundPage />} />
+
         <Route path="/" element={<Home />} />
         <Route path="/benefix" element={<Benefix />} />
 
