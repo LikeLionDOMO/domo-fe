@@ -37,6 +37,7 @@ header {
   color: #0052e9;
 }
 
-.navList a .navList a.active {
+.navList a.active {
+  color: #0052e9;
   font-weight: 600;
 }
