@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Swiper from '../component/Swiper';
 import './styles/home.css';
 
@@ -28,9 +29,11 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <button className="load-more-button">
-            도모와 함께 내 주변 놀거리 찾기 &gt;
-          </button>
+          <Link to="/recs">
+            <button className="load-more-button">
+              도모와 함께 내 주변 놀거리 찾기 &gt;
+            </button>
+          </Link>
         </section>
       </main>
     </>
