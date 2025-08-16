@@ -113,3 +113,8 @@
 .load-more-button:hover {
   background: #0056b3;
 }
+
+.load-more-button a {
+  color: white;
+  font-family: 'pre-semibold';
+}

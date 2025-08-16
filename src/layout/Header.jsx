@@ -16,9 +16,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="/" className="active">
+              <Link to="/recs" className="active">
                 일정 짜기
-              </a>
+              </Link>
             </li>
             <li>
               <Link to="/benefix" className="active">
