@@ -12,6 +12,7 @@ import RecsResult from "./page/RecsResult.jsx";
 
 import ScrollToTop from "./hook/useScrollTop.js";
 import NotFoundPage from "./NotFoundPage.jsx";
+import RecsSave from "./page/RecsSave.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -29,7 +30,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/recs" element={<Recs />} />
         <Route path="/recs/info" element={<RecsInfo />} />
         <Route path="/recs/result" element={<RecsResult />} />
-        {/* <Route path="/recs" element={<Recs />} /> */}
+        <Route path="/recs/save" element={<RecsSave />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

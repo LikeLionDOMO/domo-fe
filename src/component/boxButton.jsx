@@ -19,7 +19,7 @@ const BoxButton = ({
   padding = "unset unset",
   color = "--black-0",
   bgColor = "--main-color",
-  radius = "unset",
+  radius = "16px",
 }) => {
   return (
     <div
