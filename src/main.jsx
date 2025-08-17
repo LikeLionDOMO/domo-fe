@@ -8,6 +8,8 @@ import Home from './page/Home.jsx';
 import Benefix from './page/Benefix.jsx';
 import Recs from './page/Recs.jsx';
 import RecsInfo from './page/RecsInfo.jsx';
+import RecsResult from './page/RecsResult.jsx';
+
 import ScrollToTop from './hook/useScrollTop.js';
 import NotFoundPage from './NotFoundPage.jsx';
 
@@ -26,6 +28,7 @@ createRoot(document.getElementById('root')).render(
         {/* 추천받기 */}
         <Route path="/recs" element={<Recs />} />
         <Route path="/recs/info" element={<RecsInfo />} />
+        <Route path="/recs/result" element={<RecsResult />} />
         {/* <Route path="/recs" element={<Recs />} /> */}
       </Routes>
     </BrowserRouter>
