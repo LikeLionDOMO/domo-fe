@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import BoxButton from "../component/boxButton";
 import { useInput } from "../hook/useInput";
-import RecsLoading from "../component/RecsLoading";
-
+import RecsLoading from "../component/recsLoading";
+// ^ vercel에서는 파일의 확장자 대소문자를 엄격히 구분함 / 제가 바꿔두었습니다.
 const RecsInfo = () => {
   // 주소
   const [modalState, setModalState] = useState(false);

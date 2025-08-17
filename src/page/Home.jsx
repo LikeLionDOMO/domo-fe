@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Swiper from '../component/Swiper';
 import './styles/home.css';
 
@@ -18,19 +19,21 @@ const Home = () => {
               <div className="grid-item" key={index}>
                 <div className="grid-item-image" />
                 <div className="grid-item-info">
-                  <h3>코스이름</h3>
+                  <h4>코스이름</h4>
                   <p>짧은 설명 짧은 설명 짧은 설명</p>
                   <div className="tags">
-                    <span>지역 이름</span>
-                    <span>놀거리 키워드 하나</span>
+                    <span className="tag-blue">지역 이름</span>
+                    <span className="tag-yellow">놀거리 키워드 하나</span>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-          <button className="load-more-button">
-            도모와 함께 내 주변 놀거리 찾기 &gt;
-          </button>
+          <Link to="/recs">
+            <button className="load-more-button">
+              도모와 함께 내 주변 놀거리 찾기 &gt;
+            </button>
+          </Link>
         </section>
       </main>
     </>

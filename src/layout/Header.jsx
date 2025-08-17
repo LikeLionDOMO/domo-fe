@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../layout/styles/header.css';
 
 const Header = () => {
@@ -11,19 +11,19 @@ const Header = () => {
           </div>
           <ul className="navList">
             <li>
-              <a href="/" className="active">
+              <NavLink to="/" exact>
                 홈
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="/" className="active">
+              <NavLink to="/recs">
                 일정 짜기
-              </a>
+              </NavLink>
             </li>
             <li>
-              <Link to="/benefix" className="active">
+              <NavLink to="/benefix">
                 혜택 보기
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>

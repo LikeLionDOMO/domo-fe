@@ -9,10 +9,12 @@ import Home from "./page/Home.jsx";
 import Benefix from "./page/Benefix.jsx";
 import Recs from "./page/Recs.jsx";
 import RecsInfo from "./page/RecsInfo.jsx";
+import ScrollToTop from "./hook/useScrollTop.js";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
