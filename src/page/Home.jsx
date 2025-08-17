@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Swiper from '../component/Swiper';
 import './styles/home.css';
+import Footer from '../layout/Footer';
 
 const Home = () => {
   return (
@@ -36,6 +37,7 @@ const Home = () => {
           </Link>
         </section>
       </main>
+      <Footer />
     </>
   );
 };
