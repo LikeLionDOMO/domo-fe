@@ -6,7 +6,8 @@ import DaumPostcode from "react-daum-postcode";
 import BoxButton from "../component/boxButton";
 import { useInput } from "../hook/useInput";
 import RecsLoading from "../component/recsLoading";
-// ^ vercel에서는 파일의 확장자 대소문자를 엄격히 구분함 / 제가 바꿔두었습니다.
+import { useNavigate } from "react-router-dom";
+
 const RecsInfo = () => {
   // 주소
   const [modalState, setModalState] = useState(false);
@@ -21,6 +22,8 @@ const RecsInfo = () => {
 
   // 로딩
   const [loading, setLoading] = useState(false);
+
+  const nav = useNavigate();
 
   /**
    * 있으면 배열에 추가, 없으면 제거
@@ -93,9 +96,37 @@ const RecsInfo = () => {
     // FIXME: api 추가
 
     setTimeout(() => {
+      // 아래는 API 연동 전 임시 데이터
+      const mockData = [
+        {
+          id: 1,
+          name: "토리코코로 별내본점",
+          address: "경기 남양주시 불암로 25-39 1층",
+          benefit: "민생회복 소비쿠폰",
+          lat: 37.641066,
+          lng: 127.12353,
+        },
+        {
+          id: 2,
+          name: "가게이름2",
+          address: "가게주소가게주소가게주소",
+          benefit: "혜택이름",
+          lat: 37.64514,
+          lng: 127.1189,
+        },
+        {
+          id: 3,
+          name: "가게이름3",
+          address: "가게주소가게주소가게주소",
+          benefit: "혜택이름",
+          lat: 37.63941,
+          lng: 127.128,
+        },
+      ];
+
       setLoading(false);
-      // 여기에 실제 API 호출 후 처리 로직을 추가하세요.
-    }, 10000);
+      nav("/recs/result", { state: { recommendations: mockData } });
+    }, 5000);
   };
 
   return (

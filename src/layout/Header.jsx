@@ -11,19 +11,13 @@ const Header = () => {
           </div>
           <ul className="navList">
             <li>
-              <NavLink to="/" exact>
-                홈
-              </NavLink>
+              <NavLink to="/">홈</NavLink>
             </li>
             <li>
-              <NavLink to="/recs">
-                일정 짜기
-              </NavLink>
+              <NavLink to="/recs">일정 짜기</NavLink>
             </li>
             <li>
-              <NavLink to="/benefix">
-                혜택 보기
-              </NavLink>
+              <NavLink to="/benefix">혜택 보기</NavLink>
             </li>
           </ul>
         </nav>
