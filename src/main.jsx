@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './index.css';
 import Header from './layout/Header.jsx';
-import Footer from './layout/Footer.jsx';
 import Home from './page/Home.jsx';
 import Benefix from './page/Benefix.jsx';
 import Recs from './page/Recs.jsx';
@@ -29,7 +28,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/recs/info" element={<RecsInfo />} />
         {/* <Route path="/recs" element={<Recs />} /> */}
       </Routes>
-      <Footer />
     </BrowserRouter>
   </StrictMode>
 );
