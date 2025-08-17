@@ -3,6 +3,7 @@ import CustomSwiper from '../component/Swiper';
 import Filter from '../component/Filter';
 import Pagination from '../component/Pagination';
 import './styles/benefix.css';
+import Footer from '../layout/Footer';
 
 // 임시 데이터 (2열 5행, 총 10개 이상)
 const dummyData = Array.from({ length: 25 }, (_, i) => ({
@@ -53,6 +54,8 @@ const Benefix = () => {
           currentPage={currentPage}
         />
       </div>
+
+      <Footer />
     </>
   );
 };
