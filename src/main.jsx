@@ -14,17 +14,18 @@ import ScrollToTop from "./hook/useScrollTop.js";
 import NotFoundPage from "./NotFoundPage.jsx";
 import RecsSave from "./page/RecsSave.jsx";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ScrollToTop />
-      <Header />
-      <Routes>
-        {/* 404 페이지 처리 */}
-        <Route path="*" element={<NotFoundPage />} />
+window.initMap = () => {
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Header />
+        <Routes>
+          {/* 404 페이지 처리 */}
+          <Route path="*" element={<NotFoundPage />} />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/benefix" element={<Benefix />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/benefix" element={<Benefix />} />
 
         {/* 추천받기 */}
         <Route path="/recs" element={<Recs />} />
