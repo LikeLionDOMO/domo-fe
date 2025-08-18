@@ -6,6 +6,12 @@
 
 프론트엔드 레포지토리입니다.
 
+## vercel - 배포
+
+배포는 vercel을 이용했습니다.
+
+https://vercel.com/home
+
 ## 사용된 기술 >
 
 - [MUI (Material-UI)](https://mui.com/) - 리액트 UI 라이브러리
