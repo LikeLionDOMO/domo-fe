@@ -13,24 +13,26 @@ import RecsResult from './page/RecsResult.jsx';
 import ScrollToTop from './hook/useScrollTop.js';
 import NotFoundPage from './NotFoundPage.jsx';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <ScrollToTop />
-      <Header />
-      <Routes>
-        {/* 404 페이지 처리 */}
-        <Route path="*" element={<NotFoundPage />} />
+window.initMap = () => {
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Header />
+        <Routes>
+          {/* 404 페이지 처리 */}
+          <Route path="*" element={<NotFoundPage />} />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/benefix" element={<Benefix />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/benefix" element={<Benefix />} />
 
-        {/* 추천받기 */}
-        <Route path="/recs" element={<Recs />} />
-        <Route path="/recs/info" element={<RecsInfo />} />
-        <Route path="/recs/result" element={<RecsResult />} />
-        {/* <Route path="/recs" element={<Recs />} /> */}
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>
-);
+          {/* 추천받기 */}
+          <Route path="/recs" element={<Recs />} />
+          <Route path="/recs/info" element={<RecsInfo />} />
+          <Route path="/recs/result" element={<RecsResult />} />
+          {/* <Route path="/recs" element={<Recs />} /> */}
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  );
+};
