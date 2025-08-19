@@ -1,62 +1,132 @@
 .recsResultPage {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
 .recsResult_list {
-  width: 480px;
+  /*width: 660px;*/
   padding: 40px;
   display: flex;
   flex-direction: column;
-  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.1);
   z-index: 10;
   background-color: var(--black-0);
+}
+
+.recsResult_header {
+  margin-bottom: 30px;
+}
+
+.recsResult_back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--main-color);
+}
+
+.recsResult_back-button .logo-text {
+  font-family: 'dxpop';
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .list_header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 30px;
 }
 
 .list_header_title {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 36px;
+  font-weight: 600;
   line-height: 1.4;
 }
 
+.list_header_title span {
+  color: var(--main-color);
+}
+
 .list_header_backBtn {
-  background-color: #f0f0f0;
+  background-color: var(--point-color-2);
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  width: 124px;
+  height: 56px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #e47a00;
+  font-family: 'pre-semibold';
+}
+
+.list_header_backBtn:hover {
+  background-color: #ffd447;
+  color: #cb6c00;
 }
 
 .list_items {
-  flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 50vh; /* 화면 높이에 따라 조절되도록 vh단위 사용 */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
 .list_item {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  position: relative;
 }
 
 .item_number {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 20px;
+  font-size: 40px;
+  font-weight: 400;
+  margin-right: 16px;
   color: var(--main-color);
+  font-family: 'pre-regular';
+}
+
+.item_card {
+  cursor: pointer;
+  display: flex;
+  flex-grow: 1;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.item_card:hover {
+  background-color: whitesmoke;
+}
+
+.item_content {
+  display: flex;
+  padding: 20px;
+  flex-grow: 1;
+  align-items: center;
+  height: 140px;
+  width: 348px;
+}
+
+.item_img {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  margin-right: 18px;
+  flex-shrink: 0;
 }
 
 .item_info {
@@ -64,34 +134,73 @@
 }
 
 .item_name {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 6px;
+  font-family: 'pre-semibold';
+  color: #2c2f33;
 }
 
 .item_address {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 10px;
+  font-size: 16px;
+  color: #b7bbcf;
+  margin-bottom: 12px;
+  font-family: 'pre-medium';
 }
 
 .item_benefit {
-  font-size: 13px;
-  padding: 4px 8px;
-  background-color: #eef5ff;
+  font-size: 16px;
+  background-color: #dbeeff;
   color: var(--main-color);
-  border-radius: 6px;
+  border-radius: 12px;
   display: inline-block;
+  font-family: 'pre-regular';
+  padding: 10px;
 }
 
 .item_dots {
-  font-size: 24px;
-  color: #ccc;
+  background-color: #eff0f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
+  height: 140px;
+  width: 76px;
+  border-radius: 20px;
+  margin-left: 16px;
+}
+
+.item_dots:hover {
+  background-color: #e6e8f5;
+}
+
+.item_dots span {
+  width: 6px;
+  height: 6px;
+  background-color: #b7bbcf;
+  border-radius: 50%;
 }
 
 .list_footer {
-  padding-top: 20px;
+  padding-top: 60px;
+}
+
+.list_footer-btn {
+  color: white;
+  background-color: var(--main-color);
+  width: 556px;
+  height: 96px;
+  border-radius: 20px;
+  font-size: 24px;
+  font-family: 'pre-semibold';
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.list_footer-btn:hover {
+  background-color: #004690;
 }
 
 .recsResult_map {
