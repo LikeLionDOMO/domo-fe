@@ -2,6 +2,7 @@ header {
   width: 100%;
   border-bottom: 1px solid #eee;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  z-index: 100;
 }
 
 .nav {
@@ -35,6 +36,7 @@ header {
 
 .navList a:hover {
   color: #0052e9;
+  font-weight: 600;
 }
 
 .navList a.active {
