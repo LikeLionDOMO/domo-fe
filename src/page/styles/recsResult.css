@@ -1,62 +1,115 @@
 .recsResultPage {
   display: flex;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
 .recsResult_list {
-  width: 480px;
+  width: 660px;
   padding: 40px;
   display: flex;
   flex-direction: column;
-  box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.1);
   z-index: 10;
   background-color: var(--black-0);
+}
+
+.recsResult_header {
+  margin-bottom: 30px;
+}
+
+.recsResult_back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: var(--main-color);
+}
+
+.recsResult_back-button .logo-text {
+  font-family: 'dxpop';
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
 .list_header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 30px;
 }
 
 .list_header_title {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 36px;
+  font-weight: 600;
   line-height: 1.4;
 }
 
+.list_header_title span {
+  color: var(--main-color);
+}
+
 .list_header_backBtn {
-  background-color: #f0f0f0;
+  background-color: var(--point-color-2);
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  width: 124px;
+  height: 56px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #e47a00;
+  font-family: 'pre-semibold';
 }
 
 .list_items {
-  flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+  max-height: 50vh; /* 화면 높이에 따라 조절되도록 vh단위 사용 */
+  box-sizing: border-box;
 }
 
 .list_item {
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  align-items: flex-start;
+  margin-bottom: 25px;
 }
 
 .item_number {
-  font-size: 20px;
-  font-weight: bold;
-  margin-right: 20px;
+  font-size: 24px;
+  font-weight: 800;
+  margin-right: 15px;
   color: var(--main-color);
+  padding-top: 10px;
+}
+
+.item_card {
+  display: flex;
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.item_content {
+  display: flex;
+  padding: 18px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.item_img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  margin-right: 18px;
+  flex-shrink: 0;
 }
 
 .item_info {
@@ -65,33 +118,56 @@
 
 .item_name {
   font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 5px;
+  font-size: 17px;
+  margin-bottom: 6px;
 }
 
 .item_address {
   font-size: 14px;
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .item_benefit {
   font-size: 13px;
-  padding: 4px 8px;
+  padding: 5px 10px;
   background-color: #eef5ff;
   color: var(--main-color);
-  border-radius: 6px;
+  border-radius: 8px;
   display: inline-block;
 }
 
 .item_dots {
-  font-size: 24px;
-  color: #ccc;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  gap: 4px;
   cursor: pointer;
 }
 
+.item_dots span {
+  width: 4px;
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
 .list_footer {
-  padding-top: 20px;
+  padding-top: 60px;
+}
+
+.list_footer-btn {
+  color: white;
+  background-color: var(--main-color);
+  width: 556px;
+  height: 96px;
+  border-radius: 20px;
+  font-size: 24px;
+  font-family: 'pre-semibold';
+  font-weight: 600;
 }
 
 .recsResult_map {
