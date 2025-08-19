@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ChevronLeft } from 'lucide-react';
 import './styles/recsResult.css';
 import NaverMap from '../component/NaverMap';
 import BoxButton from '../component/boxButton';
@@ -23,9 +24,15 @@ const RecsResult = () => {
     <>
       <section className="recsResultPage">
         <div className="recsResult_list">
+          <div className="recsResult_header">
+            <button onClick={() => nav(-1)} className="recsResult_back-button">
+              <ChevronLeft size={28} color="#B7BBCF" />
+              <span className="logo-text">DOMO</span>
+            </button>
+          </div>
           <div className="list_header">
             <p className="list_header_title">
-              오늘의 놀거리를
+              오늘의 <span>놀거리</span>를
               <br />
               모아왔어요!
             </p>
@@ -37,19 +44,26 @@ const RecsResult = () => {
             {recommendations.map((rec, index) => (
               <li key={rec.id} className="list_item">
                 <div className="item_number">{index + 1}</div>
-                <div className="item_info">
-                  <p className="item_name">{rec.name}</p>
-                  <p className="item_address">{rec.address}</p>
-                  <span className="item_benefit">{rec.benefit}</span>
+                <div className="item_card">
+                  <div className="item_content">
+                    <div className="item_img"></div>
+                    <div className="item_info">
+                      <p className="item_name">{rec.name}</p>
+                      <p className="item_address">{rec.address}</p>
+                      <span className="item_benefit">{rec.benefit}</span>
+                    </div>
+                  </div>
+                  <div className="item_dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
                 </div>
-                <div className="item_dots">...</div>
               </li>
             ))}
           </ul>
           <div className="list_footer">
-            <BoxButton bgColor="--main-color" height="60px">
-              결정하기
-            </BoxButton>
+            <button className="list_footer-btn">결정하기</button>
           </div>
         </div>
         {/* naver map */}
