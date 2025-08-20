@@ -1,21 +1,21 @@
-import './styles/recsInfo.css';
-import './styles/recs.css';
-import Input from '../component/input';
-import { useEffect, useState } from 'react';
-import DaumPostcode from 'react-daum-postcode';
-import BoxButton from '../component/boxButton';
-import { useInput } from '../hook/useInput';
-import RecsLoading from '../component/recsLoading';
-import { useNavigate } from 'react-router-dom';
+import "./styles/recsInfo.css";
+import "./styles/recs.css";
+import Input from "../component/input";
+import { useEffect, useState } from "react";
+import DaumPostcode from "react-daum-postcode";
+import BoxButton from "../component/boxButton";
+import { useInput } from "../hook/useInput";
+import RecsLoading from "../component/recsLoading";
+import { useNavigate } from "react-router-dom";
 
 const RecsInfo = () => {
   // 주소
   const [modalState, setModalState] = useState(false);
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState("");
 
   // 예산
-  const [budgetStart, onChangeBudgetStart, setBudgetStart] = useInput('');
-  const [budgetEnd, onChangeBudgetEnd, setBudgetEnd] = useInput('');
+  const [budgetStart, onChangeBudgetStart, setBudgetStart] = useInput("");
+  const [budgetEnd, onChangeBudgetEnd, setBudgetEnd] = useInput("");
 
   // 즐기고 싶은 것
   const [subject, setSubject] = useState([]);
@@ -41,7 +41,7 @@ const RecsInfo = () => {
    */
   useEffect(() => {
     if (budgetStart && /[^0-9]/.test(budgetStart)) {
-      const onlyNumber = budgetStart.replace(/[^0-9]/g, '');
+      const onlyNumber = budgetStart.replace(/[^0-9]/g, "");
       setBudgetStart(onlyNumber);
     }
   }, [budgetStart]);
@@ -51,7 +51,7 @@ const RecsInfo = () => {
    */
   useEffect(() => {
     if (budgetEnd && /[^0-9]/.test(budgetEnd)) {
-      const onlyNumber = budgetEnd.replace(/[^0-9]/g, '');
+      const onlyNumber = budgetEnd.replace(/[^0-9]/g, "");
       setBudgetEnd(onlyNumber);
     }
   }, [budgetEnd]);
@@ -76,19 +76,19 @@ const RecsInfo = () => {
 
   const onClickGetRecs = () => {
     if (!address) {
-      alert('주소를 입력해주세요.');
+      alert("주소를 입력해주세요.");
       return;
     }
     if (!budgetStart || !budgetEnd) {
-      alert('예산을 입력해주세요.');
+      alert("예산을 입력해주세요.");
       return;
     }
     if (parseInt(budgetStart, 10) > parseInt(budgetEnd, 10)) {
-      alert('예산의 시작 값이 끝값보다 클 수 없습니다.');
+      alert("예산의 시작 값이 끝값보다 클 수 없습니다.");
       return;
     }
     if (subject.length === 0) {
-      alert('키워드를 선택해주세요.');
+      alert("키워드를 선택해주세요.");
       return;
     }
     setLoading(true);
@@ -100,32 +100,32 @@ const RecsInfo = () => {
       const mockData = [
         {
           id: 1,
-          name: '토리코코로 별내본점',
-          address: '경기 남양주시 불암로 25-39 1층',
-          benefit: '민생회복 소비쿠폰',
+          name: "토리코코로 별내본점",
+          address: "경기 남양주시 불암로 25-39 1층",
+          benefit: "민생회복 소비쿠폰",
           lat: 37.641066,
           lng: 127.12353,
         },
         {
           id: 2,
-          name: '가게이름2',
-          address: '가게주소가게주소가게주소',
-          benefit: '혜택이름',
+          name: "가게이름2",
+          address: "가게주소가게주소가게주소",
+          benefit: "혜택이름",
           lat: 37.64514,
           lng: 127.1189,
         },
         {
           id: 3,
-          name: '가게이름3',
-          address: '가게주소가게주소가게주소',
-          benefit: '혜택이름',
+          name: "가게이름3",
+          address: "가게주소가게주소가게주소",
+          benefit: "혜택이름",
           lat: 37.63941,
           lng: 127.128,
         },
       ];
 
       setLoading(false);
-      nav('/recs/result', { state: { recommendations: mockData } });
+      nav("/recs/result", { state: { recommendations: mockData } });
     }, 5000);
   };
 
@@ -150,10 +150,7 @@ const RecsInfo = () => {
           <p>오늘의 예산을 입력해주세요.</p>
           <div>
             <div>
-              <Input
-                value={budgetStart}
-                onChangeHandler={onChangeBudgetStart}
-              />
+              <Input value={budgetStart} onChangeHandler={onChangeBudgetStart} />
             </div>
             <span></span>
             <div>
@@ -166,109 +163,69 @@ const RecsInfo = () => {
           <div>
             <ul className="flexBetween">
               <li
-                onClick={() => onChangeSubject('액티비티')}
+                onClick={() => onChangeSubject("액티비티")}
                 style={{
-                  backgroundColor: subject.includes('액티비티')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('액티비티')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("액티비티") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("액티비티") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 액티비티
               </li>
               <li
-                onClick={() => onChangeSubject('혼자만의 휴식')}
+                onClick={() => onChangeSubject("혼자만의 휴식")}
                 style={{
-                  backgroundColor: subject.includes('혼자만의 휴식')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('혼자만의 휴식')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("혼자만의 휴식") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("혼자만의 휴식") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 혼자만의 휴식
               </li>
               <li
-                onClick={() => onChangeSubject('데이트')}
+                onClick={() => onChangeSubject("데이트")}
                 style={{
-                  backgroundColor: subject.includes('데이트')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('데이트')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("데이트") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("데이트") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 데이트
               </li>
               <li
-                onClick={() => onChangeSubject('맛집 발굴')}
+                onClick={() => onChangeSubject("맛집 발굴")}
                 style={{
-                  backgroundColor: subject.includes('맛집 발굴')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('맛집 발굴')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("맛집 발굴") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("맛집 발굴") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 맛집 발굴
               </li>
             </ul>
             <ul className="flexBetween">
               <li
-                onClick={() => onChangeSubject('인생샷')}
+                onClick={() => onChangeSubject("인생샷")}
                 style={{
-                  backgroundColor: subject.includes('인생샷')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('인생샷')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("인생샷") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("인생샷") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 인생샷
               </li>
               <li
-                onClick={() => onChangeSubject('아이 동반')}
+                onClick={() => onChangeSubject("아이 동반")}
                 style={{
-                  backgroundColor: subject.includes('아이 동반')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('아이 동반')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("아이 동반") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("아이 동반") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 아이 동반
               </li>
               <li
-                onClick={() => onChangeSubject('반려견 동반')}
+                onClick={() => onChangeSubject("반려견 동반")}
                 style={{
-                  backgroundColor: subject.includes('반려견 동반')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('반려견 동반')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("반려견 동반") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("반려견 동반") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 반려견 동반
               </li>
               <li
-                onClick={() => onChangeSubject('아무거나')}
+                onClick={() => onChangeSubject("아무거나")}
                 style={{
-                  backgroundColor: subject.includes('아무거나')
-                    ? 'var(--main-color)'
-                    : 'var(--black-1)',
-                  color: subject.includes('아무거나')
-                    ? 'var(--black-0)'
-                    : 'var(--black-3)',
-                }}
-              >
+                  backgroundColor: subject.includes("아무거나") ? "var(--main-color)" : "var(--black-1)",
+                  color: subject.includes("아무거나") ? "var(--black-0)" : "var(--black-3)",
+                }}>
                 아무거나
               </li>
             </ul>
@@ -287,33 +244,28 @@ const RecsInfo = () => {
       {modalState && (
         <div
           style={{
-            position: 'fixed',
+            position: "fixed",
             top: 0,
             left: 0,
-            width: '100vw',
-            height: '100vh',
-            background: 'rgba(0,0,0,0.3)',
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.3)",
             zIndex: 10000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          onClick={() => setModalState(false)}
-        >
+          onClick={() => setModalState(false)}>
           <div
             style={{
-              background: '#fff',
-              borderRadius: '8px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+              background: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
               padding: 0,
               zIndex: 10001,
             }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <DaumPostcode
-              style={{ width: 400, height: 500 }}
-              onComplete={onCompletePost}
-            />
+            onClick={(e) => e.stopPropagation()}>
+            <DaumPostcode style={{ width: 400, height: 500 }} onComplete={onCompletePost} />
           </div>
         </div>
       )}
