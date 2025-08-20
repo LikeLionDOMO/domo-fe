@@ -1,0 +1,184 @@
+.savePage + footer {
+  display: none;
+}
+
+.savePage {
+  width: 100vw;
+  height: calc(100vh - 89px);
+  position: relative;
+}
+
+.savePage .isPc {
+  width: 65%;
+  height: 80%;
+
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  overflow-y: visible;
+
+  position: relative;
+}
+
+/* 콘텐츠 */
+.savePage .isPc > div:nth-child(1) {
+  width: 50%;
+  flex: 0.5;
+  height: 100%;
+
+  padding: 10% 0;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+/* 콘텐츠 > 텍스트 ( 타이틀 ) */
+.savePage .isPc > div:nth-child(1) > h2:nth-child(1) {
+  font-size: 2vw;
+  line-height: 1.4;
+  font-family: "pre-semibold";
+}
+
+.savePage .isPc > div:nth-child(1) > div {
+  width: 80%;
+  height: clamp(56px, 6.5vh, 9vh);
+  gap: 1rem;
+}
+
+.savePage .isPc > div:nth-child(1) > div > div {
+  width: 100%;
+}
+
+.savePage .isPc > div:nth-child(1) > h2:nth-child(1) > span {
+  color: var(--main-color);
+}
+
+.savePage .isPc .desc {
+  position: absolute;
+  font-size: 0.8rem;
+  color: var(--black-4);
+  font-family: "pre-regular";
+  text-align: center;
+  padding: 1rem 2rem;
+  background-color: var(--black-1);
+
+  bottom: 0px;
+  left: 28%;
+  border-radius: 16px;
+}
+
+/* .desc 왼쪽 상단에 삼각형 뿔 추가 */
+.savePage .isPc .desc::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--black-1);
+}
+
+/* PC 이미지 */
+.savePage .isPc .savePage_BgImg {
+  width: 50%;
+  flex: 0.5;
+  height: 100%;
+
+  background-image: url("../../assets/img/resultPage_BgImg.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ======================== */
+/*          모바일          */
+/* ======================== */
+
+.savePage .isMobile {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+  overflow: visible;
+  padding: 4rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.savePage .isMobile > h2 {
+  font-size: clamp(1.8rem, 2vw, 2.5rem);
+  font-family: "pre-semibold";
+  line-height: 100%;
+}
+
+.savePage .isMobile > h2 > span {
+  color: var(--main-color);
+}
+
+.savePage .isMobile > div:nth-child(2) {
+  width: 100%;
+  height: 75%;
+  position: relative;
+}
+
+.savePage .isMobile > div:nth-child(2) .savePage_BgImg {
+  width: 150%;
+  height: 100%;
+
+  background-image: url("../../assets/img/resultPage_BgImg.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  position: relative;
+  left: 3vw;
+}
+
+.savePage .isMobile .saveButton {
+  width: 45%;
+  height: 4.5rem;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 999;
+}
+
+.savePage .isMobile .desc {
+  position: absolute;
+  font-size: 0.7rem;
+  color: var(--black-4);
+  font-family: "pre-regular";
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--black-1);
+
+  top: 6rem;
+  left: 0.55rem;
+  border-radius: 16px;
+}
+
+/* .desc 왼쪽 상단에 삼각형 뿔 추가 */
+.savePage .isMobile .desc::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--black-1);
+}
+
+.savePage .isMobile > div:last-child {
+  height: 5rem;
+  width: 100%;
+}
