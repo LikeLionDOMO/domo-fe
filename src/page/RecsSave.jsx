@@ -1,7 +1,7 @@
 import BoxButton from "../component/boxButton";
 import { useMedia } from "../hook/useMedia";
 import "./styles/recsSave.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import html2canvas from "html2canvas";
 import RecsSaveScreenshot from "../component/recsSaveScreenshot";
@@ -11,6 +11,8 @@ const RecsSave = () => {
   const isPc = useMedia().isPc;
   const nav = useNavigate();
   const componentRef = useRef();
+  const location = useLocation();
+  const recommendations = location.state?.recommendations || [];
 
   const gotoHome = () => {
     if (window.confirm("일정이 사라집니다.\n홈 화면으로 이동하시겠습니까?")) {
@@ -57,7 +59,7 @@ const RecsSave = () => {
           top: "0px",
           zIndex: -1,
         }}>
-        <RecsSaveScreenshot ref={componentRef} />
+        <RecsSaveScreenshot recommendations={recommendations} ref={componentRef} />
       </div>
 
       {isPc && (

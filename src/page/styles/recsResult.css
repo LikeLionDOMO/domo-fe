@@ -29,7 +29,7 @@
 }
 
 .recsResult_back-button .logo-text {
-  font-family: 'dxpop';
+  font-family: "dxpop";
   font-size: 24px;
   font-weight: bold;
   margin-left: 5px;
@@ -62,7 +62,7 @@
   font-size: 22px;
   font-weight: 600;
   color: #e47a00;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
 }
 
 .list_header_backBtn:hover {
@@ -93,7 +93,7 @@
   font-weight: 400;
   margin-right: 16px;
   color: var(--main-color);
-  font-family: 'pre-regular';
+  font-family: "pre-regular";
 }
 
 .item_card {
@@ -137,7 +137,7 @@
   font-weight: 600;
   font-size: 24px;
   margin-bottom: 6px;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
   color: #2c2f33;
 }
 
@@ -145,7 +145,7 @@
   font-size: 16px;
   color: #b7bbcf;
   margin-bottom: 12px;
-  font-family: 'pre-medium';
+  font-family: "pre-medium";
 }
 
 .item_benefit {
@@ -154,7 +154,7 @@
   color: var(--main-color);
   border-radius: 12px;
   display: inline-block;
-  font-family: 'pre-regular';
+  font-family: "pre-regular";
   padding: 10px;
 }
 
@@ -194,7 +194,7 @@
   height: 96px;
   border-radius: 20px;
   font-size: 24px;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
   font-weight: 600;
   cursor: pointer;
 }
@@ -236,4 +236,107 @@
 
 .recsResult_fallback button:hover {
   background-color: #0056b3;
+}
+
+/* 튜토리얼 */
+.firstVisitMode {
+  position: relative;
+  z-index: 999;
+  /* overflow: hidden; */
+}
+
+.firstVisitModeBg {
+  overflow-x: visible !important;
+  overflow: visible !important;
+}
+
+.firstVisitModeBg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* 튜토리얼 모드일 때만 강조되지 않은 리스트 아이템에 반투명 배경 적용 */
+.firstVisitModeBg.list_items .list_item:not(.firstVisitMode) {
+  filter: brightness(0.5) grayscale(0.2);
+  opacity: 0.7;
+}
+
+.firstVisitModeBg.list_items .list_item {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 설명 공통 */
+.firstVisitModeDesc0,
+.firstVisitModeDesc1,
+.firstVisitModeDesc2 {
+  position: absolute;
+  font-size: 0.8rem !important;
+  color: var(--black-4) !important;
+  font-family: "pre-regular" !important;
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--black-1);
+  border-radius: 16px;
+}
+
+/* 설명0 */
+.firstVisitModeDesc0 {
+  right: -40%;
+}
+
+/* 설명1 */
+.firstVisitModeDesc1 {
+  right: -160%;
+  top: 0px;
+}
+
+/* 설명1 */
+.firstVisitModeDesc2 {
+  left: 50%;
+  transform: translateX(-50%);
+  top: -100%;
+}
+
+/* 0,1 뿔 공통 */
+.firstVisitModeDesc0::before,
+.firstVisitModeDesc1::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid var(--black-1);
+}
+
+.firstVisitModeDesc2::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--black-1);
+}
+
+.none {
+  display: none;
+}
+
+.firstVisitModeSkip {
+  position: absolute;
+  bottom: 3vw;
+  right: 3vw;
+  width: 5vw;
+  height: 2.5vw;
 }
