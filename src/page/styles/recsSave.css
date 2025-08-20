@@ -4,7 +4,6 @@
 
 .savePage {
   width: 100vw;
-  height: calc(100vh - 89px);
   position: relative;
 }
 

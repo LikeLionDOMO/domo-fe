@@ -1,15 +1,16 @@
-import { useState } from 'react';
-import CustomSwiper from '../component/Swiper';
-import Filter from '../component/Filter';
-import Pagination from '../component/Pagination';
-import './styles/benefix.css';
-import Footer from '../layout/Footer';
+import { useState } from "react";
+import CustomSwiper from "../component/Swiper";
+import Filter from "../component/Filter";
+import Pagination from "../component/Pagination";
+import "./styles/benefix.css";
+import MainLayout from "../layout/MainLayout";
+import { useInput } from "../hook/useInput";
 
 // 임시 데이터 (2열 5행, 총 10개 이상)
 const dummyData = Array.from({ length: 25 }, (_, i) => ({
   id: i + 1,
   title: `혜택이름혜택이름혜택이름 ${i + 1}`,
-  region: '지역 이름',
+  region: "지역 이름",
 }));
 
 const ITEMS_PER_PAGE = 10; // 2열 5행
@@ -25,8 +26,15 @@ const Benefix = () => {
   const currentPageData = dummyData.slice(offset, offset + ITEMS_PER_PAGE);
   const pageCount = Math.ceil(dummyData.length / ITEMS_PER_PAGE);
 
+  // ////////////////////////////
+  // FIXME: 검색창 인풋 값 입니다.
+  // 확인후 주석 지우고 상단으로 위치 옮기셔도 무방합니다.
+  // ////////////////////////////
+
+  const [searchInput, onChangeSearchInput, setSearchInput] = useInput("");
+
   return (
-    <>
+    <MainLayout onChangeHeaderInput={onChangeSearchInput}>
       <section className="slider-section">
         <CustomSwiper />
       </section>
@@ -48,15 +56,9 @@ const Benefix = () => {
           ))}
         </div>
 
-        <Pagination
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          currentPage={currentPage}
-        />
+        <Pagination pageCount={pageCount} onPageChange={handlePageClick} currentPage={currentPage} />
       </div>
-
-      <Footer />
-    </>
+    </MainLayout>
   );
 };
 

@@ -245,7 +245,7 @@
 /*  모바일 스타일  */
 /* ============= */
 @media screen and (max-width: 1024px) {
-  header {
+  .recsResultPageMain + header {
     display: none;
   }
 }

@@ -1,11 +1,15 @@
-header {
+header.pc-header {
   width: 100%;
   border-bottom: 1px solid #eee;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  z-index: 100;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--black-0);
 }
 
-.nav {
+header.pc-header .nav {
   max-width: 1200px;
   height: 88px;
   margin: 0 auto;
@@ -14,32 +18,32 @@ header {
   justify-content: space-between;
 }
 
-.logo p {
+header.pc-header .logo p {
   color: #0052e9;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
-  font-family: 'dxpop';
+  font-family: "dxpop";
 }
 
-.navList {
+header.pc-header .navList {
   list-style: none;
   display: flex;
   gap: 40px;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
 }
 
-.navList a {
+header.pc-header .navList a {
   text-decoration: none;
   color: #b7bbcf;
   font-size: 24px;
 }
 
-.navList a:hover {
+header.pc-header .navList a:hover {
   color: #0052e9;
   font-weight: 600;
 }
 
-.navList a.active {
+header.pc-header .navList a.active {
   color: #0052e9;
   font-weight: 600;
 }

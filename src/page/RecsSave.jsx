@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import html2canvas from "html2canvas";
 import RecsSaveScreenshot from "../component/recsSaveScreenshot";
+import MainLayout from "../layout/MainLayout";
 
 const RecsSave = () => {
   // localStorage.setItem("resultData" /* 데이터 */);
@@ -50,56 +51,35 @@ const RecsSave = () => {
   };
 
   return (
-    <section className="flexCenter savePage">
-      {/* 화면에 보이지 않게 숨겨진 스크린샷 컴포넌트 */}
-      <div
-        style={{
-          position: "fixed",
-          left: "-9999px",
-          top: "0px",
-          zIndex: -1,
-        }}>
-        <RecsSaveScreenshot recommendations={recommendations} ref={componentRef} />
-      </div>
-
-      {isPc && (
-        <div className="isPc">
-          <div>
-            <h2>
-              <span>도모</span>와 함께
-              <br />
-              오늘도 즐거운 하루 되세요!
-            </h2>
-            <div className="flexBetween">
-              <div>
-                <BoxButton onClickHandler={gotoHome}>홈 화면</BoxButton>
-              </div>
-              <div className="saveButton">
-                <BoxButton onClickHandler={onSaveHandler}>일정 저장</BoxButton>
-              </div>
-            </div>
-            <span className="desc">
-              방금 짠 오늘 일정을
-              <br />
-              이미지로 저장할 수 있어요
-            </span>
-          </div>
-          <div className="savePage_BgImg">{/* 이미지 */}</div>
+    <MainLayout>
+      <section className="flexCenter savePage">
+        {/* 화면에 보이지 않게 숨겨진 스크린샷 컴포넌트 */}
+        <div
+          style={{
+            position: "fixed",
+            left: "-9999px",
+            top: "0px",
+            zIndex: -1,
+          }}>
+          <RecsSaveScreenshot recommendations={recommendations} ref={componentRef} />
         </div>
-      )}
 
-      {!isPc && (
-        <div className="isMobile">
-          <h2>
-            <span>도모</span>와 함께
-            <br />
-            오늘도 즐거운 하루 되세요!
-          </h2>
-          <div>
-            <div className="saveButton">
-              <BoxButton bgColor="--point-color-2" color="--point-color-2-2" onClickHandler={onSaveHandler}>
-                일정 저장
-              </BoxButton>
+        {isPc && (
+          <div className="isPc">
+            <div>
+              <h2>
+                <span>도모</span>와 함께
+                <br />
+                오늘도 즐거운 하루 되세요!
+              </h2>
+              <div className="flexBetween">
+                <div>
+                  <BoxButton onClickHandler={gotoHome}>홈 화면</BoxButton>
+                </div>
+                <div className="saveButton">
+                  <BoxButton onClickHandler={onSaveHandler}>일정 저장</BoxButton>
+                </div>
+              </div>
               <span className="desc">
                 방금 짠 오늘 일정을
                 <br />
@@ -108,12 +88,35 @@ const RecsSave = () => {
             </div>
             <div className="savePage_BgImg">{/* 이미지 */}</div>
           </div>
-          <div>
-            <BoxButton onClickHandler={gotoHome}>홈화면</BoxButton>
+        )}
+
+        {!isPc && (
+          <div className="isMobile">
+            <h2>
+              <span>도모</span>와 함께
+              <br />
+              오늘도 즐거운 하루 되세요!
+            </h2>
+            <div>
+              <div className="saveButton">
+                <BoxButton bgColor="--point-color-2" color="--point-color-2-2" onClickHandler={onSaveHandler}>
+                  일정 저장
+                </BoxButton>
+                <span className="desc">
+                  방금 짠 오늘 일정을
+                  <br />
+                  이미지로 저장할 수 있어요
+                </span>
+              </div>
+              <div className="savePage_BgImg">{/* 이미지 */}</div>
+            </div>
+            <div>
+              <BoxButton onClickHandler={gotoHome}>홈화면</BoxButton>
+            </div>
           </div>
-        </div>
-      )}
-    </section>
+        )}
+      </section>
+    </MainLayout>
   );
 };
 export default RecsSave;
