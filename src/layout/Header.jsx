@@ -7,8 +7,10 @@ const Header = () => {
       <header>
         <nav className="nav">
           <div className="logo">
-            <p>DOMO</p>
+            <p className="logo-text">DOMO</p>
+            <p className="sub-logo">가장 완벽한 당신의 일정 도우미</p>
           </div>
+
           <ul className="navList">
             <li>
               <NavLink to="/">홈</NavLink>

@@ -18,23 +18,23 @@
 }
 
 @font-face {
-  src: url("./assets/font/DXpopRegular.ttf");
-  font-family: "dxpop";
+  src: url('./assets/font/DXpopRegular.ttf');
+  font-family: 'dxpop';
 }
 
 @font-face {
-  src: url("./assets/font/Pretendard-Medium.ttf");
-  font-family: "pre-medium";
+  src: url('./assets/font/Pretendard-Medium.ttf');
+  font-family: 'pre-medium';
 }
 
 @font-face {
-  src: url("./assets/font/Pretendard-Regular.ttf");
-  font-family: "pre-regular";
+  src: url('./assets/font/Pretendard-Regular.ttf');
+  font-family: 'pre-regular';
 }
 
 @font-face {
-  src: url("./assets/font/Pretendard-SemiBold.ttf");
-  font-family: "pre-semibold";
+  src: url('./assets/font/Pretendard-SemiBold.ttf');
+  font-family: 'pre-semibold';
 }
 
 /* css초기화 */
@@ -62,6 +62,7 @@ section {
 }
 body {
   line-height: 1;
+  overflow-x: clip;
 }
 ol,
 ul {
@@ -75,7 +76,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -87,7 +88,6 @@ a:link,
 a:visited,
 a:hover,
 a:active {
-  color: #202123;
   text-decoration: none;
 }
 

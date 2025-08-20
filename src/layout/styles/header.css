@@ -12,13 +12,25 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 20px; /* Add padding for mobile view */
 }
 
-.logo p {
+.logo {
+  display: flex;
+  align-items: baseline; /* Align items to baseline for better look */
+  gap: 10px;
+}
+
+.logo-text {
+  /* Renamed from .logo p */
   color: #0052e9;
   font-size: 48px;
   font-weight: bold;
   font-family: 'dxpop';
+}
+
+.sub-logo {
+  display: none; /* Hidden by default */
 }
 
 .navList {
@@ -26,6 +38,7 @@ header {
   display: flex;
   gap: 40px;
   font-family: 'pre-semibold';
+  color: #b7bbcf;
 }
 
 .navList a {
@@ -42,4 +55,42 @@ header {
 .navList a.active {
   color: #0052e9;
   font-weight: 600;
+}
+
+@media (max-width: 500px) {
+  header {
+    width: 100%;
+    z-index: 100;
+    box-shadow: none;
+    border: none;
+    height: 40px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .navList {
+    display: none;
+  }
+
+  .sub-logo {
+    display: block; /* Show the sub-logo */
+    font-size: 12px;
+    font-weight: 500;
+    color: #6e738c;
+    font-family: 'pre-medium';
+  }
+
+  .logo-text {
+    font-size: 22px; /* Adjust font size for mobile */
+    margin-right: 100px;
+  }
 }
