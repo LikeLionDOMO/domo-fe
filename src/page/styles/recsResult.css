@@ -1,11 +1,14 @@
-.recsResultPage {
+/* ============= */
+/*    PC 스타일   */
+/* ============= */
+.recsResultPageMain .recsResultPage {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 89px);
   overflow: hidden;
 }
 
-.recsResult_list {
+.recsResultPageMain .recsResult_list {
   /*width: 660px;*/
   padding: 40px;
   display: flex;
@@ -14,11 +17,11 @@
   background-color: var(--black-0);
 }
 
-.recsResult_header {
+.recsResultPageMain .recsResult_header {
   margin-bottom: 30px;
 }
 
-.recsResult_back-button {
+.recsResultPageMain .recsResult_back-button {
   background: none;
   border: none;
   cursor: pointer;
@@ -28,31 +31,31 @@
   color: var(--main-color);
 }
 
-.recsResult_back-button .logo-text {
+.recsResultPageMain .recsResult_back-button .logo-text {
   font-family: "dxpop";
   font-size: 24px;
   font-weight: bold;
   margin-left: 5px;
 }
 
-.list_header {
+.recsResultPageMain .list_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
 }
 
-.list_header_title {
+.recsResultPageMain .list_header_title {
   font-size: 36px;
   font-weight: 600;
   line-height: 1.4;
 }
 
-.list_header_title span {
+.recsResultPageMain .list_header_title span {
   color: var(--main-color);
 }
 
-.list_header_backBtn {
+.recsResultPageMain .list_header_backBtn {
   background-color: var(--point-color-2);
   border: none;
   width: 124px;
@@ -65,12 +68,12 @@
   font-family: "pre-semibold";
 }
 
-.list_header_backBtn:hover {
+.recsResultPageMain .list_header_backBtn:hover {
   background-color: #ffd447;
   color: #cb6c00;
 }
 
-.list_items {
+.recsResultPageMain .list_items {
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 50vh; /* 화면 높이에 따라 조절되도록 vh단위 사용 */
@@ -80,7 +83,7 @@
   margin-top: 10px;
 }
 
-.list_item {
+.recsResultPageMain .list_item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +91,7 @@
   position: relative;
 }
 
-.item_number {
+.recsResultPageMain .item_number {
   font-size: 40px;
   font-weight: 400;
   margin-right: 16px;
@@ -96,7 +99,7 @@
   font-family: "pre-regular";
 }
 
-.item_card {
+.recsResultPageMain .item_card {
   cursor: pointer;
   display: flex;
   flex-grow: 1;
@@ -107,11 +110,11 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.item_card:hover {
+.recsResultPageMain .item_card:hover {
   background-color: whitesmoke;
 }
 
-.item_content {
+.recsResultPageMain .item_content {
   display: flex;
   padding: 20px;
   flex-grow: 1;
@@ -120,7 +123,7 @@
   width: 348px;
 }
 
-.item_img {
+.recsResultPageMain .item_img {
   width: 95px;
   height: 95px;
   border-radius: 50%;
@@ -129,11 +132,11 @@
   flex-shrink: 0;
 }
 
-.item_info {
+.recsResultPageMain .item_info {
   flex-grow: 1;
 }
 
-.item_name {
+.recsResultPageMain .item_name {
   font-weight: 600;
   font-size: 24px;
   margin-bottom: 6px;
@@ -141,14 +144,14 @@
   color: #2c2f33;
 }
 
-.item_address {
+.recsResultPageMain .item_address {
   font-size: 16px;
   color: #b7bbcf;
   margin-bottom: 12px;
   font-family: "pre-medium";
 }
 
-.item_benefit {
+.recsResultPageMain .item_benefit {
   font-size: 16px;
   background-color: #dbeeff;
   color: var(--main-color);
@@ -158,7 +161,7 @@
   padding: 10px;
 }
 
-.item_dots {
+.recsResultPageMain .item_dots {
   background-color: #eff0f5;
   display: flex;
   flex-direction: column;
@@ -172,22 +175,22 @@
   margin-left: 16px;
 }
 
-.item_dots:hover {
+.recsResultPageMain .item_dots:hover {
   background-color: #e6e8f5;
 }
 
-.item_dots span {
+.recsResultPageMain .item_dots span {
   width: 6px;
   height: 6px;
   background-color: #b7bbcf;
   border-radius: 50%;
 }
 
-.list_footer {
+.recsResultPageMain .list_footer {
   padding-top: 60px;
 }
 
-.list_footer-btn {
+.recsResultPageMain .list_footer-btn {
   color: white;
   background-color: var(--main-color);
   width: 556px;
@@ -199,31 +202,31 @@
   cursor: pointer;
 }
 
-.list_footer-btn:hover {
+.recsResultPageMain .list_footer-btn:hover {
   background-color: #004690;
 }
 
-.recsResult_map {
+.recsResultPageMain .recsResult_map {
   flex-grow: 1;
 }
 
-.recsResult_fallback {
+.recsResultPageMain .recsResult_fallback {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   text-align: center;
 }
 
-.recsResult_fallback p {
+.recsResultPageMain .recsResult_fallback p {
   font-size: 24px;
   color: #333;
   margin-bottom: 24px;
 }
 
-.recsResult_fallback button {
+.recsResultPageMain .recsResult_fallback button {
   padding: 12px 26px;
   font-size: 18px;
   font-weight: bold;
@@ -234,23 +237,170 @@
   cursor: pointer;
 }
 
-.recsResult_fallback button:hover {
+.recsResultPageMain .recsResult_fallback button:hover {
   background-color: #0056b3;
 }
 
-/* 튜토리얼 */
-.firstVisitMode {
+/* ============= */
+/*  모바일 스타일  */
+/* ============= */
+@media screen and (max-width: 1024px) {
+  header {
+    display: none;
+  }
+}
+
+.isMobile {
+  width: 100%;
+  height: calc(100vh - 89px) !important;
+  overflow: hidden !important;
+}
+
+.recsResultPageMain .isMobile .recsResult_header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.recsResultPageMain .isMobile .recsResult_map {
+  z-index: 95;
+  position: absolute;
+  top: 67px;
+  left: 0;
+  width: 100%;
+  height: 60vh;
+}
+
+.recsResultPageMain .isMobile .recsResult_resizable {
+  z-index: 997 !important;
+  width: 100% !important;
+  position: absolute !important;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.recsResultPageMain .isMobile .recsResult_resizable > div {
+  background-color: var(--black-0);
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 0 10px -4px rgba(0, 0, 0, 0.2);
+
+  overflow: hidden;
+}
+
+.recsResultPageMain .isMobile .recsResult_resizable .recsResult_resizable_controller {
+  width: 25%;
+  height: 4px;
+  border-radius: 999;
+  margin: 12px auto;
+  background-color: var(--black-2);
+}
+
+.recsResultPageMain .isMobile .recsResult_list {
+  padding: 1rem 24px;
+}
+
+.recsResultPageMain .isMobile .list_header_title {
+  font-size: 1.4rem;
+  font-family: "pre-semibold";
+}
+
+.recsResultPageMain .isMobile .list_header_backBtn {
+  background-color: var(--point-color-2);
+  border: none;
+  width: 25%;
+  height: 56px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #e47a00;
+  font-family: "pre-semibold";
+}
+
+.recsResultPageMain .isMobile .list_items {
+  overflow-y: hidden;
+}
+
+.recsResultPageMain .isMobile .list_item .item_number {
+  font-size: 1.6rem;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_content {
+  padding: 10px 20px;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_img {
+  width: 56px;
+  height: 56px;
+}
+
+.recsResultPageMain .isMobile .list_item .item_dots {
+  width: 45px;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_content,
+.recsResultPageMain .isMobile .list_item .item_dots {
+  height: 100px;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_info .item_name {
+  font-size: 1rem;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_info .item_address {
+  font-size: 0.8rem;
+}
+
+.recsResultPageMain .isMobile .list_item .item_card .item_info .item_benefit {
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+
+.recsResultPageMain .isMobile .list_footer-btn {
+  color: white;
+  background-color: var(--main-color);
+  width: 90%;
+  height: 8vh;
+  border-radius: 20px;
+  font-size: 24px;
+  font-family: "pre-semibold";
+  font-weight: 600;
+  cursor: pointer;
+
+  position: absolute;
+  left: 50%;
+  bottom: 5vh;
+  transform: translateX(-50%);
+
+  z-index: 999;
+}
+
+/* ============= */
+/*  튜토리얼 스타일 */
+/* ============= */
+
+/* PC 튜토리얼 */
+.recsResultPageMain .firstVisitMode {
   position: relative;
   z-index: 999;
   /* overflow: hidden; */
 }
 
-.firstVisitModeBg {
+.recsResultPageMain .firstVisitModeBg {
   overflow-x: visible !important;
   overflow: visible !important;
 }
 
-.firstVisitModeBg::before {
+.recsResultPageMain .recsResultPage .firstVisitModeBg::before {
   content: "";
   position: absolute;
   top: 0;
@@ -260,21 +410,28 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* 튜토리얼 모드일 때만 강조되지 않은 리스트 아이템에 반투명 배경 적용 */
-.firstVisitModeBg.list_items .list_item:not(.firstVisitMode) {
+.recsResultPageMain .firstVisitModeBg.list_items .list_item:not(.firstVisitMode) {
   filter: brightness(0.5) grayscale(0.2);
   opacity: 0.7;
 }
 
-.firstVisitModeBg.list_items .list_item {
+.recsResultPageMain .firstVisitModeBg.list_items .list_item {
   pointer-events: none;
   user-select: none;
 }
 
-/* 설명 공통 */
-.firstVisitModeDesc0,
-.firstVisitModeDesc1,
-.firstVisitModeDesc2 {
+.recsResultPageMain .firstVisitModeSkip {
+  position: absolute;
+  bottom: 3vw;
+  right: 3vw;
+  width: 5vw;
+  height: 2.5vw;
+}
+
+/* PC 튜토리얼 설명 공통 */
+.recsResultPageMain .firstVisitModeDesc0,
+.recsResultPageMain .firstVisitModeDesc1,
+.recsResultPageMain .firstVisitModeDesc2 {
   position: absolute;
   font-size: 0.8rem !important;
   color: var(--black-4) !important;
@@ -285,27 +442,25 @@
   border-radius: 16px;
 }
 
-/* 설명0 */
-.firstVisitModeDesc0 {
+/* PC 튜토리얼 설명 위치 */
+.recsResultPageMain .firstVisitModeDesc0 {
   right: -40%;
 }
 
-/* 설명1 */
-.firstVisitModeDesc1 {
+.recsResultPageMain .firstVisitModeDesc1 {
   right: -160%;
   top: 0px;
 }
 
-/* 설명1 */
-.firstVisitModeDesc2 {
+.recsResultPageMain .firstVisitModeDesc2 {
   left: 50%;
   transform: translateX(-50%);
   top: -100%;
 }
 
-/* 0,1 뿔 공통 */
-.firstVisitModeDesc0::before,
-.firstVisitModeDesc1::before {
+/* PC 튜토리얼 뿔 */
+.recsResultPageMain .firstVisitModeDesc0::before,
+.recsResultPageMain .firstVisitModeDesc1::before {
   content: "";
   position: absolute;
   left: -10px;
@@ -316,7 +471,7 @@
   border-right: 12px solid var(--black-1);
 }
 
-.firstVisitModeDesc2::before {
+.recsResultPageMain .firstVisitModeDesc2::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -329,14 +484,123 @@
   border-top: 12px solid var(--black-1);
 }
 
-.none {
-  display: none;
+/* 모바일 튜토리얼 */
+.recsResultPageMain .isMobile .firstVisitModeBg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
 }
 
-.firstVisitModeSkip {
+.recsResultPageMain .isMobile .firstVisitModeBg {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.recsResultPageMain .isMobile .firstVisitMode {
+  overflow: visible !important;
+}
+
+.recsResultPageMain .isMobile .firstVisitModeBg .list_item:not(.firstVisitMode) {
+  filter: brightness(0.5) grayscale(0.2);
+  opacity: 0.7;
+}
+
+.recsResultPageMain .isMobile .firstVisitModeBg .list_item {
+  pointer-events: none;
+  user-select: none;
+}
+
+.recsResultPageMain .isMobile .list_items.firstVisitModeBg {
+  overflow-y: visible;
+}
+
+.recsResultPageMain .isMobile .firstVisitModeSkip {
   position: absolute;
-  bottom: 3vw;
   right: 3vw;
-  width: 5vw;
-  height: 2.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26%;
+  font-size: 0.8rem;
+  background-color: var(--point-color-1);
+  line-height: 0;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* 모바일 튜토리얼 설명 위치 */
+.recsResultPageMain .isMobile .firstVisitModeDesc0 {
+  right: 24px;
+  top: 50px;
+  z-index: 999;
+}
+
+.recsResultPageMain .isMobile .firstVisitModeDesc1 {
+  min-width: 210px;
+  right: 24px;
+  top: 78px;
+  z-index: 999;
+}
+
+.recsResultPageMain .isMobile .firstVisitModeDesc2 {
+  left: 50%;
+  min-width: 240px;
+  transform: translateX(-50%);
+  top: -120%;
+}
+
+/* 모바일 튜토리얼 뿔 */
+.recsResultPageMain .isMobile .firstVisitModeDesc0::before {
+  content: "";
+  position: absolute;
+  right: 8px !important;
+  left: unset !important;
+  bottom: -20px !important;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--black-1);
+}
+
+.recsResultPageMain .isMobile .firstVisitModeDesc1::before {
+  content: "";
+  position: absolute;
+  right: 8px !important;
+  left: unset !important;
+  top: -20px !important;
+  bottom: unset !important;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--black-1);
+}
+
+.recsResultPageMain .isMobile .firstVisitModeDesc2::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--black-1);
+}
+
+/* ============= */
+/*    공통 유틸   */
+/* ============= */
+.recsResultPageMain .none {
+  display: none;
 }
