@@ -1,128 +1,122 @@
-import { useState, useRef, useEffect } from 'react';
-import {
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  InputAdornment,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import './styles/filter.css';
+import { useState, useRef, useEffect } from "react";
+import { TextField, Button, Select, MenuItem, InputAdornment } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import "./styles/filter.css";
 
 const regions = [
   {
-    name: '서울특별시',
+    name: "서울특별시",
     subregions: [
-      '강남구',
-      '강동구',
-      '강북구',
-      '강서구',
-      '관악구',
-      '광진구',
-      '구로구',
-      '금천구',
-      '노원구',
-      '도봉구',
-      '동대문구',
-      '동작구',
-      '마포구',
-      '서대문구',
-      '서초구',
-      '성동구',
-      '성북구',
-      '송파구',
-      '양천구',
-      '영등포구',
-      '용산구',
-      '은평구',
-      '종로구',
-      '중구',
-      '중랑구',
+      "강남구",
+      "강동구",
+      "강북구",
+      "강서구",
+      "관악구",
+      "광진구",
+      "구로구",
+      "금천구",
+      "노원구",
+      "도봉구",
+      "동대문구",
+      "동작구",
+      "마포구",
+      "서대문구",
+      "서초구",
+      "성동구",
+      "성북구",
+      "송파구",
+      "양천구",
+      "영등포구",
+      "용산구",
+      "은평구",
+      "종로구",
+      "중구",
+      "중랑구",
     ],
   },
   {
-    name: '경기도',
+    name: "경기도",
     subregions: [
-      '수원시',
-      '성남시',
-      '고양시',
-      '용인시',
-      '부천시',
-      '안산시',
-      '안양시',
-      '남양주시',
-      '화성시',
-      '평택시',
-      '의정부시',
-      '시흥시',
-      '파주시',
-      '김포시',
-      '광명시',
-      '광주시',
-      '군포시',
-      '오산시',
-      '이천시',
-      '안성시',
-      '하남시',
-      '의왕시',
-      '여주시',
-      '양평군',
-      '과천시',
-      '가평군',
-      '연천군',
+      "수원시",
+      "성남시",
+      "고양시",
+      "용인시",
+      "부천시",
+      "안산시",
+      "안양시",
+      "남양주시",
+      "화성시",
+      "평택시",
+      "의정부시",
+      "시흥시",
+      "파주시",
+      "김포시",
+      "광명시",
+      "광주시",
+      "군포시",
+      "오산시",
+      "이천시",
+      "안성시",
+      "하남시",
+      "의왕시",
+      "여주시",
+      "양평군",
+      "과천시",
+      "가평군",
+      "연천군",
     ],
   },
   {
-    name: '강원도',
+    name: "강원도",
     subregions: [
-      '춘천시',
-      '원주시',
-      '강릉시',
-      '동해시',
-      '태백시',
-      '속초시',
-      '삼척시',
-      '홍천군',
-      '횡성군',
-      '영월군',
-      '평창군',
-      '정선군',
-      '철원군',
-      '화천군',
-      '양구군',
-      '인제군',
-      '고성군',
-      '양양군',
+      "춘천시",
+      "원주시",
+      "강릉시",
+      "동해시",
+      "태백시",
+      "속초시",
+      "삼척시",
+      "홍천군",
+      "횡성군",
+      "영월군",
+      "평창군",
+      "정선군",
+      "철원군",
+      "화천군",
+      "양구군",
+      "인제군",
+      "고성군",
+      "양양군",
     ],
   },
   {
-    name: '부산광역시',
+    name: "부산광역시",
     subregions: [
-      '중구',
-      '서구',
-      '동구',
-      '영도구',
-      '부산진구',
-      '동래구',
-      '남구',
-      '북구',
-      '해운대구',
-      '사하구',
-      '금정구',
-      '강서구',
-      '연제구',
-      '수영구',
-      '사상구',
-      '기장군',
+      "중구",
+      "서구",
+      "동구",
+      "영도구",
+      "부산진구",
+      "동래구",
+      "남구",
+      "북구",
+      "해운대구",
+      "사하구",
+      "금정구",
+      "강서구",
+      "연제구",
+      "수영구",
+      "사상구",
+      "기장군",
     ],
   },
 ];
 
-const Filter = () => {
+const Filter = ({ display, onChangeDisplayValue, onChangeFilter }) => {
   const [regionOpen, setRegionOpen] = useState(false);
   const [selectedProvince, setSelectedProvince] = useState(null);
-  const [displayValue, setDisplayValue] = useState('');
+  const [displayValue, setDisplayValue] = useState(display);
   const dropdownRef = useRef(null);
 
   const handleProvinceSelect = (province) => {
@@ -131,6 +125,7 @@ const Filter = () => {
 
   const handleRegionSelect = (region) => {
     setDisplayValue(`${selectedProvince.name} ${region}`);
+    onChangeDisplayValue(`${selectedProvince.name} ${region}`);
     setRegionOpen(false);
     setSelectedProvince(null);
   };
@@ -142,9 +137,9 @@ const Filter = () => {
         setSelectedProvince(null);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownRef]);
 
@@ -179,10 +174,7 @@ const Filter = () => {
                   </div>
                   <ul>
                     {selectedProvince.subregions.map((region) => (
-                      <li
-                        key={region}
-                        onClick={() => handleRegionSelect(region)}
-                      >
+                      <li key={region} onClick={() => handleRegionSelect(region)}>
                         {region}
                       </li>
                     ))}
@@ -191,10 +183,7 @@ const Filter = () => {
               ) : (
                 <ul>
                   {regions.map((province) => (
-                    <li
-                      key={province.name}
-                      onClick={() => handleProvinceSelect(province)}
-                    >
+                    <li key={province.name} onClick={() => handleProvinceSelect(province)}>
                       {province.name}
                     </li>
                   ))}
@@ -207,16 +196,15 @@ const Filter = () => {
           defaultValue="latest"
           className="filter-select sort-select"
           IconComponent={KeyboardArrowUpIcon}
+          onChange={(e) => onChangeFilter(e.target.value)}
           MenuProps={{
             PaperProps: {
               sx: {
-                borderRadius: '10px',
-                marginTop: '5px',
+                borderRadius: "10px",
+                marginTop: "5px",
               },
             },
-          }}
-        >
-          <MenuItem value="latest">최신순</MenuItem>
+          }}>
           <MenuItem value="benefix">할인순</MenuItem>
           <MenuItem value="popular">인기순</MenuItem>
         </Select>

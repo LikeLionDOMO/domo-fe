@@ -3,7 +3,7 @@ import "./styles/mobileHeader.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-const MobileHeader = ({ onChangeHandler }) => {
+const MobileHeader = ({ onChangeMobileToggle }) => {
   const location = useLocation().pathname;
   const nav = useNavigate();
 
@@ -17,8 +17,8 @@ const MobileHeader = ({ onChangeHandler }) => {
       <div className="header-content">
         {location === "/" && <p>가장 완벽한 당신의 일정 도우미</p>}
         {location === "/benefix" && (
-          <div className="benefix-input">
-            <input onChange={onChangeHandler} placeholder="지역명을 입력하세요" />
+          <div className="benefix-input" onClick={onChangeMobileToggle}>
+            <input style={{ pointerEvents: "none" }} placeholder="지역명을 입력하세요" />
             <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
           </div>
         )}

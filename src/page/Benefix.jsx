@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import CustomSwiper from "../component/Swiper";
-import Filter from "../component/Filter";
+import Filter from "../component/Filter.jsx";
 import Pagination from "../component/Pagination";
 import "./styles/benefix.css";
 import MainLayout from "../layout/MainLayout";
-import { useInput } from "../hook/useInput";
+import { useMedia } from "../hook/useMedia";
 
 // 임시 데이터 (2열 5행, 총 10개 이상)
 const dummyData = Array.from({ length: 25 }, (_, i) => ({
@@ -17,6 +17,7 @@ const ITEMS_PER_PAGE = 10; // 2열 5행
 
 const Benefix = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const isMobile = useMedia().isMobile;
 
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
@@ -31,10 +32,41 @@ const Benefix = () => {
   // 확인후 주석 지우고 상단으로 위치 옮기셔도 무방합니다.
   // ////////////////////////////
 
-  const [searchInput, onChangeSearchInput, setSearchInput] = useInput("");
+  // 검색창 값
+  const [displayValue, setDisplayValue] = useState("");
+
+  // 모바일 검색창 토글 상태
+  const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
+
+  // 필터링 데이터
+  const [filterData, setFilterData] = useState("");
+
+  // 자식(모바일, Pc) 컴포넌트에서 지역을 수정하는 함수
+  const onChangeDisplayValue = useCallback(
+    (value) => {
+      setDisplayValue(value);
+      if (!isMobile) return;
+      // 모바일에서 검색창 닫기
+      setMobileSearchToggle(false); // 모바일 검색창 닫기
+    },
+    [isMobile]
+  );
+
+  const onChangeFilter = (value) => {
+    setFilterData(value);
+    // 필터링 로직을 여기에 추가할 수 있습니다.
+    // 예: setFilteredData(dummyData.filter(item => item.region.includes(value)));
+  };
+
+  // 모바일 헤더에서 검색창 열기
+  const onChangeMobileToggle = () => {
+    setMobileSearchToggle(true);
+  };
 
   return (
-    <MainLayout onChangeHeaderInput={onChangeSearchInput}>
+    <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
+      {/* 모바일 주소검색 */}
+      {mobileSearchToggle && isMobile && <div onChangeDisplayValue={onChangeDisplayValue}>모바일 검색창입니다 이는 컴포넌트로 수정</div>}
       <section className="slider-section">
         <CustomSwiper />
       </section>
@@ -44,7 +76,7 @@ const Benefix = () => {
           <span className="span-domo-blue">도모</span>가 도와주는 혜택 모아보기!
         </h2>
 
-        <Filter />
+        <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
 
         <div className="benefits-grid">
           {currentPageData.map((item) => (
