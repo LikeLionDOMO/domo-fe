@@ -8,7 +8,7 @@ import { useInput } from "../hook/useInput";
 import RecsLoading from "../component/recsLoading";
 import { useNavigate } from "react-router-dom";
 import { useMedia } from "../hook/useMedia";
-import PcHeader from "../layout/PCHeader";
+import PcHeader from "../layout/PcHeader";
 import MobileHeader from "../layout/MobileHeader";
 
 const RecsInfo = () => {

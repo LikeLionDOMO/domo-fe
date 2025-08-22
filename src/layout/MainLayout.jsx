@@ -2,7 +2,7 @@ import { useMedia } from "../hook/useMedia";
 import MobileFooter from "./MobileFooter";
 import MobileHeader from "./MobileHeader";
 import PcFooter from "./PcFooter";
-import PcHeader from "./PCHeader";
+import PcHeader from "./PcHeader";
 
 const MainLayout = ({ children, onChangeMobileToggle }) => {
   const isPc = useMedia().isPc;
