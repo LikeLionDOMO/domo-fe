@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, lazy, Suspense } from "react";
 import CustomSwiper from "../component/Swiper";
-import Filter from "../component/Filter.jsx";
+const Filter = lazy(() => import("../component/Filter.jsx"));
 import Pagination from "../component/Pagination";
 import "./styles/benefix.css";
 import MainLayout from "../layout/MainLayout";
@@ -76,7 +76,12 @@ const Benefix = () => {
           <span className="span-domo-blue">도모</span>가 도와주는 혜택 모아보기!
         </h2>
 
-        <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
+        <Suspense
+          fallback={() => {
+            console.log("로딩중...");
+          }}>
+          <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
+        </Suspense>
 
         <div className="benefits-grid">
           {currentPageData.map((item) => (
