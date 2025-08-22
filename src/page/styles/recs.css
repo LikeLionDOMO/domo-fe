@@ -235,8 +235,8 @@
   display: none;
 }
 
-.recsPage + header {
+/* .recsPage + header {
   position: relative;
   background-color: var(--black-0);
   z-index: unset !important;
-}
+} */

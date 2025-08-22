@@ -1,6 +1,6 @@
 import { useCallback, useState, lazy, Suspense } from "react";
 import CustomSwiper from "../component/Swiper";
-const Filter = lazy(() => import("../component/Filter.jsx"));
+const Filter = lazy(() => import("../component/Filter"));
 import Pagination from "../component/Pagination";
 import "./styles/benefix.css";
 import MainLayout from "../layout/MainLayout";
@@ -76,10 +76,7 @@ const Benefix = () => {
           <span className="span-domo-blue">도모</span>가 도와주는 혜택 모아보기!
         </h2>
 
-        <Suspense
-          fallback={() => {
-            console.log("로딩중...");
-          }}>
+        <Suspense fallback={<div>필터 로딩중...</div>}>
           <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
         </Suspense>
 

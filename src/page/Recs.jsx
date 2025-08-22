@@ -90,10 +90,12 @@ const Recs = () => {
   }, [gpsAgree]);
 
   const isPc = useMedia().isPc;
+  console.log(isPc);
 
   return (
     <section className="recsPage flexCenter">
-      {isPc ? <PcHeader /> : <MobileHeader />}
+      {isPc && <PcHeader />}
+      {!isPc && <MobileHeader />}
       {/* 위치수집 및 이용동의 */}
       {onGpsAgree && (
         <Modal>
