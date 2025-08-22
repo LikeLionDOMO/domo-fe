@@ -12,7 +12,6 @@ import RecsResult from "./page/RecsResult.jsx";
 import ScrollToTop from "./hook/useScrollTop.js";
 import NotFoundPage from "./NotFoundPage.jsx";
 import RecsSave from "./page/RecsSave.jsx";
-import PcHeader from "./layout/PCHeader.jsx";
 
 window.initMap = () => {
   createRoot(document.getElementById("root")).render(
