@@ -7,7 +7,7 @@ import BoxButton from "../component/boxButton";
 import { useNavigate } from "react-router-dom";
 import MobileHeader from "../layout/MobileHeader";
 import { useMedia } from "../hook/useMedia";
-import PcHeader from "../layout/PCHeader";
+import PcHeader from "../layout/PcHeader";
 
 const Recs = () => {
   const [gpsAgree, setGpsAgree] = useState(false);
