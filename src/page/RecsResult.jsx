@@ -2,9 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import "./styles/recsResult.css";
 import NaverMap from "../component/NaverMap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Popover from "../component/Popover";
 import BoxButton from "../component/boxButton";
+import { useMedia } from "../hook/useMedia";
+import { Resizable } from "re-resizable";
 
 const RecsResult = () => {
   const location = useLocation();
@@ -16,6 +18,11 @@ const RecsResult = () => {
   const [firstVisit, setFirstVisit] = useState(localStorage.getItem("firstVisit") || "0");
   // 튜토리얼 모드
   const [firstVisitMode, setFirstVisitMode] = useState(!localStorage.getItem("firstVisit") || localStorage.getItem("firstVisit") === "0" ? true : false);
+
+  const [panelHeight, setPanelHeight] = useState("40vh");
+  const resizableRef = useRef();
+
+  const isPc = useMedia().isPc;
 
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
@@ -96,73 +103,209 @@ const RecsResult = () => {
     }
   };
 
-  return (
-    <section className="recsResultPage">
-      {firstVisitMode && (
-        <div
-          className="firstVisitModeSkip firstVisitMode"
-          onClick={() => {
-            setFirstVisitMode(false);
-            setFirstVisit("3");
-            localStorage.setItem("firstVisit", "3");
-          }}>
-          <BoxButton bgColor="--point-color-1" color="--black-6">
-            설명 건너뛰기
-          </BoxButton>
-        </div>
-      )}
-      <div className="recsResult_list">
-        <div className="recsResult_header">
-          <button onClick={() => nav(-1)} className="recsResult_back-button">
-            <ChevronLeft size={28} color="#B7BBCF" />
-            <span className="logo-text">DOMO</span>
-          </button>
-        </div>
-        <div className="list_header">
-          <p className="list_header_title">
-            오늘의 <span>놀거리</span>를
-            <br />
-            모아왔어요!
-          </p>
-          <button className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
-            되돌리기
-            <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
-              실수해도 놀라지 마세요!
-              <br />
-              바로 직전 상태로 돌려드릴게요.
-            </span>
-          </button>
-        </div>
-        <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
-          {recommendations.map((rec, index) => (
-            <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
-              <div className="item_number">{index + 1}</div>
-              <div className="item_card">
-                <div className="item_content">
-                  <div className="item_img"></div>
-                  <div className="item_info">
-                    <p className="item_name">{rec.name}</p>
-                    <p className="item_address">{rec.address}</p>
-                    <span className="item_benefit">{rec.benefit}</span>
-                  </div>
-                </div>
-              </div>
+  console.log(isPc);
 
-              <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
-                여기서 장소를 변경하거나
+  return (
+    <div className="recsResultPageMain">
+      {isPc && (
+        <section className="recsResultPage">
+          {firstVisitMode && (
+            <div
+              className="firstVisitModeSkip firstVisitMode"
+              onClick={() => {
+                setFirstVisitMode(false);
+                setFirstVisit("3");
+                localStorage.setItem("firstVisit", "3");
+              }}>
+              <BoxButton bgColor="--point-color-1" color="--black-6">
+                설명 건너뛰기
+              </BoxButton>
+            </div>
+          )}
+          <div className="recsResult_list">
+            <div className="recsResult_header">
+              <button onClick={() => nav(-1)} className="recsResult_back-button">
+                <ChevronLeft size={28} color="#B7BBCF" />
+                <span className="logo-text">DOMO</span>
+              </button>
+            </div>
+            <div className="list_header">
+              <p className="list_header_title">
+                오늘의 <span>놀거리</span>를
                 <br />
-                삭제할 수 있어요.
-              </span>
-            </li>
-          ))}
-        </ul>
-        <div className="list_footer">
-          <button className={`list_footer-btn ${firstVisitMode && firstVisit === "2" ? "firstVisitMode" : ""}`} onClick={onSaveToNextHandler}>
+                모아왔어요!
+              </p>
+              <button className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+                되돌리기
+                <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
+                  실수해도 놀라지 마세요!
+                  <br />
+                  바로 직전 상태로 돌려드릴게요.
+                </span>
+              </button>
+            </div>
+            <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
+              {recommendations.map((rec, index) => (
+                <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                  <div className="item_number">{index + 1}</div>
+                  <div className="item_card">
+                    <div className="item_content">
+                      <div className="item_img"></div>
+                      <div className="item_info">
+                        <p className="item_name">{rec.name}</p>
+                        <p className="item_address">{rec.address}</p>
+                        <span className="item_benefit">{rec.benefit}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
+                    여기서 장소를 변경하거나
+                    <br />
+                    삭제할 수 있어요.
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="list_footer">
+              <button className={`list_footer-btn ${firstVisitMode && firstVisit === "2" ? "firstVisitMode" : ""}`} onClick={onSaveToNextHandler}>
+                결정하기
+                <span className={`${firstVisitMode && firstVisit === "2" ? "firstVisitModeDesc2" : "none"}`}>
+                  결정한 후에는 수정할 수 없어요.
+                  <br />
+                  신중하게 결정해주세요!
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* naver map */}
+          <div className="recsResult_map">
+            <NaverMap recommendations={recommendations} />
+          </div>
+
+          {/* 팝업 */}
+          {popoverData && (
+            <Popover onClose={handleClosePopover} position={popoverData.position}>
+              <div className="popover_item_options">
+                <button>다시 추천</button>
+                <div className="pop-line"></div>
+                <button>삭제하기</button>
+              </div>
+            </Popover>
+          )}
+        </section>
+      )}
+      {!isPc && (
+        <section className={`isMobile`}>
+          <div className="recsResult_header">
+            <div className="recsResult_header">
+              <button onClick={() => nav(-1)} className="recsResult_back-button">
+                <ChevronLeft size={28} color="#B7BBCF" />
+                <span className="logo-text">DOMO</span>
+              </button>
+            </div>
+            {firstVisitMode && (
+              <div
+                className="firstVisitModeSkip firstVisitMode"
+                onClick={() => {
+                  setFirstVisitMode(false);
+                  setFirstVisit("3");
+                  localStorage.setItem("firstVisit", "3");
+                }}>
+                <BoxButton bgColor="--point-color-1" color="--black-6">
+                  설명 건너뛰기
+                </BoxButton>
+              </div>
+            )}
+          </div>
+          <div className={`recsResult_resizable  ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
+            <Resizable
+              ref={resizableRef} // 리사이즈 컴포넌트에 ref 연결 (필요시 외부에서 접근)
+              size={{ width: "100%", height: panelHeight }} // 현재 크기 상태(가로 100%, 세로는 panelHeight 상태값)
+              minHeight="40vh" // 최소 높이 제한
+              maxHeight="75vh" // 최대 높이 제한
+              enable={{
+                top: true, // 상단만 드래그로 리사이즈 가능
+                right: false,
+                bottom: false,
+                left: false,
+                topRight: false,
+                bottomRight: false,
+                bottomLeft: false,
+                topLeft: false,
+              }}
+              handleStyles={{
+                top: {
+                  height: "16px", // 리사이즈 핸들 높이
+                  cursor: "ns-resize", // 마우스 커서 모양(상하 리사이즈)
+                  margin: "12px auto",
+                },
+              }}
+              onResizeStop={(e, direction, ref, d) => {
+                // 리사이즈 드래그가 끝났을 때 실행되는 함수
+                setPanelHeight((prev) => {
+                  let next = prev + d.height; // 이전 높이에 드래그 변화량을 더함
+                  return next; // 새로운 높이 반환
+                });
+              }}>
+              <div className="recsResult_resizable_controller"></div>
+
+              <div className="recsResult_list">
+                <div className="list_header">
+                  <p className="list_header_title">
+                    오늘의 <span>놀거리</span>를
+                    <br />
+                    모아왔어요!
+                  </p>
+                  <button className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+                    되돌리기
+                    <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
+                      실수해도 놀라지 마세요!
+                      <br />
+                      바로 직전 상태로 돌려드릴게요.
+                    </span>
+                  </button>
+                </div>
+                <span className={`${firstVisitMode && firstVisit === "0" ? "firstVisitModeDesc0" : "none"}`}>
+                  여기서 장소를 변경하거나
+                  <br />
+                  삭제할 수 있어요.
+                </span>
+                <ul className={`list_items`}>
+                  {recommendations.map((rec, index) => (
+                    <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                      <div className="item_number">{index + 1}</div>
+                      <div className="item_card">
+                        <div className="item_content">
+                          <div className="item_img"></div>
+                          <div className="item_info">
+                            <p className="item_name">{rec.name}</p>
+                            <p className="item_address">{rec.address}</p>
+                            <span className="item_benefit">{rec.benefit}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Resizable>
+          </div>
+          <button
+            className={`list_footer-btn ${firstVisitMode && firstVisit === "2" ? "firstVisitMode" : ""} ${firstVisitMode && firstVisit !== "2" ? "none" : ""}`}
+            onClick={onSaveToNextHandler}>
             결정하기
             <span className={`${firstVisitMode && firstVisit === "2" ? "firstVisitModeDesc2" : "none"}`}>
               결정한 후에는 수정할 수 없어요.
@@ -170,25 +313,25 @@ const RecsResult = () => {
               신중하게 결정해주세요!
             </span>
           </button>
-        </div>
-      </div>
 
-      {/* naver map */}
-      <div className="recsResult_map">
-        <NaverMap recommendations={recommendations} />
-      </div>
-
-      {/* 팝업 */}
-      {popoverData && (
-        <Popover onClose={handleClosePopover} position={popoverData.position}>
-          <div className="popover_item_options">
-            <button>다시 추천</button>
-            <div className="pop-line"></div>
-            <button>삭제하기</button>
+          {/* naver map */}
+          <div className="recsResult_map">
+            <NaverMap recommendations={recommendations} />
           </div>
-        </Popover>
+
+          {/* 팝업 */}
+          {popoverData && (
+            <Popover onClose={handleClosePopover} position={popoverData.position}>
+              <div className="popover_item_options">
+                <button>다시 추천</button>
+                <div className="pop-line"></div>
+                <button>삭제하기</button>
+              </div>
+            </Popover>
+          )}
+        </section>
       )}
-    </section>
+    </div>
   );
 };
 

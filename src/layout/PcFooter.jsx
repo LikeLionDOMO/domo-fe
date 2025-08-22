@@ -1,6 +1,6 @@
-import './styles/footer.css';
+import "./styles/pcFooter.css";
 
-const Footer = () => {
+const PcFooter = () => {
   return (
     <footer className="footers">
       <p>&copy;영규와 아이들, ALL RIGHTS RESERVED.</p>
@@ -8,4 +8,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default PcFooter;

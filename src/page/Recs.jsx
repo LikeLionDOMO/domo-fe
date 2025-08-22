@@ -5,6 +5,9 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BoxButton from "../component/boxButton";
 import { useNavigate } from "react-router-dom";
+import MobileHeader from "../layout/MobileHeader";
+import { useMedia } from "../hook/useMedia";
+import PcHeader from "../layout/PCHeader";
 
 const Recs = () => {
   const [gpsAgree, setGpsAgree] = useState(false);
@@ -86,8 +89,11 @@ const Recs = () => {
     }
   }, [gpsAgree]);
 
+  const isPc = useMedia().isPc;
+
   return (
     <section className="recsPage flexCenter">
+      {isPc ? <PcHeader /> : <MobileHeader />}
       {/* 위치수집 및 이용동의 */}
       {onGpsAgree && (
         <Modal>

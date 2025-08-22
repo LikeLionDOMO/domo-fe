@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./index.css";
-import Header from "./layout/Header.jsx";
 import Home from "./page/Home.jsx";
 import Benefix from "./page/Benefix.jsx";
 import Recs from "./page/Recs.jsx";
@@ -19,7 +18,6 @@ window.initMap = () => {
     <StrictMode>
       <BrowserRouter>
         <ScrollToTop />
-        <Header />
         <Routes>
           {/* 404 페이지 처리 */}
           <Route path="*" element={<NotFoundPage />} />

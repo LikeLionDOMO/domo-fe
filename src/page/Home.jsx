@@ -1,19 +1,18 @@
-import { Link } from 'react-router-dom';
-import Swiper from '../component/Swiper';
-import './styles/home.css';
-import Footer from '../layout/Footer';
+import { Link } from "react-router-dom";
+import Swiper from "../component/Swiper";
+import "./styles/home.css";
+import MainLayout from "../layout/MainLayout";
 
 const Home = () => {
   return (
-    <>
+    <MainLayout>
       <section className="slider-section">
         <Swiper />
       </section>
       <main className="home-container">
         <section className="grid-section">
           <h2 className="grid-title">
-            <span className="span-domo-blue">도모</span>가 모아온 각 지역의
-            특별한 하루!
+            <span className="span-domo-blue">도모</span>가 모아온 각 지역의 특별한 하루!
           </h2>
           <div className="grid-container">
             {[...Array(8)].map((_, index) => (
@@ -31,14 +30,11 @@ const Home = () => {
             ))}
           </div>
           <Link to="/recs">
-            <button className="load-more-button">
-              도모와 함께 내 주변 놀거리 찾기 &gt;
-            </button>
+            <button className="load-more-button">도모와 함께 내 주변 놀거리 찾기 &gt;</button>
           </Link>
         </section>
       </main>
-      <Footer />
-    </>
+    </MainLayout>
   );
 };
 
