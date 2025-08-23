@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import Swiper from '../component/Swiper';
 import './styles/home.css';
+import MainLayout from '../layout/MainLayout';
 
 const Home = () => {
   return (
-    <>
+    <MainLayout>
       <section className="slider-section">
         <Swiper />
       </section>
@@ -36,7 +37,7 @@ const Home = () => {
           </Link>
         </section>
       </main>
-    </>
+    </MainLayout>
   );
 };
 

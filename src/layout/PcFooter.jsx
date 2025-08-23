@@ -1,6 +1,6 @@
-import './styles/footer.css';
+import "./styles/pcFooter.css";
 
-const Footer = () => {
+const PcFooter = () => {
   return (
     <>
       {/* pc */}
@@ -23,4 +23,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default PcFooter;

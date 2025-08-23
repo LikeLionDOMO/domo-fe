@@ -1,9 +1,11 @@
 .recsPage {
   width: 100%;
-  height: calc(100vh - 89px);
+  height: calc(100vh - 64px);
   position: relative;
   z-index: 0;
   padding: 5vh 20vw;
+
+  margin-top: 64px;
 
   background-image: url("../../assets/img/recsBackground.svg");
   background-size: cover;
@@ -183,7 +185,9 @@
 .modal_background > div > div:nth-child(2) > div {
   margin-right: 20px;
   width: 2.25rem;
+  min-width: 2.25rem;
   height: 2.25rem;
+  min-height: 2.25rem;
   cursor: pointer;
   border-radius: 8px;
   background-color: var(--black-0);
@@ -227,12 +231,12 @@
 }
 
 /* 레이아웃 */
-footer {
+.recsPage + footer {
   display: none;
 }
 
-header {
+/* .recsPage + header {
   position: relative;
   background-color: var(--black-0);
   z-index: unset !important;
-}
+} */

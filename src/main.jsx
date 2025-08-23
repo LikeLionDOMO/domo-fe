@@ -4,8 +4,35 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router';
 import './index.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+import './index.css';
+import Home from './page/Home.jsx';
+import Benefix from './page/Benefix.jsx';
+import Recs from './page/Recs.jsx';
+import RecsInfo from './page/RecsInfo.jsx';
+import RecsResult from './page/RecsResult.jsx';
+
+import ScrollToTop from './hook/useScrollTop.js';
+import NotFoundPage from './NotFoundPage.jsx';
+import RecsSave from './page/RecsSave.jsx';
+
+window.initMap = () => {
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          {/* 404 페이지 처리 */}
+          <Route path="*" element={<NotFoundPage />} />
+
+          <Route path="/" element={<Home />} />
+          <Route path="/benefix" element={<Benefix />} />
+          {/* 추천받기 */}
+          <Route path="/recs" element={<Recs />} />
+          <Route path="/recs/info" element={<RecsInfo />} />
+          <Route path="/recs/result" element={<RecsResult />} />
+          <Route path="/recs/save" element={<RecsSave />} />
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  );
+};

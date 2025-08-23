@@ -7,6 +7,9 @@ import BoxButton from "../component/boxButton";
 import { useInput } from "../hook/useInput";
 import RecsLoading from "../component/recsLoading";
 import { useNavigate } from "react-router-dom";
+import { useMedia } from "../hook/useMedia";
+import PcHeader from "../layout/PcHeader";
+import MobileHeader from "../layout/MobileHeader";
 
 const RecsInfo = () => {
   // 주소
@@ -129,8 +132,11 @@ const RecsInfo = () => {
     }, 5000);
   };
 
+  const isPc = useMedia().isPc;
+
   return (
     <section className="recsInfoPage recsPage">
+      {isPc ? <PcHeader /> : <MobileHeader />}
       {/* 메인 */}
       <section className="context flexCol">
         {/* 로딩 */}
