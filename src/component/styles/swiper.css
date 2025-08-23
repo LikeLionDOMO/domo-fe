@@ -1,10 +1,10 @@
 .slide-main {
   margin: 0 auto;
-  margin-top: 56px;
+  margin-top: 10px;
 }
 
 .swiper-slide {
-  height: 636px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
