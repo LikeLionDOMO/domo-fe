@@ -4,33 +4,37 @@
 }
 
 .grid-section {
-  margin-top: 60px;
-  padding: 40px 20px;
+  margin-top: 24px;
+  padding: 16px 0;
 }
 
 .grid-title {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 600;
   text-align: start;
-  margin-bottom: 48px;
+  margin-bottom: 16px;
   font-family: 'pre-semibold';
+  padding: 0 20px;
 }
 
 .span-domo-blue {
   color: #0052e9;
 }
 
+/* --- PC Grid Styles --- */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 26px;
+  gap: 20px;
+  padding: 0 20px;
 }
 
 .grid-item {
   overflow: hidden;
   transition: transform 0.3s ease;
-  height: 402px;
-  width: 280px;
+  height: 380px;
+  width: 100%;
+  max-width: 280px;
 }
 
 .grid-item:hover {
@@ -38,40 +42,40 @@
 }
 
 .grid-item-image {
-  height: 280px;
+  height: 260px;
   width: 100%;
-  border-radius: 20px;
+  border-radius: 16px;
   background-color: #eff0f5;
 }
 
 .grid-item-info {
-  padding-top: 20px;
+  padding-top: 16px;
 }
 
 .grid-item-info h4 {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-family: 'pre-semibold';
   color: #2c2f33;
 }
 
 .grid-item-info p {
-  font-size: 16px;
+  font-size: 15px;
   color: #b7bbcf;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   font-family: 'pre-medium';
 }
 
 .tags {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .tags span {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 14px;
   font-weight: 500;
   border: 2px solid;
   font-family: 'pre-medium';
@@ -91,9 +95,9 @@
 
 .load-more-button {
   display: block;
-  margin: 60px auto 0;
-  padding: 32px 40px;
-  font-size: 28px;
+  margin: 48px auto 0;
+  padding: 28px 36px;
+  font-size: 24px;
   font-weight: 600;
   background: #98cdff;
   background: linear-gradient(
@@ -103,9 +107,9 @@
   );
   color: white;
   border: none;
-  border-radius: 20px;
+  border-radius: 16px;
   cursor: pointer;
-  width: 100%;
+  width: calc(100% - 40px);
   text-align: end;
   font-family: 'pre-semibold';
 }
@@ -117,4 +121,122 @@
 .load-more-button a {
   color: white;
   font-family: 'pre-semibold';
+}
+
+/* --- Responsive Styles (max-width: 1024px) --- */
+@media (max-width: 1024px) {
+  .slider-section .swiper-slide {
+    height: 350px;
+  }
+
+  .slider-section .slide-content h2 {
+    font-size: 28px;
+  }
+
+  .slider-section .slide-content button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .grid-section {
+    margin-top: 20px;
+    padding: 16px 0;
+  }
+
+  .grid-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  /* --- Mobile Grid Swiper Styles --- */
+  .grid-swiper {
+    width: 100%;
+    height: 220px;
+  }
+
+  .grid-swiper .grid-swiper-slide {
+    width: 136px;
+  }
+
+  .grid-swiper .grid-item-image {
+    height: 136px;
+    width: 136px;
+    border-radius: 12px;
+  }
+
+  .grid-swiper .grid-item-info h4 {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .grid-swiper .grid-item-info p {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .grid-swiper .tags span {
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 8px;
+    border: 1px solid;
+  }
+
+  .load-more-button {
+    font-size: 16px;
+    padding: 20px 28px;
+    margin-top: 32px;
+  }
+}
+
+/* --- Mobile Styles (max-width: 768px) --- */
+@media (max-width: 768px) {
+  .grid-section {
+    margin-top: 16px;
+    padding: 12px 0;
+  }
+
+  .grid-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+    padding: 0 16px;
+  }
+
+  .grid-swiper {
+    height: 240px;
+  }
+
+  .grid-swiper .grid-swiper-slide {
+    width: 136px;
+  }
+
+  .grid-swiper .grid-item-image {
+    height: 136px;
+    width: 136px;
+    border-radius: 12px;
+  }
+
+  .grid-swiper .grid-item-info h4 {
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .grid-swiper .grid-item-info p {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .grid-swiper .tags span {
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 8px;
+    border: 1px solid;
+  }
+
+  .load-more-button {
+    /* display: none;  임시 주석처리 */
+    font-size: 14px;
+    padding: 18px 24px;
+    margin-top: 24px;
+    width: calc(100% - 32px);
+  }
 }
