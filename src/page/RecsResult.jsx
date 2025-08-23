@@ -7,7 +7,6 @@ import Popover from '../component/Popover';
 import BoxButton from '../component/boxButton';
 import { useMedia } from '../hook/useMedia';
 import { Resizable } from 're-resizable';
-import PcHeader from '../layout/PcHeader';
 
 const RecsResult = () => {
   const location = useLocation();
@@ -119,8 +118,6 @@ const RecsResult = () => {
 
   return (
     <>
-      {/* pc 스케일 header 추가 */}
-      <PcHeader />
       <div className="recsResultPageMain">
         {isPc && (
           <section className="recsResultPage">

@@ -6,8 +6,6 @@
   width: 100%;
   height: calc(100vh - 89px);
   overflow: hidden;
-  margin-top: 89px;
-  /* 임시로 제가 추가해두었습니다. 합칠때 불필요하면 빼주세요! */
 }
 
 .recsResultPageMain .recsResult_list {
