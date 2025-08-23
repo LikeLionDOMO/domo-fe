@@ -6,6 +6,8 @@
   width: 100%;
   height: calc(100vh - 89px);
   overflow: hidden;
+  margin-top: 89px;
+  /* 임시로 제가 추가해두었습니다. 합칠때 불필요하면 빼주세요! */
 }
 
 .recsResultPageMain .recsResult_list {
@@ -32,7 +34,7 @@
 }
 
 .recsResultPageMain .recsResult_back-button .logo-text {
-  font-family: "dxpop";
+  font-family: 'dxpop';
   font-size: 24px;
   font-weight: bold;
   margin-left: 5px;
@@ -65,7 +67,7 @@
   font-size: 22px;
   font-weight: 600;
   color: #e47a00;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
 }
 
 .recsResultPageMain .list_header_backBtn:hover {
@@ -96,7 +98,7 @@
   font-weight: 400;
   margin-right: 16px;
   color: var(--main-color);
-  font-family: "pre-regular";
+  font-family: 'pre-regular';
 }
 
 .recsResultPageMain .item_card {
@@ -140,7 +142,7 @@
   font-weight: 600;
   font-size: 24px;
   margin-bottom: 6px;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
   color: #2c2f33;
 }
 
@@ -148,7 +150,7 @@
   font-size: 16px;
   color: #b7bbcf;
   margin-bottom: 12px;
-  font-family: "pre-medium";
+  font-family: 'pre-medium';
 }
 
 .recsResultPageMain .item_benefit {
@@ -157,7 +159,7 @@
   color: var(--main-color);
   border-radius: 12px;
   display: inline-block;
-  font-family: "pre-regular";
+  font-family: 'pre-regular';
   padding: 10px;
 }
 
@@ -197,7 +199,7 @@
   height: 96px;
   border-radius: 20px;
   font-size: 24px;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
   font-weight: 600;
   cursor: pointer;
 }
@@ -296,7 +298,10 @@
   overflow: hidden;
 }
 
-.recsResultPageMain .isMobile .recsResult_resizable .recsResult_resizable_controller {
+.recsResultPageMain
+  .isMobile
+  .recsResult_resizable
+  .recsResult_resizable_controller {
   width: 25%;
   height: 4px;
   border-radius: 999;
@@ -310,7 +315,7 @@
 
 .recsResultPageMain .isMobile .list_header_title {
   font-size: 1.4rem;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
 }
 
 .recsResultPageMain .isMobile .list_header_backBtn {
@@ -323,7 +328,7 @@
   font-size: 12px;
   font-weight: 600;
   color: #e47a00;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
 }
 
 .recsResultPageMain .isMobile .list_items {
@@ -372,7 +377,7 @@
   height: 8vh;
   border-radius: 20px;
   font-size: 24px;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
   font-weight: 600;
   cursor: pointer;
 
@@ -401,7 +406,7 @@
 }
 
 .recsResultPageMain .recsResultPage .firstVisitModeBg::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -410,7 +415,9 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-.recsResultPageMain .firstVisitModeBg.list_items .list_item:not(.firstVisitMode) {
+.recsResultPageMain
+  .firstVisitModeBg.list_items
+  .list_item:not(.firstVisitMode) {
   filter: brightness(0.5) grayscale(0.2);
   opacity: 0.7;
 }
@@ -435,7 +442,7 @@
   position: absolute;
   font-size: 0.8rem !important;
   color: var(--black-4) !important;
-  font-family: "pre-regular" !important;
+  font-family: 'pre-regular' !important;
   text-align: center;
   padding: 1rem;
   background-color: var(--black-1);
@@ -461,7 +468,7 @@
 /* PC 튜토리얼 뿔 */
 .recsResultPageMain .firstVisitModeDesc0::before,
 .recsResultPageMain .firstVisitModeDesc1::before {
-  content: "";
+  content: '';
   position: absolute;
   left: -10px;
   width: 0;
@@ -472,7 +479,7 @@
 }
 
 .recsResultPageMain .firstVisitModeDesc2::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 100%;
@@ -486,7 +493,7 @@
 
 /* 모바일 튜토리얼 */
 .recsResultPageMain .isMobile .firstVisitModeBg::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -509,7 +516,10 @@
   overflow: visible !important;
 }
 
-.recsResultPageMain .isMobile .firstVisitModeBg .list_item:not(.firstVisitMode) {
+.recsResultPageMain
+  .isMobile
+  .firstVisitModeBg
+  .list_item:not(.firstVisitMode) {
   filter: brightness(0.5) grayscale(0.2);
   opacity: 0.7;
 }
@@ -559,7 +569,7 @@
 
 /* 모바일 튜토리얼 뿔 */
 .recsResultPageMain .isMobile .firstVisitModeDesc0::before {
-  content: "";
+  content: '';
   position: absolute;
   right: 8px !important;
   left: unset !important;
@@ -572,7 +582,7 @@
 }
 
 .recsResultPageMain .isMobile .firstVisitModeDesc1::before {
-  content: "";
+  content: '';
   position: absolute;
   right: 8px !important;
   left: unset !important;
@@ -586,7 +596,7 @@
 }
 
 .recsResultPageMain .isMobile .firstVisitModeDesc2::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 100%;

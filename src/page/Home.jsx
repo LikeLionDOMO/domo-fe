@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import BannerSwiper from '../component/Swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMedia } from '../hook/useMedia';
 
 import 'swiper/css';
 import './styles/home.css';
 import MainLayout from '../layout/MainLayout';
+import CustomSwiper from '../component/Swiper';
 
 const Home = () => {
   const { isMobile } = useMedia();
@@ -13,8 +13,9 @@ const Home = () => {
   return (
     <MainLayout>
       <section className="slider-section">
-        <BannerSwiper />
+        <CustomSwiper />
       </section>
+
       <main className="home-container">
         <section className="grid-section">
           <h2 className="grid-title">
@@ -72,7 +73,7 @@ const Home = () => {
           </Link>
 
           {/* 임시로 footer 위쪽에 공간을 만들어 둠 */}
-          {isMobile && <div style={{ height: '88px' }} />}
+          {isMobile && <div style={{ height: '48px' }} />}
         </section>
       </main>
     </MainLayout>
