@@ -5,18 +5,44 @@
     <link rel="icon" type="image/x-icon" href="/DOMO.ico" />
 
     <!-- reset. css import 문 입니다 // 주석: 8/9 kss2002 -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@4.0.1/reset.min.css" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- naver map api script add -->
     <script
       type="text/javascript"
-      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=%VITE_NAVER_MAP_CLIENT_ID%&callback=initMap"
-    ></script>
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=%VITE_NAVER_MAP_CLIENT_ID%&submodules=geocoder&callback=initMap"></script>
+
+    <!-- 네이버 Maps SDK 디버깅 -->
+    <script>
+      console.log("네이버 Maps 스크립트 로딩 시작");
+
+      // SDK 로드 완료 후 확인
+      function checkNaverSDK() {
+        console.log("window.naver:", window.naver);
+        console.log("window.naver?.maps:", window.naver?.maps);
+        console.log("window.naver?.maps?.Service:", window.naver?.maps?.Service);
+        console.log("window.naver?.maps?.services:", window.naver?.maps?.services);
+
+        if (window.naver?.maps?.Service) {
+          console.log("✅ 네이버 Maps Service 모듈 로드 완료!");
+          console.log("Status:", window.naver.maps.Service.Status);
+        } else {
+          console.error("❌ 네이버 Maps Service 모듈 로드 실패");
+        }
+      }
+
+      // initMap 실행 후 SDK 상태 확인
+      const originalInitMap = window.initMap;
+      window.initMap = function () {
+        console.log("initMap 콜백 실행됨");
+        checkNaverSDK();
+        if (originalInitMap) {
+          originalInitMap();
+        }
+      };
+    </script>
 
     <title>DOMO</title>
   </head>

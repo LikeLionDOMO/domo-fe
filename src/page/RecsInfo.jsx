@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useMedia } from "../hook/useMedia";
 import PcHeader from "../layout/PcHeader";
 import MobileHeader from "../layout/MobileHeader";
+import { planRequest } from "../api/planRequest";
+import { addressToCoords } from "../api/toGps";
 
 const RecsInfo = () => {
   // 주소
@@ -77,7 +79,7 @@ const RecsInfo = () => {
 
   // FIXME: 버튼 기능 추가하기
 
-  const onClickGetRecs = () => {
+  const onClickGetRecs = async () => {
     if (!address) {
       alert("주소를 입력해주세요.");
       return;
@@ -94,42 +96,54 @@ const RecsInfo = () => {
       alert("키워드를 선택해주세요.");
       return;
     }
+    //FIXME: 수정하기
+    const userGps = await addressToCoords(address);
+    const infoData = {
+      address: address,
+      addressLat: userGps.lat,
+      addressLng: userGps.lng,
+      budgetStart: budgetStart,
+      budgetEnd: budgetEnd,
+      subject: subject,
+    };
+    localStorage.setItem("recsInfo", JSON.stringify(infoData));
+
     setLoading(true);
 
-    // FIXME: api 추가
+    // 요청 api
+    const data = await planRequest(infoData);
 
-    setTimeout(() => {
-      // 아래는 API 연동 전 임시 데이터
-      const mockData = [
-        {
-          id: 1,
-          name: "토리코코로 별내본점",
-          address: "경기 남양주시 불암로 25-39 1층",
-          benefit: "민생회복 소비쿠폰",
-          lat: 37.641066,
-          lng: 127.12353,
-        },
-        {
-          id: 2,
-          name: "가게이름2",
-          address: "가게주소가게주소가게주소",
-          benefit: "혜택이름",
-          lat: 37.64514,
-          lng: 127.1189,
-        },
-        {
-          id: 3,
-          name: "가게이름3",
-          address: "가게주소가게주소가게주소",
-          benefit: "혜택이름",
-          lat: 37.63941,
-          lng: 127.128,
-        },
-      ];
-
-      setLoading(false);
-      nav("/recs/result", { state: { recommendations: mockData } });
-    }, 5000);
+    setLoading(false);
+    // const data = [
+    //   {
+    //     placeId: 1,
+    //     name: "토리코코로 별내본점",
+    //     address: "경기 남양주시 불암로 25-39 1층",
+    //     benefit: "민생회복 소비쿠폰",
+    //     lat: 37.641066,
+    //     lng: 127.12353,
+    //     category: "카페",
+    //   },
+    //   {
+    //     placeId: 2,
+    //     name: "가게이름2",
+    //     address: "가게주소가게주소가게주소",
+    //     benefit: "혜택이름",
+    //     lat: 37.64514,
+    //     lng: 127.1189,
+    //     category: "음식점",
+    //   },
+    //   {
+    //     placeId: 3,
+    //     name: "가게이름3",
+    //     address: "가게주소가게주소가게주소",
+    //     benefit: "혜택이름",
+    //     lat: 37.63941,
+    //     lng: 127.128,
+    //     category: "놀거리",
+    //   },
+    // ];
+    nav("/recs/result", { state: { recommendations: data } });
   };
 
   const isPc = useMedia().isPc;

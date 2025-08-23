@@ -4,21 +4,23 @@
 .recsResultPageMain .recsResultPage {
   display: flex;
   width: 100%;
-  height: calc(100vh - 89px);
+  height: calc(100vh - min(12vh, 89px));
   overflow: hidden;
 }
 
 .recsResultPageMain .recsResult_list {
-  /*width: 660px;*/
+  width: 36%;
+  max-width: 640px;
   padding: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   z-index: 10;
   background-color: var(--black-0);
 }
 
 .recsResultPageMain .recsResult_header {
-  margin-bottom: 30px;
+  margin-bottom: clamp(0.5vw, 1vw, 2.5rem);
 }
 
 .recsResultPageMain .recsResult_back-button {
@@ -42,11 +44,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: clamp(0.5vw, 1vw, 2.5rem);
 }
 
 .recsResultPageMain .list_header_title {
-  font-size: 36px;
+  font-size: clamp(1.5rem, 1.4vw, 2.5rem);
   font-weight: 600;
   line-height: 1.4;
 }
@@ -58,11 +60,11 @@
 .recsResultPageMain .list_header_backBtn {
   background-color: var(--point-color-2);
   border: none;
-  width: 124px;
-  height: 56px;
+  max-width: 124px;
+  max-height: 56px;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
   font-weight: 600;
   color: #e47a00;
   font-family: "pre-semibold";
@@ -76,7 +78,9 @@
 .recsResultPageMain .list_items {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 50vh; /* 화면 높이에 따라 조절되도록 vh단위 사용 */
+  flex: 1;
+  height: 100%;
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -119,15 +123,17 @@
   padding: 20px;
   flex-grow: 1;
   align-items: center;
-  height: 140px;
-  width: 348px;
+  height: 100%;
+  width: 100%;
 }
 
 .recsResultPageMain .item_img {
-  width: 95px;
-  height: 95px;
+  width: clamp(3rem, 4vw, 6rem);
+  height: clamp(3rem, 4vw, 6rem);
   border-radius: 50%;
-  background-color: #f0f0f0;
+  font-size: clamp(1.4rem, 2vw, 2.5rem);
+  background-color: var(--point-color-2);
+  color: var(--point-color-2-2);
   margin-right: 18px;
   flex-shrink: 0;
 }
@@ -138,21 +144,21 @@
 
 .recsResultPageMain .item_name {
   font-weight: 600;
-  font-size: 24px;
+  font-size: clamp(1.2rem, 1.25vw, 1.5rem);
   margin-bottom: 6px;
   font-family: "pre-semibold";
   color: #2c2f33;
 }
 
 .recsResultPageMain .item_address {
-  font-size: 16px;
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
   color: #b7bbcf;
   margin-bottom: 12px;
   font-family: "pre-medium";
 }
 
 .recsResultPageMain .item_benefit {
-  font-size: 16px;
+  font-size: clamp(0.8rem, 0.9vw, 1rem);
   background-color: #dbeeff;
   color: var(--main-color);
   border-radius: 12px;
@@ -169,8 +175,8 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  height: 140px;
-  width: 76px;
+  height: 100%;
+  width: clamp(3rem, 4vw, 4rem);
   border-radius: 20px;
   margin-left: 16px;
 }
@@ -187,16 +193,17 @@
 }
 
 .recsResultPageMain .list_footer {
-  padding-top: 60px;
+  padding-top: clamp(3vh, 5vh, 8vh);
 }
 
 .recsResultPageMain .list_footer-btn {
   color: white;
   background-color: var(--main-color);
-  width: 556px;
-  height: 96px;
+  width: 100%;
+  height: 12vh;
+  max-height: 88px;
   border-radius: 20px;
-  font-size: 24px;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   font-family: "pre-semibold";
   font-weight: 600;
   cursor: pointer;
@@ -241,6 +248,10 @@
   background-color: #0056b3;
 }
 
+.recsResultPageMain > .recsResultPage {
+  margin-top: min(12vh, 89px);
+}
+
 /* ============= */
 /*  모바일 스타일  */
 /* ============= */
@@ -248,11 +259,15 @@
   .recsResultPageMain + header {
     display: none;
   }
+  .recsResultPageMain .recsResult_list {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .isMobile {
   width: 100%;
-  height: calc(100vh - 89px) !important;
+  height: calc(100vh - min(12vh, 89px)) !important;
   overflow: hidden !important;
 }
 

@@ -12,9 +12,9 @@ const MainLayout = ({ children, onChangeMobileToggle }) => {
       {!isPc && <MobileHeader onChangeMobileToggle={onChangeMobileToggle} />}
       <section
         style={{
-          height: isPc ? "calc(100vh - 89px)" : "calc(100vh - 64px - 89px)",
+          height: isPc ? "calc(100vh - min(12vh, 89px))" : "calc(100vh - 64px - min(12vh, 89px))",
           width: "100%",
-          marginTop: isPc ? "89px" : "64px",
+          marginTop: isPc ? "min(12vh, 89px)" : "64px",
           overflowY: "scroll",
           position: "relative",
         }}>
