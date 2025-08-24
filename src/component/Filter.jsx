@@ -223,7 +223,7 @@ const Filter = ({
           )}
         </div>
         <Select
-          defaultValue="latest"
+          defaultValue="benefix"
           className="filter-select sort-select"
           IconComponent={KeyboardArrowUpIcon}
           onChange={(e) => onChangeFilter(e.target.value)}
