@@ -14,32 +14,22 @@ import { locationFinder } from "./locationFinder";
  */
 export const planRequest = async (data) => {
   try {
-    const response = await axios
-      .post(`${API_URL}/api/plan/full-ids`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .catch((e) => {
-        throw e;
-      });
-    const uuidData = response.data;
+    const res = await axios.post(`${API_URL}/api/plan/full-ids`, data, {
+      headers: { "Content-Type": "application/json" },
+    });
+    const uuids = Object.values(res.data?.data || res.data);
     const results = [];
-
-    const keys = Object.keys(uuidData).sort((a, b) => a - b);
-
-    for (const key of keys) {
+    for (const uuid of uuids) {
       try {
-        const locationData = await locationFinder(uuidData[key]);
-        results.push(locationData);
-      } catch (error) {
-        console.error(`Error processing ${key}:`, error);
+        results.push(await locationFinder(uuid));
+      } catch (err) {
+        console.error("Error processing", uuid, err);
         results.push(null);
       }
     }
     return results;
-  } catch (e) {
-    console.error(e);
-    throw e;
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 };

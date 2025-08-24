@@ -23,7 +23,9 @@ export const recommend = async (data) => {
         },
       }
     );
-    const resData = locationFinder(response.data["1"]);
+    const dataObj = response.data?.data || response.data;
+    const placeId = Object.values(dataObj)[0];
+    const resData = await locationFinder(placeId);
     return resData;
   } catch (error) {
     console.error("추천 요청 실패:", error);
