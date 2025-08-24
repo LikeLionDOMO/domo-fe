@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { useMedia } from "../hook/useMedia";
 import PcHeader from "../layout/PcHeader";
 import MobileHeader from "../layout/MobileHeader";
-import { mapMockData } from "../data/mockData";
 import { planRequest } from "../api/planRequest";
 import { addressToCoords } from "../api/toGps";
 
@@ -112,35 +111,7 @@ const RecsInfo = () => {
     const data = await planRequest(infoData);
 
     setLoading(false);
-    // const data = [
-    //   {
-    //     placeId: 1,
-    //     name: "토리코코로 별내본점",
-    //     address: "경기 남양주시 불암로 25-39 1층",
-    //     benefit: "민생회복 소비쿠폰",
-    //     lat: 37.641066,
-    //     lng: 127.12353,
-    //     category: "카페",
-    //   },
-    //   {
-    //     placeId: 2,
-    //     name: "가게이름2",
-    //     address: "가게주소가게주소가게주소",
-    //     benefit: "혜택이름",
-    //     lat: 37.64514,
-    //     lng: 127.1189,
-    //     category: "음식점",
-    //   },
-    //   {
-    //     placeId: 3,
-    //     name: "가게이름3",
-    //     address: "가게주소가게주소가게주소",
-    //     benefit: "혜택이름",
-    //     lat: 37.63941,
-    //     lng: 127.128,
-    //     category: "놀거리",
-    //   },
-    // ];
+
     nav("/recs/result", { state: { recommendations: data } });
   };
 
