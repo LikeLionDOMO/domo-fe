@@ -62,3 +62,15 @@
   --swiper-navigation-color: rgba(255, 255, 255, 0.5);
   --swiper-pagination-color: rgba(255, 255, 255, 0.5);
 }
+
+@media (max-width: 768px) {
+  .slide-main {
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+
+  .slide-main .slide-content h2 {
+    font-size: 22px;
+    padding-bottom: 32px;
+  }
+}

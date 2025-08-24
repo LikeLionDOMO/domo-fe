@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useMedia } from "../hook/useMedia";
 import PcHeader from "../layout/PcHeader";
 import MobileHeader from "../layout/MobileHeader";
+import { mapMockData } from "../data/mockData";
 import { planRequest } from "../api/planRequest";
 import { addressToCoords } from "../api/toGps";
 
@@ -77,8 +78,6 @@ const RecsInfo = () => {
     setAddress(data.address);
   };
 
-  // FIXME: 버튼 기능 추가하기
-
   const onClickGetRecs = async () => {
     if (!address) {
       alert("주소를 입력해주세요.");
@@ -96,7 +95,6 @@ const RecsInfo = () => {
       alert("키워드를 선택해주세요.");
       return;
     }
-    //FIXME: 수정하기
     const userGps = await addressToCoords(address);
     const infoData = {
       address: address,
