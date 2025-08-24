@@ -149,11 +149,11 @@ const RecsResult = () => {
 
   // 되돌리기 데이터 저장
   const onChangeRecommendations = () => {
-    const r1 = JSON.stringify(localStorage.getItem("r-1"));
-    const r2 = JSON.stringify(localStorage.getItem("r-2"));
+    const r1 = localStorage.getItem("r-1");
+    const r2 = localStorage.getItem("r-2");
 
-    localStorage.setItem("r-3", JSON.stringify(r2));
-    localStorage.setItem("r-2", JSON.stringify(r1));
+    localStorage.setItem("r-3", r2 ?? "null");
+    localStorage.setItem("r-2", r1 ?? "null");
     localStorage.setItem("r-1", JSON.stringify(recommendations));
   };
 
