@@ -1,0 +1,74 @@
+[
+  {
+    "course_name": "경복궁",
+    "short_description": "무료 해설 투어와 고궁 산책, 서울 대표 명소",
+    "region_name": "서울특별시",
+    "activity_keyword": "역사"
+  },
+  {
+    "course_name": "서울숲",
+    "short_description": "넓은 공원에서 산책과 자전거, 가족 나들이에 적합",
+    "region_name": "서울특별시",
+    "activity_keyword": "자연"
+  },
+  {
+    "course_name": "명동 1992 덮밥&짜글이",
+    "short_description": "합리적인 가격의 한식 덮밥, 혼밥·가족 모두 만족",
+    "region_name": "서울특별시",
+    "activity_keyword": "음식"
+  },
+  {
+    "course_name": "Seoul City Tour Bus",
+    "short_description": "저렴한 가격에 서울 주요 관광지 버스 투어",
+    "region_name": "서울특별시",
+    "activity_keyword": "투어"
+  },
+  {
+    "course_name": "국립과천과학관",
+    "short_description": "가족 단위로 즐기는 인터랙티브 과학 체험",
+    "region_name": "경기도",
+    "activity_keyword": "체험"
+  },
+  {
+    "course_name": "설악산",
+    "short_description": "당일치기 등산과 절경 감상 가능한 자연 명소",
+    "region_name": "강원특별자치도",
+    "activity_keyword": "트래킹"
+  },
+  {
+    "course_name": "충북알프스자연휴양림",
+    "short_description": "숲속에서 피크닉, 바베큐, 하이킹까지 즐기는 휴양지",
+    "region_name": "충청북도",
+    "activity_keyword": "휴양"
+  },
+  {
+    "course_name": "안면도 자연휴양림",
+    "short_description": "저렴하게 숲과 바다를 동시에 느끼는 자연휴양공간",
+    "region_name": "충청남도",
+    "activity_keyword": "산책"
+  },
+  {
+    "course_name": "국립전주박물관",
+    "short_description": "전통문화와 역사 체험, 저렴한 입장료",
+    "region_name": "전북특별자치도",
+    "activity_keyword": "문화"
+  },
+  {
+    "course_name": "전라우수영 국민관광지",
+    "short_description": "경치 좋은 자연공원, 가족 나들이로 적합",
+    "region_name": "전라남도",
+    "activity_keyword": "피크닉"
+  },
+  {
+    "course_name": "하회마을",
+    "short_description": "한국 전통마을 탐방, 문화체험과 산책 추천",
+    "region_name": "경상북도",
+    "activity_keyword": "전통체험"
+  },
+  {
+    "course_name": "진주성",
+    "short_description": "남강변 산책과 진주 역사 체험, 저렴한 입장료",
+    "region_name": "경상남도",
+    "activity_keyword": "역사산책"
+  }
+]
