@@ -4,21 +4,23 @@
 .recsResultPageMain .recsResultPage {
   display: flex;
   width: 100%;
-  height: calc(100vh - 89px);
+  height: calc(100vh - min(12vh, 89px));
   overflow: hidden;
 }
 
 .recsResultPageMain .recsResult_list {
-  /*width: 660px;*/
+  width: 36%;
+  max-width: 640px;
   padding: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   z-index: 10;
   background-color: var(--black-0);
 }
 
 .recsResultPageMain .recsResult_header {
-  margin-bottom: 30px;
+  margin-bottom: clamp(0.5vw, 1vw, 2.5rem);
 }
 
 .recsResultPageMain .recsResult_back-button {
@@ -42,11 +44,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: clamp(0.5vw, 1vw, 2.5rem);
 }
 
 .recsResultPageMain .list_header_title {
-  font-size: 36px;
+  font-size: clamp(1.5rem, 1.4vw, 2.5rem);
   font-weight: 600;
   line-height: 1.4;
 }
@@ -58,25 +60,29 @@
 .recsResultPageMain .list_header_backBtn {
   background-color: var(--point-color-2);
   border: none;
-  width: 124px;
-  height: 56px;
+  max-width: 124px;
+  max-height: 56px;
+  padding: 2rem 0;
+  width: 100%;
   border-radius: 12px;
   cursor: pointer;
-  font-size: 22px;
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
   font-weight: 600;
-  color: #e47a00;
+  color: var(--point-color-2-2);
   font-family: "pre-semibold";
 }
 
 .recsResultPageMain .list_header_backBtn:hover {
-  background-color: #ffd447;
-  color: #cb6c00;
+  background-color: var(--point-color-2);
+  color: var(--point-color-2-2);
 }
 
 .recsResultPageMain .list_items {
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: 50vh; /* 화면 높이에 따라 조절되도록 vh단위 사용 */
+  flex: 1;
+  height: 100%;
+  width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -95,6 +101,7 @@
   font-size: 40px;
   font-weight: 400;
   margin-right: 16px;
+  flex: 0.01;
   color: var(--main-color);
   font-family: "pre-regular";
 }
@@ -102,7 +109,7 @@
 .recsResultPageMain .item_card {
   cursor: pointer;
   display: flex;
-  flex-grow: 1;
+  flex: 0.95;
   background-color: white;
   border: 1px solid #eee;
   border-radius: 20px;
@@ -119,40 +126,43 @@
   padding: 20px;
   flex-grow: 1;
   align-items: center;
-  height: 140px;
-  width: 348px;
+  height: 100%;
+  width: 100%;
 }
 
 .recsResultPageMain .item_img {
-  width: 95px;
-  height: 95px;
+  width: clamp(3rem, 4vw, 6rem);
+  height: clamp(3rem, 4vw, 6rem);
   border-radius: 50%;
-  background-color: #f0f0f0;
+  font-size: clamp(1.4rem, 2vw, 2.5rem);
+  background-color: var(--point-color-2);
+  color: var(--point-color-2-2);
   margin-right: 18px;
   flex-shrink: 0;
 }
 
 .recsResultPageMain .item_info {
+  min-width: 0;
   flex-grow: 1;
 }
 
 .recsResultPageMain .item_name {
   font-weight: 600;
-  font-size: 24px;
+  font-size: clamp(1.2rem, 1.25vw, 1.3rem);
   margin-bottom: 6px;
   font-family: "pre-semibold";
   color: #2c2f33;
 }
 
 .recsResultPageMain .item_address {
-  font-size: 16px;
+  font-size: clamp(0.8rem, 0.8vw, 1rem);
   color: #b7bbcf;
   margin-bottom: 12px;
   font-family: "pre-medium";
 }
 
 .recsResultPageMain .item_benefit {
-  font-size: 16px;
+  font-size: clamp(0.75rem, 0.75vw, 0.9rem);
   background-color: #dbeeff;
   color: var(--main-color);
   border-radius: 12px;
@@ -169,8 +179,8 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  height: 140px;
-  width: 76px;
+  height: 100%;
+  width: clamp(3rem, 4vw, 4rem);
   border-radius: 20px;
   margin-left: 16px;
 }
@@ -187,16 +197,17 @@
 }
 
 .recsResultPageMain .list_footer {
-  padding-top: 60px;
+  padding-top: clamp(3vh, 5vh, 8vh);
 }
 
 .recsResultPageMain .list_footer-btn {
   color: white;
   background-color: var(--main-color);
-  width: 556px;
-  height: 96px;
+  width: 100%;
+  height: 12vh;
+  max-height: 88px;
   border-radius: 20px;
-  font-size: 24px;
+  font-size: clamp(1.2rem, 1.5vw, 2rem);
   font-family: "pre-semibold";
   font-weight: 600;
   cursor: pointer;
@@ -241,6 +252,10 @@
   background-color: #0056b3;
 }
 
+.recsResultPageMain > .recsResultPage {
+  margin-top: min(12vh, 89px);
+}
+
 /* ============= */
 /*  모바일 스타일  */
 /* ============= */
@@ -248,11 +263,15 @@
   .recsResultPageMain + header {
     display: none;
   }
+  .recsResultPageMain .recsResult_list {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .isMobile {
   width: 100%;
-  height: calc(100vh - 89px) !important;
+  height: calc(100vh - min(12vh, 89px)) !important;
   overflow: hidden !important;
 }
 
@@ -322,34 +341,42 @@
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  color: #e47a00;
+  color: var(--point-color-2-2);
   font-family: "pre-semibold";
 }
 
 .recsResultPageMain .isMobile .list_items {
-  overflow-y: hidden;
+  overflow-y: auto;
+  max-height: 45vh;
 }
 
 .recsResultPageMain .isMobile .list_item .item_number {
   font-size: 1.6rem;
+  flex: 0.1;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content {
   padding: 10px 20px;
+  flex: 1;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--point-color-2-2);
   width: 56px;
   height: 56px;
 }
 
 .recsResultPageMain .isMobile .list_item .item_dots {
-  width: 45px;
+  width: 45px !important;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content,
 .recsResultPageMain .isMobile .list_item .item_dots {
-  height: 100px;
+  min-height: 135px;
+  max-height: 145px;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_info .item_name {
@@ -603,4 +630,110 @@
 /* ============= */
 .recsResultPageMain .none {
   display: none;
+}
+
+/* ============= */
+/*    모달       */
+/* ============= */
+
+.recsResultPageMain .modal_content {
+  padding: 0 !important;
+  min-height: 38vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: space-between;
+  min-width: unset !important;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) {
+  width: 100%;
+  height: 40%;
+  min-height: 128px;
+
+  background-color: var(--point-color-2);
+  border-radius: 24px 24px 0 0;
+  padding: 24px 48px;
+  overflow: visible;
+  position: relative;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) > p {
+  width: 100%;
+  text-align: end;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) .icon {
+  cursor: pointer;
+  color: var(--black-5);
+  background-color: #ffffff8a;
+  display: inline-block;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  min-height: 24px;
+  padding: 12px;
+
+  border-radius: 50%;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) > div {
+  position: absolute;
+  width: 124px;
+  min-width: 124px;
+  height: 124px;
+  min-height: 124px;
+  top: 50%;
+  background-color: var(--black-0);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: var(--point-color-2-2);
+  border: 4px solid var(--point-color-2);
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) {
+  padding: 72px 48px 24px;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(1) {
+  font-family: "pre-semibold";
+  font-size: clamp(1.5rem, 1.5vw, 2rem);
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(2) {
+  margin: 12px 0 20px;
+  font-size: clamp(1.2rem, 1vw, 1.4rem);
+  color: var(--black-4);
+  font-family: "pre-regular";
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(3) {
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  color: var(--main-color);
+  background-color: #dbeeff;
+  font-family: "pre-regular";
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: inline;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(3) {
+  padding: 24px 48px;
+  height: 126px;
+  text-align: center;
+}
+
+.modal_background > div > div:nth-child(1) {
+  margin-bottom: unset !important;
+}
+
+.recsResultPageMain .item_name,
+.recsResultPageMain .item_address,
+.recsResultPageMain .item_benefit {
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis; /* ...으로 축약 */
 }

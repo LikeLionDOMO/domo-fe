@@ -11,7 +11,7 @@ header.pc-header {
 
 header.pc-header .nav {
   max-width: 1200px;
-  height: 88px;
+  height: min(12vh, 88px);
   margin: 0 auto;
   display: flex;
   align-items: center;

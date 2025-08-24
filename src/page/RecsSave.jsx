@@ -14,6 +14,80 @@ const RecsSave = () => {
   const componentRef = useRef();
   const location = useLocation();
   const recommendations = location.state?.recommendations || [];
+  // const recommendations = [
+  //   {
+  //     placeId: 1,
+  //     name: "토리코코로 별내본점",
+  //     address: "경기 남양주시 불암로 25-39 1층",
+  //     benefit: "민생회복 소비쿠폰",
+  //     lat: 37.641066,
+  //     lng: 127.12353,
+  //     category: "카페",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  //   {
+  //     placeId: 3,
+  //     name: "가게이름3",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.63941,
+  //     lng: 127.128,
+  //     category: "놀거리",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  //   {
+  //     placeId: 2,
+  //     name: "가게이름2",
+  //     address: "가게주소가게주소가게주소",
+  //     benefit: "혜택이름",
+  //     lat: 37.64514,
+  //     lng: 127.1189,
+  //     category: "음식점",
+  //   },
+  // ];
 
   const gotoHome = () => {
     if (window.confirm("일정이 사라집니다.\n홈 화면으로 이동하시겠습니까?")) {

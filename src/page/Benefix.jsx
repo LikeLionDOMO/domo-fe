@@ -1,72 +1,116 @@
-import { useCallback, useState, lazy, Suspense } from "react";
-import CustomSwiper from "../component/Swiper";
-const Filter = lazy(() => import("../component/Filter"));
-import Pagination from "../component/Pagination";
-import "./styles/benefix.css";
-import MainLayout from "../layout/MainLayout";
-import { useMedia } from "../hook/useMedia";
+import { useCallback, useState, lazy, Suspense, useEffect } from 'react';
+import CustomSwiper from '../component/Swiper';
+const Filter = lazy(() => import('../component/Filter'));
+import Pagination from '../component/Pagination';
+import './styles/benefix.css';
+import MainLayout from '../layout/MainLayout';
+import { useMedia } from '../hook/useMedia';
+import MobileSearchModal from '../component/MobileSearchModal';
+import { fetchBenefits } from '../api/config';
 
-// 임시 데이터 (2열 5행, 총 10개 이상)
-const dummyData = Array.from({ length: 25 }, (_, i) => ({
-  id: i + 1,
-  title: `혜택이름혜택이름혜택이름 ${i + 1}`,
-  region: "지역 이름",
-}));
-
-const ITEMS_PER_PAGE = 10; // 2열 5행
+const ITEMS_PER_PAGE = 20; // API 페이지 사이즈에 맞춤
 
 const Benefix = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const isMobile = useMedia().isMobile;
 
-  const handlePageClick = (event) => {
-    setCurrentPage(event.selected);
-  };
+  // API 데이터 상태
+  const [benefitsData, setBenefitsData] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const offset = currentPage * ITEMS_PER_PAGE;
-  const currentPageData = dummyData.slice(offset, offset + ITEMS_PER_PAGE);
-  const pageCount = Math.ceil(dummyData.length / ITEMS_PER_PAGE);
-
-  // ////////////////////////////
-  // FIXME: 검색창 인풋 값 입니다.
-  // 확인후 주석 지우고 상단으로 위치 옮기셔도 무방합니다.
-  // ////////////////////////////
-
-  // 검색창 값
-  const [displayValue, setDisplayValue] = useState("");
-
-  // 모바일 검색창 토글 상태
+  // 검색 및 필터 상태
+  const [displayValue, setDisplayValue] = useState('');
+  const [sortType, setSortType] = useState('benefit');
   const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
 
-  // 필터링 데이터
-  const [filterData, setFilterData] = useState("");
+  // 혜택 데이터 가져오기 함수
+  const loadBenefits = useCallback(
+    async (search = '', sort = 'benefit', page = 1) => {
+      setIsLoading(true);
+      setError(null);
 
-  // 자식(모바일, Pc) 컴포넌트에서 지역을 수정하는 함수
+      try {
+        const response = await fetchBenefits({ search, sort, page });
+
+        if (response.data) {
+          setBenefitsData(response.data.items || []);
+          setTotalPages(response.data.totalPages || 0);
+          setCurrentPage(page - 1); // API는 1부터, 컴포넌트는 0부터
+        }
+      } catch (err) {
+        setError('데이터를 가져오는데 실패했습니다.');
+        console.error('혜택 데이터 로드 실패:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    []
+  );
+
+  // 컴포넌트 마운트 시 초기 데이터 로드
+  useEffect(() => {
+    loadBenefits('', sortType, 1);
+  }, [loadBenefits, sortType]);
+
+  // 검색어 변경 시 데이터 재로드
+  useEffect(() => {
+    if (displayValue) {
+      loadBenefits(displayValue, sortType, 1);
+    } else {
+      loadBenefits('', sortType, 1);
+    }
+  }, [displayValue, sortType, loadBenefits]);
+
+  const handlePageClick = (event) => {
+    const page = event.selected + 1; // 컴포넌트는 0부터, API는 1부터
+    loadBenefits(displayValue, sortType, page);
+  };
+
   const onChangeDisplayValue = useCallback(
     (value) => {
       setDisplayValue(value);
       if (!isMobile) return;
-      // 모바일에서 검색창 닫기
-      setMobileSearchToggle(false); // 모바일 검색창 닫기
+      setMobileSearchToggle(false);
     },
     [isMobile]
   );
 
   const onChangeFilter = (value) => {
-    setFilterData(value);
-    // 필터링 로직을 여기에 추가할 수 있습니다.
-    // 예: setFilteredData(dummyData.filter(item => item.region.includes(value)));
+    setSortType(value);
+    // 정렬 변경 시 첫 페이지부터 다시 로드
+    loadBenefits(displayValue, value, 1);
   };
 
-  // 모바일 헤더에서 검색창 열기
   const onChangeMobileToggle = () => {
     setMobileSearchToggle(true);
   };
 
+  // API 데이터를 UI에 맞게 변환
+  const transformedData = benefitsData.map((item, index) => ({
+    id: item.placeId || index,
+    title: item.name || '혜택 이름',
+    region: displayValue || '지역 이름',
+    kind: `${item.discountPercent || 0}% 할인`,
+    discountPercent: item.discountPercent || 0,
+    popularity: item.popularity || 0,
+    address: item.address || '주소 정보 없음',
+    lat: item.lat || 0,
+    lng: item.lng || 0,
+  }));
+
   return (
     <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
       {/* 모바일 주소검색 */}
-      {mobileSearchToggle && isMobile && <div onChangeDisplayValue={onChangeDisplayValue}>모바일 검색창입니다 이는 컴포넌트로 수정</div>}
+      {mobileSearchToggle && isMobile && (
+        <MobileSearchModal
+          isOpen={mobileSearchToggle}
+          onClose={() => setMobileSearchToggle(false)}
+          onChangeDisplayValue={onChangeDisplayValue}
+          displayValue={displayValue}
+        />
+      )}
       <section className="slider-section">
         <CustomSwiper />
       </section>
@@ -77,20 +121,49 @@ const Benefix = () => {
         </h2>
 
         <Suspense fallback={<div>필터 로딩중...</div>}>
-          <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
+          <Filter
+            onChangeDisplayValue={onChangeDisplayValue}
+            display={displayValue}
+            onChangeFilter={onChangeFilter}
+            onChangeMobileToggle={setMobileSearchToggle}
+          />
         </Suspense>
 
-        <div className="benefits-grid">
-          {currentPageData.map((item) => (
+        {/* 에러 메시지 */}
+        {error && (
+          <div style={{ color: 'red', textAlign: 'center', padding: '20px' }}>
+            {error}
+          </div>
+        )}
+
+        {/* 혜택 목록 */}
+        <div className="benefits-list">
+          {transformedData.map((item) => (
             <div key={item.id} className="benefit-card">
-              <div className="card-image-placeholder"></div>
+              <div className="card-tags">
+                <span className="tag-blue">{item.region}</span>
+                <span className="tag-yellow">{item.kind}</span>
+              </div>
               <p className="card-title">{item.title}</p>
-              <span className="card-region">{item.region}</span>
             </div>
           ))}
         </div>
 
-        <Pagination pageCount={pageCount} onPageChange={handlePageClick} currentPage={currentPage} />
+        {/* 데이터가 없을 때 메시지 */}
+        {!isLoading && transformedData.length === 0 && !error && (
+          <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
+            검색 결과가 없습니다.
+          </div>
+        )}
+
+        {/* 페이지네이션 */}
+        {totalPages > 1 && (
+          <Pagination
+            pageCount={totalPages}
+            onPageChange={handlePageClick}
+            currentPage={currentPage}
+          />
+        )}
       </div>
     </MainLayout>
   );
