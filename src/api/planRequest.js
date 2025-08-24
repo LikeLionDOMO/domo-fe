@@ -27,7 +27,7 @@ export const planRequest = async (data) => {
         results.push(null);
       }
     }
-    return results;
+    return results.filter(Boolean);
   } catch (err) {
     console.error(err);
     throw err;

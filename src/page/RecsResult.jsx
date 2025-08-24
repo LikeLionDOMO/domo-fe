@@ -11,11 +11,12 @@ import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
+import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
   const location = useLocation();
-  // const [recommendations, setRecommendations] = useState(mapMockData);
-  const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
+  const [recommendations, setRecommendations] = useState(mapMockData);
+  // const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
   const [popoverData, setPopoverData] = useState(null);
 
   // 튜토리얼 단계
@@ -130,6 +131,10 @@ const RecsResult = () => {
         lat: prev.lat,
         lng: prev.lng,
       });
+
+      if (newRec === null) {
+        return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
+      }
       setRecommendations((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
       handleClosePopover();
     } catch (err) {
@@ -245,7 +250,7 @@ const RecsResult = () => {
                 setFirstVisit("3");
                 localStorage.setItem("firstVisit", "3");
               }}>
-              <BoxButton bgColor="--point-color-1" color="--black-6">
+              <BoxButton bgColor="--point-color-1" color="--black-6" padding="12px 16px">
                 설명 건너뛰기
               </BoxButton>
             </div>
@@ -364,7 +369,7 @@ const RecsResult = () => {
                   setFirstVisit("3");
                   localStorage.setItem("firstVisit", "3");
                 }}>
-                <BoxButton bgColor="--point-color-1" color="--black-6">
+                <BoxButton padding="12px 16px" bgColor="--point-color-1" color="--black-6">
                   설명 건너뛰기
                 </BoxButton>
               </div>

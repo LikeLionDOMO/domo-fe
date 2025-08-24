@@ -451,8 +451,32 @@
   position: absolute;
   bottom: 3vw;
   right: 3vw;
-  width: 5vw;
-  height: 2.5vw;
+  min-width: 5vw;
+  min-height: 2.5vw;
+}
+
+.recsResultPageMain .recsResultPage .list_items.firstVisitModeBg + .list_footer .list_footer-btn {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  filter: brightness(0.5) grayscale(0.2);
+  opacity: 0.7;
+  width: 30%;
+  max-width: 560px;
+  bottom: 3vw;
+  left: 40px;
+}
+
+.recsResultPageMain .recsResultPage .list_items.firstVisitModeBg + .list_footer .list_footer-btn {
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  filter: unset;
+  opacity: unset;
+  width: 30%;
+  max-width: 560px;
+  bottom: 3vw;
+  left: 40px;
 }
 
 /* PC 튜토리얼 설명 공통 */
