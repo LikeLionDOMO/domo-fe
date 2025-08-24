@@ -101,6 +101,7 @@
   font-size: 40px;
   font-weight: 400;
   margin-right: 16px;
+  flex: 0.01;
   color: var(--main-color);
   font-family: "pre-regular";
 }
@@ -108,7 +109,7 @@
 .recsResultPageMain .item_card {
   cursor: pointer;
   display: flex;
-  flex-grow: 1;
+  flex: 0.95;
   background-color: white;
   border: 1px solid #eee;
   border-radius: 20px;
@@ -337,7 +338,6 @@
   height: 56px;
   border-radius: 12px;
   cursor: pointer;
-
   font-size: 12px;
   font-weight: 600;
   color: var(--point-color-2-2);
@@ -351,6 +351,7 @@
 
 .recsResultPageMain .isMobile .list_item .item_number {
   font-size: 1.6rem;
+  flex: 0.1;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content {
@@ -368,7 +369,7 @@
 }
 
 .recsResultPageMain .isMobile .list_item .item_dots {
-  width: 45px;
+  width: 45px !important;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content,

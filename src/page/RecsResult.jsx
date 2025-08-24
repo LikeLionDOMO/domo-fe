@@ -211,7 +211,7 @@ const RecsResult = () => {
                 <br />
                 모아왔어요!
               </p>
-              <button onClick={onChangeReverse} className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+              <button onClick={onChangeReverse} className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""} flexCenter`}>
                 되돌리기
                 <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
                   실수해도 놀라지 마세요!
@@ -349,7 +349,9 @@ const RecsResult = () => {
                     <br />
                     모아왔어요!
                   </p>
-                  <button onClick={onChangeReverse} className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+                  <button
+                    onClick={onChangeReverse}
+                    className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""} flexCenter`}>
                     되돌리기
                     <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
                       실수해도 놀라지 마세요!
