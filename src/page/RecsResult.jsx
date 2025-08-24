@@ -172,6 +172,19 @@ const RecsResult = () => {
     }
   };
 
+  console.log(recommendations);
+
+  if (recommendations.length === 0) {
+    return (
+      <>
+        <div className="recsResult_fallback">
+          <p>추천 정보를 불러오지 못했습니다.</p>
+          <button onClick={() => nav("/recs/info")}>다시 추천받기</button>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="recsResultPageMain">
       {isPc && <PcHeader />}
