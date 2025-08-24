@@ -1,16 +1,18 @@
-import { useCallback, useState, lazy, Suspense } from "react";
-import CustomSwiper from "../component/Swiper";
-const Filter = lazy(() => import("../component/Filter"));
-import Pagination from "../component/Pagination";
-import "./styles/benefix.css";
-import MainLayout from "../layout/MainLayout";
-import { useMedia } from "../hook/useMedia";
+import { useCallback, useState, lazy, Suspense } from 'react';
+import CustomSwiper from '../component/Swiper';
+const Filter = lazy(() => import('../component/Filter'));
+import Pagination from '../component/Pagination';
+import './styles/benefix.css';
+import MainLayout from '../layout/MainLayout';
+import { useMedia } from '../hook/useMedia';
+import MobileSearchModal from '../component/MobileSearchModal';
 
 // 임시 데이터 (2열 5행, 총 10개 이상)
 const dummyData = Array.from({ length: 25 }, (_, i) => ({
   id: i + 1,
   title: `혜택이름혜택이름혜택이름 ${i + 1}`,
-  region: "지역 이름",
+  region: '지역 이름',
+  kind: '지역 종류',
 }));
 
 const ITEMS_PER_PAGE = 10; // 2열 5행
@@ -33,13 +35,13 @@ const Benefix = () => {
   // ////////////////////////////
 
   // 검색창 값
-  const [displayValue, setDisplayValue] = useState("");
+  const [displayValue, setDisplayValue] = useState('');
 
   // 모바일 검색창 토글 상태
   const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
 
   // 필터링 데이터
-  const [filterData, setFilterData] = useState("");
+  const [filterData, setFilterData] = useState('');
 
   // 자식(모바일, Pc) 컴포넌트에서 지역을 수정하는 함수
   const onChangeDisplayValue = useCallback(
@@ -66,7 +68,14 @@ const Benefix = () => {
   return (
     <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
       {/* 모바일 주소검색 */}
-      {mobileSearchToggle && isMobile && <div onChangeDisplayValue={onChangeDisplayValue}>모바일 검색창입니다 이는 컴포넌트로 수정</div>}
+      {mobileSearchToggle && isMobile && (
+        <MobileSearchModal
+          isOpen={mobileSearchToggle}
+          onClose={() => setMobileSearchToggle(false)}
+          onChangeDisplayValue={onChangeDisplayValue}
+          displayValue={displayValue}
+        />
+      )}
       <section className="slider-section">
         <CustomSwiper />
       </section>
@@ -77,20 +86,33 @@ const Benefix = () => {
         </h2>
 
         <Suspense fallback={<div>필터 로딩중...</div>}>
-          <Filter onChangeDisplayValue={onChangeDisplayValue} display={displayValue} onChangeFilter={onChangeFilter} />
+          <Filter
+            onChangeDisplayValue={onChangeDisplayValue}
+            display={displayValue}
+            onChangeFilter={onChangeFilter}
+            onChangeMobileToggle={setMobileSearchToggle}
+          />
         </Suspense>
 
-        <div className="benefits-grid">
+        {/* 혜택 목록 */}
+        <div className="benefits-list">
           {currentPageData.map((item) => (
             <div key={item.id} className="benefit-card">
-              <div className="card-image-placeholder"></div>
+              <div className="card-tags">
+                <span className="tag-blue">{item.region}</span>
+                <span className="tag-yellow">{item.kind}</span>
+              </div>
               <p className="card-title">{item.title}</p>
-              <span className="card-region">{item.region}</span>
             </div>
           ))}
         </div>
 
-        <Pagination pageCount={pageCount} onPageChange={handlePageClick} currentPage={currentPage} />
+        {/* 페이지네이션 */}
+        <Pagination
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          currentPage={currentPage}
+        />
       </div>
     </MainLayout>
   );
