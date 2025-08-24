@@ -278,12 +278,15 @@ const RecsResult = () => {
                   key={rec.id}
                   onClick={() => {
                     setCenter({ lat: rec.lat, lng: rec.lng });
-                    onClickModal(rec);
                   }}
                   className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                   <div className="item_number">{index + 1}</div>
                   <div className="item_card">
-                    <div className="item_content">
+                    <div
+                      className="item_content"
+                      onClick={() => {
+                        onClickModal(rec);
+                      }}>
                       <div className="item_img flexCenter">
                         {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
                         {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
@@ -433,7 +436,11 @@ const RecsResult = () => {
                       className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
                       <div className="item_card">
-                        <div className="item_content">
+                        <div
+                          className="item_content"
+                          onClick={() => {
+                            onClickModal(rec);
+                          }}>
                           <div className="item_img">
                             {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
                             {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
