@@ -14,9 +14,15 @@ import { locationFinder } from "./locationFinder";
  */
 export const planRequest = async (data) => {
   try {
-    const response = await axios.post(`${API_URL}/api/plan/full-ids`, data).catch((e) => {
-      throw e;
-    });
+    const response = await axios
+      .post(`${API_URL}/api/plan/full-ids`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .catch((e) => {
+        throw e;
+      });
     const uuidData = response.data;
     const results = [];
 

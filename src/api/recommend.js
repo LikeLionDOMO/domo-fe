@@ -5,16 +5,24 @@ import { locationFinder } from "./locationFinder";
 export const recommend = async (data) => {
   const recsInfo = JSON.parse(localStorage.getItem("recsInfo")) || null;
   try {
-    const response = await axios.post(`${API_URL}/api/recommend/again`, {
-      address: recsInfo.address, // 사용자가 입력한 주소
-      budgetStart: recsInfo.budgetStart, // 사용자가 입력한 예산 시작 값
-      budgetEnd: recsInfo.budgetEnd, // 사용자가 입력한 예산 끝 값
-      subject: recsInfo.subject, // 사용자가 선택한 키워드 배열
-      code: data.placeId, // 반려당한 장소의 placeId
-      exclude: data.exclude || [], // 현재 일정에 포함된 장소 ID 배열
-      lat: data.lat, // 반려당한 장소의 이전장소 위도
-      lng: data.lng, // 반려당한 장소의 이전장소 경도
-    });
+    const response = await axios.post(
+      `${API_URL}/api/recommend/again`,
+      {
+        address: recsInfo.address, // 사용자가 입력한 주소
+        budgetStart: recsInfo.budgetStart, // 사용자가 입력한 예산 시작 값
+        budgetEnd: recsInfo.budgetEnd, // 사용자가 입력한 예산 끝 값
+        subject: recsInfo.subject, // 사용자가 선택한 키워드 배열
+        code: data.placeId, // 반려당한 장소의 placeId
+        exclude: data.exclude || [], // 현재 일정에 포함된 장소 ID 배열
+        lat: data.lat, // 반려당한 장소의 이전장소 위도
+        lng: data.lng, // 반려당한 장소의 이전장소 경도
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const resData = locationFinder(response.data["1"]);
     return resData;
   } catch (error) {
