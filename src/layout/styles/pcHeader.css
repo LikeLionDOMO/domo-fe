@@ -16,20 +16,21 @@ header.pc-header .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 20px; /* Add padding for mobile view */
 }
 
 header.pc-header .logo p {
   color: #0052e9;
   font-size: 40px;
   font-weight: bold;
-  font-family: "dxpop";
+  font-family: 'dxpop';
 }
 
 header.pc-header .navList {
   list-style: none;
   display: flex;
   gap: 40px;
-  font-family: "pre-semibold";
+  font-family: 'pre-semibold';
 }
 
 header.pc-header .navList a {
@@ -46,4 +47,42 @@ header.pc-header .navList a:hover {
 header.pc-header .navList a.active {
   color: #0052e9;
   font-weight: 600;
+}
+
+@media (max-width: 500px) {
+  header {
+    width: 100%;
+    z-index: 100;
+    box-shadow: none;
+    border: none;
+    height: 40px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .navList {
+    display: none;
+  }
+
+  .sub-logo {
+    display: block; /* Show the sub-logo */
+    font-size: 12px;
+    font-weight: 500;
+    color: #6e738c;
+    font-family: 'pre-medium';
+  }
+
+  .logo-text {
+    font-size: 22px; /* Adjust font size for mobile */
+    margin-right: 100px;
+  }
 }

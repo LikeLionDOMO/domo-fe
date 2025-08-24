@@ -1,14 +1,28 @@
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMedia } from '../hook/useMedia';
+import { useState, useEffect } from 'react';
 
 import 'swiper/css';
 import './styles/home.css';
 import MainLayout from '../layout/MainLayout';
 import CustomSwiper from '../component/Swiper';
+import homeData from '../data/home.json';
 
 const Home = () => {
   const { isMobile } = useMedia();
+  const [randomCourses, setRandomCourses] = useState([]);
+
+  // 12개 중 랜덤하게 8개 선택하는 함수
+  const selectRandomCourses = () => {
+    const shuffled = [...homeData].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 8);
+  };
+
+  // 컴포넌트 마운트 시 랜덤 코스 선택
+  useEffect(() => {
+    setRandomCourses(selectRandomCourses());
+  }, []);
 
   return (
     <MainLayout>
@@ -31,17 +45,22 @@ const Home = () => {
               slidesOffsetAfter={20}
               slidesOffsetBefore={20}
             >
-              {/* 모바일 스와이퍼 */}
-              {[...Array(8)].map((_, index) => (
-                <SwiperSlide key={index} className="grid-swiper-slide">
+              {/* 모바일 스와이퍼 - 랜덤 데이터 사용 */}
+              {randomCourses.map((course, index) => (
+                <SwiperSlide
+                  key={course.course_name}
+                  className="grid-swiper-slide"
+                >
                   <div className="grid-item">
                     <div className="grid-item-image" />
                     <div className="grid-item-info">
-                      <h4>코스이름</h4>
-                      <p>짧은 설명 짧은 설명</p>
+                      <h4>{course.course_name}</h4>
+                      <p>{course.short_description}</p>
                       <div className="tags">
-                        <span className="tag-blue">지역 이름</span>
-                        <span className="tag-yellow">놀거리 키워드 하나</span>
+                        <span className="tag-blue">{course.region_name}</span>
+                        <span className="tag-yellow">
+                          {course.activity_keyword}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -50,15 +69,18 @@ const Home = () => {
             </Swiper>
           ) : (
             <div className="grid-container">
-              {[...Array(8)].map((_, index) => (
-                <div className="grid-item" key={index}>
+              {/* PC 그리드 - 랜덤 데이터 사용 */}
+              {randomCourses.map((course, index) => (
+                <div className="grid-item" key={course.course_name}>
                   <div className="grid-item-image" />
                   <div className="grid-item-info">
-                    <h4>코스이름</h4>
-                    <p>짧은 설명 짧은 설명</p>
+                    <h4>{course.course_name}</h4>
+                    <p>{course.short_description}</p>
                     <div className="tags">
-                      <span className="tag-blue">지역 이름</span>
-                      <span className="tag-yellow">놀거리 키워드 하나</span>
+                      <span className="tag-blue">{course.region_name}</span>
+                      <span className="tag-yellow">
+                        {course.activity_keyword}
+                      </span>
                     </div>
                   </div>
                 </div>
