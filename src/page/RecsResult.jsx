@@ -9,12 +9,12 @@ import { useMedia } from "../hook/useMedia";
 import { Resizable } from "re-resizable";
 import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGamepad, faMugHot, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
 
 const RecsResult = () => {
   const location = useLocation();
-  const nav = useNavigate();
+  // const [recommendations, setRecommendations] = useState(mapMockData);
   const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
   const [popoverData, setPopoverData] = useState(null);
 
@@ -29,6 +29,11 @@ const RecsResult = () => {
   const isPc = useMedia().isPc;
 
   const [center, setCenter] = useState({ lat: recommendations[0].lat, lng: recommendations[0].lng });
+
+  const [isModal, setIsModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+  const nav = useNavigate();
 
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
@@ -177,14 +182,59 @@ const RecsResult = () => {
 
   console.log(recommendations);
 
+  const onClickModal = (rec) => {
+    setModalData(rec);
+    setIsModal(true);
+  };
+
   if (recommendations.length === 0) {
     alert("추천 정보를 불러오지 못했습니다.");
     return nav("/recs/info");
   }
 
+  console.log("modalData" + modalData, isModal);
   return (
     <div className="recsResultPageMain">
       {isPc && <PcHeader />}
+      {isModal && (
+        <Modal>
+          <div className="modal_content_">
+            {/* 배너 */}
+            <div>
+              <p>
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  onClick={() => {
+                    setModalData(null);
+                    setIsModal(false);
+                  }}
+                  className="icon"
+                />
+              </p>
+              <div>
+                {modalData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {modalData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {modalData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+              </div>
+            </div>
+
+            {/* 내용 */}
+            <div>
+              <p>{modalData.name}</p>
+              <p>{modalData.address}</p>
+              <p>{modalData.benefit}</p>
+            </div>
+            <div>
+              <a href={`https://map.naver.com/p/search/${modalData.address} ${modalData.name}`} target="_blank" rel="noopener noreferrer">
+                <BoxButton padding="0 24px" bgColor="--main-color" color="--black-0">
+                  자세히 보기
+                </BoxButton>
+              </a>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       {isPc && (
         <section className="recsResultPage">
           {firstVisitMode && (
@@ -228,13 +278,13 @@ const RecsResult = () => {
                   key={rec.id}
                   onClick={() => {
                     setCenter({ lat: rec.lat, lng: rec.lng });
+                    onClickModal(rec);
                   }}
                   className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                   <div className="item_number">{index + 1}</div>
                   <div className="item_card">
                     <div className="item_content">
                       <div className="item_img flexCenter">
-                        {/* FIXME: 카테고리 별로 아이콘 정하게 하기 */}
                         {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
                         {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
                         {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
@@ -378,13 +428,13 @@ const RecsResult = () => {
                       key={rec.id}
                       onClick={() => {
                         setCenter({ lat: rec.lat, lng: rec.lng });
+                        onClickModal(rec);
                       }}
                       className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
                       <div className="item_card">
                         <div className="item_content">
                           <div className="item_img">
-                            {/* FIXME: 카테고리 별로 아이콘 정하게 하기 */}
                             {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
                             {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
                             {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}

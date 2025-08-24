@@ -142,6 +142,7 @@
 }
 
 .recsResultPageMain .item_info {
+  min-width: 0;
   flex-grow: 1;
 }
 
@@ -629,4 +630,110 @@
 /* ============= */
 .recsResultPageMain .none {
   display: none;
+}
+
+/* ============= */
+/*    모달       */
+/* ============= */
+
+.recsResultPageMain .modal_content {
+  padding: 0 !important;
+  min-height: 38vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: space-between;
+  min-width: unset !important;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) {
+  width: 100%;
+  height: 40%;
+  min-height: 128px;
+
+  background-color: var(--point-color-2);
+  border-radius: 24px 24px 0 0;
+  padding: 24px 48px;
+  overflow: visible;
+  position: relative;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) > p {
+  width: 100%;
+  text-align: end;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) .icon {
+  cursor: pointer;
+  color: var(--black-5);
+  background-color: #ffffff8a;
+  display: inline-block;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  min-height: 24px;
+  padding: 12px;
+
+  border-radius: 50%;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(1) > div {
+  position: absolute;
+  width: 124px;
+  min-width: 124px;
+  height: 124px;
+  min-height: 124px;
+  top: 50%;
+  background-color: var(--black-0);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  color: var(--point-color-2-2);
+  border: 4px solid var(--point-color-2);
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) {
+  padding: 72px 48px 24px;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(1) {
+  font-family: "pre-semibold";
+  font-size: clamp(1.5rem, 1.5vw, 2rem);
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(2) {
+  margin: 12px 0 20px;
+  font-size: clamp(1.2rem, 1vw, 1.4rem);
+  color: var(--black-4);
+  font-family: "pre-regular";
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(2) > p:nth-child(3) {
+  font-size: clamp(1rem, 1vw, 1.2rem);
+  color: var(--main-color);
+  background-color: #dbeeff;
+  font-family: "pre-regular";
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: inline;
+}
+
+.recsResultPageMain .modal_content_ > div:nth-child(3) {
+  padding: 24px 48px;
+  height: 126px;
+  text-align: center;
+}
+
+.modal_background > div > div:nth-child(1) {
+  margin-bottom: unset !important;
+}
+
+.recsResultPageMain .item_name,
+.recsResultPageMain .item_address,
+.recsResultPageMain .item_benefit {
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden; /* 넘치는 텍스트 숨김 */
+  text-overflow: ellipsis; /* ...으로 축약 */
 }
