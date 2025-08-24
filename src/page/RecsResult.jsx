@@ -1,3 +1,13 @@
+// Haversine 거리 계산 함수 (미터)
+function distanceInMeterByHaversine(lat1, lng1, lat2, lng2) {
+  const radius = 6371000; // m
+  const toRadian = Math.PI / 180;
+  const deltaLat = (lat2 - lat1) * toRadian;
+  const deltaLng = (lng2 - lng1) * toRadian;
+  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
+  const c = 2 * Math.asin(Math.sqrt(a));
+  return radius * c;
+}
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import "./styles/recsResult.css";
@@ -11,7 +21,7 @@ import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
-import { mapMockData } from "../data/mockData";
+// import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
   const location = useLocation();
@@ -33,6 +43,13 @@ const RecsResult = () => {
 
   const [isModal, setIsModal] = useState(false);
   const [modalData, setModalData] = useState(null);
+
+  // 임시저장데이터 전체
+  const [tempDatas, setTempDatas] = useState();
+  // 임시저장 데이터
+  const [tempData, setTempData] = useState();
+  // 사용자 동의 구하는 모달창
+  const [agreeModal, setAgreeModal] = useState(false);
 
   const nav = useNavigate();
 
@@ -119,28 +136,56 @@ const RecsResult = () => {
 
   // 다시 찾기
   const onClickRecommend = async (data) => {
-    onChangeRecommendations();
-    const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
-    const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
-    const prev = idx > 0 ? recommendations[idx - 1] : data;
-    try {
-      const { recommend } = await import("../api/recommend");
-      const newRec = await recommend({
-        ...data,
-        exclude: excludeIds,
-        lat: prev.lat,
-        lng: prev.lng,
-      });
+    // const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
+    // const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
+    // const prev = idx > 0 ? recommendations[idx - 1] : data;
+    // try {
+    //   const { recommend } = await import("../api/recommend");
+    //   const newRec = await recommend({
+    //     ...data,
+    //     exclude: excludeIds,
+    //     lat: prev.lat,
+    //     lng: prev.lng,
+    //   });
+    //   if (newRec === null) {
+    //     return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
+    //   }
+    //   // 전체 데이터
+    //   setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+    //   // 거리 계산
+    //   const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
+    //   const prev = idx > 0 ? recommendations[idx - 1] : null;
+    //   const next = idx < recommendations.length - 1 ? recommendations[idx + 1] : null;
+    //   // 신규 장소 기준 거리 (미터)
+    //   let newDistance = 0;
+    //   if (prev) newDistance += distanceInMeterByHaversine(prev.lat, prev.lng, newRec.lat, newRec.lng);
+    //   if (next) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, next.lat, next.lng);
+    //   // 기존 장소 기준 거리 (미터)
+    //   let oldDistance = 0;
+    //   if (prev) oldDistance += distanceInMeterByHaversine(prev.lat, prev.lng, data.lat, data.lng);
+    //   if (next) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, next.lat, next.lng);
+    //   // 단일 데이터
+    //   setTempData({
+    //     newData: newRec,
+    //     oldData: data,
+    //     newDistance,
+    //     oldDistance,
+    //   });
+    //   handleClosePopover();
+    //   setAgreeModal(true);
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    // }
+    // setAgreeModal(true);
+  };
 
-      if (newRec === null) {
-        return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
-      }
-      setRecommendations((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
-      handleClosePopover();
-    } catch (err) {
-      console.log(err);
-      alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
-    }
+  // 교체 확인
+  const onClickReplace = () => {
+    onChangeRecommendations();
+    setRecommendations(tempDatas);
+    setTempData(null);
+    setAgreeModal(false);
   };
 
   // 삭제하기
@@ -235,6 +280,54 @@ const RecsResult = () => {
                   자세히 보기
                 </BoxButton>
               </a>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {agreeModal && (
+        <Modal>
+          <div className="modal_content_2">
+            <p>
+              기존 장소와 새로운 장소의 이동거리 차이가
+              <br />
+              <span style={{ color: "var(--main-color)" }}>
+                {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) < 1
+                  ? "별로 없어요!"
+                  : tempData &&
+                    `${tempData.newDistance - tempData.oldDistance > 0 ? "+" : "-"}${Math.abs(tempData.newDistance - tempData.oldDistance).toFixed(0)}m`}
+              </span>
+              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "정도 차이가 생겨요!"}
+            </p>
+            <div>
+              <div>
+                {modalData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {modalData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {modalData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+              </div>
+              <div>
+                <p>{tempData.newData.name}</p>
+                <p>{tempData.newData.address}</p>
+                <p>{tempData.newData.benefit}</p>
+              </div>
+              <div className="flexBetween">
+                <div
+                  onClick={() => {
+                    setTempData(null);
+                    setTempDatas(null);
+                    setAgreeModal(false);
+                  }}
+                  className="flexCenter">
+                  최소하기
+                </div>
+                <div
+                  onClick={() => {
+                    onClickReplace();
+                  }}
+                  className="flexCenter">
+                  추가하기
+                </div>
+              </div>
             </div>
           </div>
         </Modal>
