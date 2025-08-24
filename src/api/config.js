@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// API 기본 설정 - HTTP로 시도
-const API_BASE_URL = 'http://domo.syu-likelion.org';
+// API 기본 설정
+const API_BASE_URL = 'https://domo.syu-likelion.org';
 
 // axios 인스턴스 생성
 const apiClient = axios.create({
