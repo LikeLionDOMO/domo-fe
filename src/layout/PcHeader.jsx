@@ -1,12 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../layout/styles/pcHeader.css";
 
 const PcHeader = () => {
+  const nav = useNavigate();
   return (
     <header className="pc-header">
       <nav className="nav">
         <div className="logo">
-          <p>DOMO</p>
+          <p onClick={() => nav("/")} style={{ cursor: "pointer" }}>
+            DOMO
+          </p>
         </div>
         <ul className="navList">
           <li>

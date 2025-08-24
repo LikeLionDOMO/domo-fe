@@ -15,8 +15,8 @@ import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
   const location = useLocation();
-  const [recommendations, setRecommendations] = useState(mapMockData);
-  // const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
+  // const [recommendations, setRecommendations] = useState(mapMockData);
+  const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
   const [popoverData, setPopoverData] = useState(null);
 
   // 튜토리얼 단계

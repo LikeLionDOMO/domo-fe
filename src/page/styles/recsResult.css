@@ -581,10 +581,6 @@
   transform: translateY(-50%);
   width: 26%;
   font-size: 0.8rem;
-  background-color: var(--point-color-1);
-  line-height: 0;
-  border-radius: 12px;
-  padding: 1rem;
 }
 
 /* 모바일 튜토리얼 설명 위치 */
