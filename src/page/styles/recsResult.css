@@ -62,6 +62,8 @@
   border: none;
   max-width: 124px;
   max-height: 56px;
+  padding: 2rem 0;
+  width: 100%;
   border-radius: 12px;
   cursor: pointer;
   font-size: clamp(0.8rem, 1.2vw, 1.2rem);
@@ -335,8 +337,7 @@
   height: 56px;
   border-radius: 12px;
   cursor: pointer;
-  padding: 2rem 0;
-  width: 100%;
+
   font-size: 12px;
   font-weight: 600;
   color: var(--point-color-2-2);
@@ -344,7 +345,8 @@
 }
 
 .recsResultPageMain .isMobile .list_items {
-  overflow-y: hidden;
+  overflow-y: auto;
+  max-height: 45vh;
 }
 
 .recsResultPageMain .isMobile .list_item .item_number {
@@ -353,6 +355,7 @@
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content {
   padding: 10px 20px;
+  flex: 1;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_img {
@@ -370,7 +373,8 @@
 
 .recsResultPageMain .isMobile .list_item .item_card .item_content,
 .recsResultPageMain .isMobile .list_item .item_dots {
-  height: 100px;
+  min-height: 135px;
+  max-height: 145px;
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_info .item_name {
