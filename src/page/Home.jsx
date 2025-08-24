@@ -52,7 +52,14 @@ const Home = () => {
                   className="grid-swiper-slide"
                 >
                   <div className="grid-item">
-                    <div className="grid-item-image" />
+                    <div
+                      className="grid-item-image"
+                      style={{
+                        backgroundImage: `url(${course.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }}
+                    />
                     <div className="grid-item-info">
                       <h4>{course.course_name}</h4>
                       <p>{course.short_description}</p>
@@ -72,7 +79,14 @@ const Home = () => {
               {/* PC 그리드 - 랜덤 데이터 사용 */}
               {randomCourses.map((course, index) => (
                 <div className="grid-item" key={course.course_name}>
-                  <div className="grid-item-image" />
+                  <div
+                    className="grid-item-image"
+                    style={{
+                      backgroundImage: `url(${course.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  />
                   <div className="grid-item-info">
                     <h4>{course.course_name}</h4>
                     <p>{course.short_description}</p>
@@ -94,7 +108,7 @@ const Home = () => {
             </button>
           </Link>
 
-          {/* 임시로 footer 위쪽에 공간을 만들어 둠 */}
+          {/* footer 위쪽에 공간 만들기 */}
           {isMobile && <div style={{ height: '48px' }} />}
         </section>
       </main>
