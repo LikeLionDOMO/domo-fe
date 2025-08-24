@@ -335,6 +335,8 @@
   height: 56px;
   border-radius: 12px;
   cursor: pointer;
+  padding: 2rem 0;
+  width: 100%;
   font-size: 12px;
   font-weight: 600;
   color: var(--point-color-2-2);
