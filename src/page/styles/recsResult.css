@@ -66,13 +66,13 @@
   cursor: pointer;
   font-size: clamp(0.8rem, 1.2vw, 1.2rem);
   font-weight: 600;
-  color: #e47a00;
+  color: var(--point-color-2-2);
   font-family: "pre-semibold";
 }
 
 .recsResultPageMain .list_header_backBtn:hover {
-  background-color: #ffd447;
-  color: #cb6c00;
+  background-color: var(--point-color-2);
+  color: var(--point-color-2-2);
 }
 
 .recsResultPageMain .list_items {
@@ -337,7 +337,7 @@
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-  color: #e47a00;
+  color: var(--point-color-2-2);
   font-family: "pre-semibold";
 }
 
@@ -354,6 +354,10 @@
 }
 
 .recsResultPageMain .isMobile .list_item .item_card .item_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--point-color-2-2);
   width: 56px;
   height: 56px;
 }
