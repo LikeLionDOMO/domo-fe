@@ -28,6 +28,8 @@ const RecsResult = () => {
 
   const isPc = useMedia().isPc;
 
+  const [center, setCenter] = useState({ lat: recommendations[0].lat, lng: recommendations[0].lng });
+
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
   // firstVisit 2 - 결정하기
@@ -222,7 +224,12 @@ const RecsResult = () => {
             </div>
             <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
               {recommendations?.map((rec, index) => (
-                <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                <li
+                  key={rec.id}
+                  onClick={() => {
+                    setCenter({ lat: rec.lat, lng: rec.lng });
+                  }}
+                  className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                   <div className="item_number">{index + 1}</div>
                   <div className="item_card">
                     <div className="item_content">
@@ -267,7 +274,7 @@ const RecsResult = () => {
 
           {/* naver map */}
           <div className="recsResult_map">
-            <NaverMap recommendations={recommendations} />
+            <NaverMap center={center} recommendations={recommendations} />
           </div>
 
           {/* 팝업 */}
@@ -367,7 +374,12 @@ const RecsResult = () => {
                 </span>
                 <ul className={`list_items`}>
                   {recommendations?.map((rec, index) => (
-                    <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                    <li
+                      key={rec.id}
+                      onClick={() => {
+                        setCenter({ lat: rec.lat, lng: rec.lng });
+                      }}
+                      className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
                       <div className="item_card">
                         <div className="item_content">
@@ -424,7 +436,7 @@ const RecsResult = () => {
 
           {/* naver map */}
           <div className="recsResult_map">
-            <NaverMap recommendations={recommendations} />
+            <NaverMap center={center} recommendations={recommendations} />
           </div>
         </section>
       )}
