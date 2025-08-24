@@ -10,6 +10,7 @@ import { Resizable } from "re-resizable";
 import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../component/modal";
 
 const RecsResult = () => {
   const location = useLocation();
@@ -175,14 +176,8 @@ const RecsResult = () => {
   console.log(recommendations);
 
   if (recommendations.length === 0) {
-    return (
-      <>
-        <div className="recsResult_fallback">
-          <p>추천 정보를 불러오지 못했습니다.</p>
-          <button onClick={() => nav("/recs/info")}>다시 추천받기</button>
-        </div>
-      </>
-    );
+    alert("추천 정보를 불러오지 못했습니다.");
+    return nav("/recs/info");
   }
 
   return (
