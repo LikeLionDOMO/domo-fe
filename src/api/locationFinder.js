@@ -10,14 +10,14 @@ export const locationFinder = async (code) => {
   try {
     const response = await axios.get(`${API_URL}/api/place?code=${code}`);
     return {
-      placeId: response.data.placeId,
-      name: response.data.name,
-      address: response.data.address,
-      benefit: response.data.benefit,
-      discountPercent: response.data.discountPercent,
-      lat: response.data.lat,
-      lng: response.data.lng,
-      category: response.data.category,
+      placeId: response.data.data.placeId,
+      name: response.data.data.name,
+      address: response.data.data.address,
+      benefit: response.data.data.benefit,
+      discountPercent: response.data.data.discountPercent,
+      lat: response.data.data.lat,
+      lng: response.data.data.lng,
+      category: response.data.data.category,
     };
   } catch (error) {
     console.error("매장 조회 실패:", error);
