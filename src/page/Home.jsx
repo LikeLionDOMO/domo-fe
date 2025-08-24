@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useMedia } from '../hook/useMedia';
 import { useState, useEffect } from 'react';
@@ -12,6 +12,7 @@ import homeData from '../data/home.json';
 const Home = () => {
   const { isMobile } = useMedia();
   const [randomCourses, setRandomCourses] = useState([]);
+  const navigate = useNavigate();
 
   // 12개 중 랜덤하게 8개 선택하는 함수
   const selectRandomCourses = () => {
@@ -23,6 +24,11 @@ const Home = () => {
   useEffect(() => {
     setRandomCourses(selectRandomCourses());
   }, []);
+
+  // 이미지 클릭 시 RecsResult 페이지로 이동하는 함수
+  const handleImageClick = (course) => {
+    navigate('/recs/result', { state: { recommendations: course.data } });
+  };
 
   return (
     <MainLayout>
@@ -59,6 +65,7 @@ const Home = () => {
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                       }}
+                      onClick={() => handleImageClick(course)}
                     />
                     <div className="grid-item-info">
                       <h4>{course.course_name}</h4>
@@ -86,6 +93,7 @@ const Home = () => {
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                     }}
+                    onClick={() => handleImageClick(course)}
                   />
                   <div className="grid-item-info">
                     <h4>{course.course_name}</h4>
