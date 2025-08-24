@@ -147,21 +147,21 @@
 
 .recsResultPageMain .item_name {
   font-weight: 600;
-  font-size: clamp(1.2rem, 1.25vw, 1.5rem);
+  font-size: clamp(1.2rem, 1.25vw, 1.3rem);
   margin-bottom: 6px;
   font-family: "pre-semibold";
   color: #2c2f33;
 }
 
 .recsResultPageMain .item_address {
-  font-size: clamp(0.9rem, 1vw, 1.1rem);
+  font-size: clamp(0.8rem, 0.8vw, 1rem);
   color: #b7bbcf;
   margin-bottom: 12px;
   font-family: "pre-medium";
 }
 
 .recsResultPageMain .item_benefit {
-  font-size: clamp(0.8rem, 0.9vw, 1rem);
+  font-size: clamp(0.75rem, 0.75vw, 0.9rem);
   background-color: #dbeeff;
   color: var(--main-color);
   border-radius: 12px;
