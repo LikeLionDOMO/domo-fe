@@ -98,6 +98,17 @@ const Benefix = () => {
     setMobileDisplayCount(5);
   }, [displayValue, sortType, benefitsData]);
 
+  // 모바일 더보기: 초기 5개, 클릭 시 5개씩 추가
+  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
+  const handleMobileLoadMore = () => {
+    setMobileDisplayCount((prev) => prev + 5);
+  };
+
+  // 검색/정렬/데이터 변경 시 모바일 카운트 초기화
+  useEffect(() => {
+    setMobileDisplayCount(5);
+  }, [displayValue, sortType, benefitsData]);
+
   // API 데이터를 UI에 맞게 변환
   const transformedData = benefitsData.map((item, index) => ({
     id: item.placeId || index,

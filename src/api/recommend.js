@@ -14,8 +14,8 @@ export const recommend = async (data) => {
         subject: recsInfo.subject, // 사용자가 선택한 키워드 배열
         code: data.placeId, // 반려당한 장소의 placeId
         exclude: data.exclude || [], // 현재 일정에 포함된 장소 ID 배열
-        lat: data.lat, // 반려당한 장소의 이전장소 위도
-        lng: data.lng, // 반려당한 장소의 이전장소 경도
+        userLat: data.userLat, // 백엔드에서 요구하는 userLat
+        userLng: data.userLng, // 백엔드에서 요구하는 userLng
       },
       {
         headers: {
@@ -29,6 +29,16 @@ export const recommend = async (data) => {
     return resData;
   } catch (error) {
     console.error("추천 요청 실패:", error);
+
+    // 구체적인 에러 메시지 처리
+    if (error.response?.status === 500) {
+      console.error("서버 에러 - 추천 가능한 장소가 없거나 서버 문제");
+      return null; // 또는 적절한 fallback
+    }
+    if (error.response?.status === 400) {
+      console.error("잘못된 요청 파라미터:", error.response.data);
+    }
+
     throw error; // 에러를 다시 던져서 호출하는 곳에서 처리할 수 있게 함
   }
 };

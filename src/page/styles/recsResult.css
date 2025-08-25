@@ -98,6 +98,7 @@
 }
 
 .recsResultPageMain .item_number {
+  min-width: 25px;
   font-size: 40px;
   font-weight: 400;
   margin-right: 16px;
@@ -756,4 +757,60 @@
   white-space: nowrap; /* 줄바꿈 방지 */
   overflow: hidden; /* 넘치는 텍스트 숨김 */
   text-overflow: ellipsis; /* ...으로 축약 */
+}
+
+/* ======== */
+/* 모달     */
+/* ======== */
+
+.recsResultPageMain .modal_content_2 {
+  padding: 48px 48px;
+}
+
+.recsResultPageMain .modal_content_2 > p {
+  font-family: "pre-semibold";
+  font-size: clamp(1rem, 1.5vw, 1.6rem);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.recsResultPageMain .modal_content_2 > div:nth-child(2) {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--black-2);
+}
+
+.recsResultPageMain .modal_content_2 > div:nth-child(3) {
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recsResultPageMain .modal_content_2 > div:nth-child(3) > div {
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  flex: 1;
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recsResultPageMain .modal_content_2 > div:nth-child(3) > div:nth-child(1) {
+  background-color: var(--black-1);
+  color: var(--black-2);
+}
+
+.recsResultPageMain .modal_content_2 > div:nth-child(3) > div:nth-child(2) {
+  background-color: var(--main-color);
+  color: var(--black-0);
 }

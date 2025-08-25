@@ -11,6 +11,7 @@ import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
+import { recommend } from "../api/recommend";
 // import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
@@ -140,32 +141,56 @@ const RecsResult = () => {
     const targetIdx = recommendations.findIndex((r) => r.placeId === data.placeId);
     const prevForApi = targetIdx > 0 ? recommendations[targetIdx - 1] : data;
     try {
-      const { recommend } = await import("../api/recommend");
       const newRec = await recommend({
         ...data,
         exclude: excludeIds,
-        lat: prevForApi.lat,
-        lng: prevForApi.lng,
+        userLat: prevForApi.lat,
+        userLng: prevForApi.lng,
       });
       if (newRec === null) {
         return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
       }
       // 전체 데이터
-      setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+      setTempDatas(recommendations.map((r) => (r.placeId === data.placeId ? newRec : r)));
 
       // 거리 계산
       const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
       const nextForDistance = targetIdx < recommendations.length - 1 ? recommendations[targetIdx + 1] : null;
+
+      console.log("=== 거리 계산 디버깅 ===");
+      console.log("targetIdx:", targetIdx);
+      console.log("prevForDistance:", prevForDistance);
+      console.log("nextForDistance:", nextForDistance);
+      console.log("newRec 좌표:", { lat: newRec.lat, lng: newRec.lng });
+      console.log("data(기존) 좌표:", { lat: data.lat, lng: data.lng });
+
       // 신규 장소 기준 거리 (미터)
       let newDistance = 0;
-      if (prevForDistance) newDistance += distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
-      if (nextForDistance) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
+      if (prevForDistance) {
+        const prevToNew = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
+        console.log("이전->새장소 거리:", prevToNew);
+        newDistance += prevToNew;
+      }
+      if (nextForDistance) {
+        const newToNext = distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("새장소->다음 거리:", newToNext);
+        newDistance += newToNext;
+      }
+
       // 기존 장소 기준 거리 (미터)
       let oldDistance = 0;
-      if (prevForDistance) oldDistance += distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
-      if (nextForDistance) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
+      if (prevForDistance) {
+        const prevToOld = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
+        console.log("이전->기존장소 거리:", prevToOld);
+        oldDistance += prevToOld;
+      }
+      if (nextForDistance) {
+        const oldToNext = distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("기존장소->다음 거리:", oldToNext);
+        oldDistance += oldToNext;
+      }
 
-      console.log(newDistance, oldDistance);
+      console.log("최종 거리:", newDistance, oldDistance);
       //   // 단일 데이터
       setTempData({
         newData: newRec,
@@ -300,36 +325,36 @@ const RecsResult = () => {
                   : tempData &&
                     `${tempData.newDistance - tempData.oldDistance > 0 ? "+" : "-"}${Math.abs(tempData.newDistance - tempData.oldDistance).toFixed(0)}m`}
               </span>
-              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "정도 차이가 생겨요!"}
+              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "변화가 생겨요!"}
             </p>
             <div>
-              <div>
-                {modalData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                {modalData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                {modalData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+              <div className="item_img flexCenter">
+                {tempData.newData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {tempData.newData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {tempData.newData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
               </div>
-              <div>
-                <p>{tempData.newData.name}</p>
-                <p>{tempData.newData.address}</p>
-                <p>{tempData.newData.benefit}</p>
+              <div className="item_info">
+                <p className="item_name">{tempData.newData.name}</p>
+                <p className="item_address">{tempData.newData.address}</p>
+                <p className="item_benefit">{tempData.newData.benefit}</p>
               </div>
-              <div className="flexBetween">
-                <div
-                  onClick={() => {
-                    setTempData(null);
-                    setTempDatas(null);
-                    setAgreeModal(false);
-                  }}
-                  className="flexCenter">
-                  최소하기
-                </div>
-                <div
-                  onClick={() => {
-                    onClickReplace();
-                  }}
-                  className="flexCenter">
-                  추가하기
-                </div>
+            </div>
+            <div className="flexBetween">
+              <div
+                onClick={() => {
+                  setTempData(null);
+                  setTempDatas(null);
+                  setAgreeModal(false);
+                }}
+                className="flexCenter">
+                최소하기
+              </div>
+              <div
+                onClick={() => {
+                  onClickReplace();
+                }}
+                className="flexCenter">
+                번경하기
               </div>
             </div>
           </div>
