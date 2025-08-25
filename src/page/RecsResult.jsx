@@ -304,9 +304,9 @@ const RecsResult = () => {
             </p>
             <div>
               <div>
-                {modalData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                {modalData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                {modalData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                {tempData.newData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {tempData.newData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {tempData.newData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
               </div>
               <div>
                 <p>{tempData.newData.name}</p>
