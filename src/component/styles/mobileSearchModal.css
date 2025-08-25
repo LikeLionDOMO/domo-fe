@@ -1,0 +1,151 @@
+/* 모바일 검색창 스타일 */
+
+/* 배경 오버레이 - 검색창 외부 클릭 시 닫기 */
+.mobile-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+/* 모바일 검색창 컨테이너 */
+.mobile-search-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80vh; /* 화면 높이의 80% */
+  background: white;
+  border-radius: 20px 20px 0 0; /* 상단만 둥글게 */
+  z-index: 9999;
+
+  /* 슬라이딩 애니메이션 */
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+
+  /* 스크롤 가능하도록 */
+  overflow-y: auto;
+}
+
+/* 검색창이 열린 상태 */
+.mobile-search-modal.open {
+  transform: translateY(0);
+}
+
+/* 검색 입력 필드 컨테이너 */
+.search-input-container {
+  padding: 24px;
+}
+
+.search-input {
+  width: 100%;
+}
+
+/* MUI TextField 스타일 오버라이드 */
+.search-input .MuiInputBase-root {
+  background-color: #eff0f5;
+  border-radius: 16px;
+  height: 56px;
+}
+
+.search-input .MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.search-input .MuiInputBase-input {
+  font-size: 16px;
+  font-family: 'pre-medium';
+  color: #2c2f33;
+}
+
+/* 검색 아이콘 */
+.search-icon {
+  color: #b7bbcf;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+/* 검색 결과 정보 */
+.search-info {
+  padding: 0 24px 16px;
+  text-align: right;
+  color: #2c2f33;
+  font-size: 14px;
+  font-family: 'pre-medium';
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.result-count {
+  color: #0052e9;
+  font-weight: 600;
+}
+
+/* 지역 목록 */
+.region-list {
+  padding: 0 24px 24px;
+}
+
+.region-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 8px;
+  border: 1px solid #eff0f5;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.region-item:hover {
+  background: #e9ecef;
+}
+
+.region-item:active {
+  background: #dee2e6;
+}
+
+.region-name {
+  font-size: 16px;
+  color: #6e738c;
+  font-family: 'pre-medium';
+  font-weight: 500;
+}
+
+.arrow-icon {
+  color: #b7bbcf;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 480px) {
+  .mobile-search-modal {
+    height: 85vh; /* 작은 화면에서는 더 높게 */
+  }
+
+  .search-header {
+    padding: 16px 20px;
+  }
+
+  .search-header h3 {
+    font-size: 18px;
+  }
+
+  .search-input-container {
+    padding: 20px;
+  }
+
+  .region-list {
+    padding: 0 20px 20px;
+  }
+
+  .region-item {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+}

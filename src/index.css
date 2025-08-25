@@ -14,7 +14,7 @@
   --black-4: #6e738c;
   --black-5: #414456;
   --black-6: #252732;
-  --black: #000000;
+  --black: #2c2f33;
 }
 
 @font-face {
@@ -62,6 +62,8 @@ section {
 }
 body {
   line-height: 1;
+  overflow-x: clip;
+  color: var(--black);
 }
 ol,
 ul {
@@ -87,7 +89,6 @@ a:link,
 a:visited,
 a:hover,
 a:active {
-  color: #202123;
   text-decoration: none;
 }
 

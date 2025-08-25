@@ -9,7 +9,6 @@ header.mobile-header {
   align-items: center;
   justify-content: space-between;
   background-color: var(--black-0);
-  gap: 3rem;
 }
 
 header.mobile-header .home-button {

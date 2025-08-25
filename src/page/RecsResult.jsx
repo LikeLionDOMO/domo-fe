@@ -7,11 +7,17 @@ import Popover from "../component/Popover";
 import BoxButton from "../component/boxButton";
 import { useMedia } from "../hook/useMedia";
 import { Resizable } from "re-resizable";
+import PcHeader from "../layout/PcHeader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../component/modal";
+import { recommend } from "../api/recommend";
+// import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
   const location = useLocation();
-  const nav = useNavigate();
-  const recommendations = location.state?.recommendations || [];
+  // const [recommendations, setRecommendations] = useState(mapMockData);
+  const [recommendations, setRecommendations] = useState(location.state?.recommendations || []);
   const [popoverData, setPopoverData] = useState(null);
 
   // 튜토리얼 단계
@@ -23,6 +29,20 @@ const RecsResult = () => {
   const resizableRef = useRef();
 
   const isPc = useMedia().isPc;
+
+  const [center, setCenter] = useState({ lat: recommendations[0].lat, lng: recommendations[0].lng });
+
+  const [isModal, setIsModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
+  // 임시저장데이터 전체
+  const [tempDatas, setTempDatas] = useState();
+  // 임시저장 데이터
+  const [tempData, setTempData] = useState();
+  // 사용자 동의 구하는 모달창
+  const [agreeModal, setAgreeModal] = useState(false);
+
+  const nav = useNavigate();
 
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
@@ -103,10 +123,244 @@ const RecsResult = () => {
     }
   };
 
-  console.log(isPc);
+  // Haversine 거리 계산 함수 (미터)
+  const distanceInMeterByHaversine = (lat1, lng1, lat2, lng2) => {
+    const radius = 6371000; // m
+    const toRadian = Math.PI / 180;
+    const deltaLat = (lat2 - lat1) * toRadian;
+    const deltaLng = (lng2 - lng1) * toRadian;
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
+    const c = 2 * Math.asin(Math.sqrt(a));
+    return radius * c;
+  };
 
+  // 다시 찾기
+  const onClickRecommend = async (data) => {
+    console.log("작동확인");
+    const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
+    const targetIdx = recommendations.findIndex((r) => r.placeId === data.placeId);
+    const prevForApi = targetIdx > 0 ? recommendations[targetIdx - 1] : data;
+    try {
+      const newRec = await recommend({
+        ...data,
+        exclude: excludeIds,
+        userLat: prevForApi.lat,
+        userLng: prevForApi.lng,
+      });
+      if (newRec === null) {
+        return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
+      }
+      // 전체 데이터
+      setTempDatas(recommendations.map((r) => (r.placeId === data.placeId ? newRec : r)));
+
+      // 거리 계산
+      const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
+      const nextForDistance = targetIdx < recommendations.length - 1 ? recommendations[targetIdx + 1] : null;
+
+      console.log("=== 거리 계산 디버깅 ===");
+      console.log("targetIdx:", targetIdx);
+      console.log("prevForDistance:", prevForDistance);
+      console.log("nextForDistance:", nextForDistance);
+      console.log("newRec 좌표:", { lat: newRec.lat, lng: newRec.lng });
+      console.log("data(기존) 좌표:", { lat: data.lat, lng: data.lng });
+
+      // 신규 장소 기준 거리 (미터)
+      let newDistance = 0;
+      if (prevForDistance) {
+        const prevToNew = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
+        console.log("이전->새장소 거리:", prevToNew);
+        newDistance += prevToNew;
+      }
+      if (nextForDistance) {
+        const newToNext = distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("새장소->다음 거리:", newToNext);
+        newDistance += newToNext;
+      }
+
+      // 기존 장소 기준 거리 (미터)
+      let oldDistance = 0;
+      if (prevForDistance) {
+        const prevToOld = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
+        console.log("이전->기존장소 거리:", prevToOld);
+        oldDistance += prevToOld;
+      }
+      if (nextForDistance) {
+        const oldToNext = distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("기존장소->다음 거리:", oldToNext);
+        oldDistance += oldToNext;
+      }
+
+      console.log("최종 거리:", newDistance, oldDistance);
+      //   // 단일 데이터
+      setTempData({
+        newData: newRec,
+        oldData: data,
+        newDistance,
+        oldDistance,
+      });
+      console.log(newRec);
+      handleClosePopover();
+      setAgreeModal(true);
+    } catch (err) {
+      console.log(err);
+      alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    }
+    // setAgreeModal(true);
+  };
+
+  // 교체 확인
+  const onClickReplace = () => {
+    onChangeRecommendations();
+    setRecommendations(tempDatas);
+    setTempData(null);
+    setAgreeModal(false);
+  };
+
+  // 삭제하기
+  const onClickDelete = (data) => {
+    if (recommendations.length === 1) {
+      handleClosePopover();
+      return alert("하나 이상의 값이 존재해야 합니다.");
+    }
+    onChangeRecommendations();
+    const newRecs = recommendations.filter((r) => r.placeId !== data.placeId);
+    setRecommendations((prev) => {
+      if (prev.length !== 1) {
+        return newRecs;
+      }
+    });
+    handleClosePopover();
+  };
+
+  // 되돌리기 데이터 저장
+  const onChangeRecommendations = () => {
+    const r1 = localStorage.getItem("r-1");
+    const r2 = localStorage.getItem("r-2");
+
+    localStorage.setItem("r-3", r2 ?? "null");
+    localStorage.setItem("r-2", r1 ?? "null");
+    localStorage.setItem("r-1", JSON.stringify(recommendations));
+  };
+
+  // 되돌리기
+  const onChangeReverse = () => {
+    const r1 = JSON.parse(localStorage.getItem("r-1"));
+    const r2 = JSON.parse(localStorage.getItem("r-2"));
+    const r3 = JSON.parse(localStorage.getItem("r-3"));
+
+    if (r1) {
+      setRecommendations(r1);
+      localStorage.setItem("r-1", JSON.stringify(r2));
+      localStorage.setItem("r-2", JSON.stringify(r3));
+      localStorage.setItem("r-3", null);
+    } else {
+      alert("더 이상 되돌릴 수 없습니다.");
+    }
+  };
+
+  console.log(recommendations);
+
+  const onClickModal = (rec) => {
+    setModalData(rec);
+    setIsModal(true);
+  };
+
+  if (recommendations.length === 0) {
+    alert("추천 정보를 불러오지 못했습니다.");
+    return nav("/recs/info");
+  }
+
+  console.log("modalData" + modalData, isModal);
   return (
     <div className="recsResultPageMain">
+      {isPc && <PcHeader />}
+      {isModal && (
+        <Modal>
+          <div className="modal_content_">
+            {/* 배너 */}
+            <div>
+              <p>
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  onClick={() => {
+                    setModalData(null);
+                    setIsModal(false);
+                  }}
+                  className="icon"
+                />
+              </p>
+              <div>
+                {modalData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {modalData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {modalData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+              </div>
+            </div>
+
+            {/* 내용 */}
+            <div>
+              <p>{modalData.name}</p>
+              <p>{modalData.address}</p>
+              <p>{modalData.benefit}</p>
+            </div>
+            <div>
+              <a href={`https://map.naver.com/p/search/${modalData.address} ${modalData.name}`} target="_blank" rel="noopener noreferrer">
+                <BoxButton padding="0 24px" bgColor="--main-color" color="--black-0">
+                  자세히 보기
+                </BoxButton>
+              </a>
+            </div>
+          </div>
+        </Modal>
+      )}
+
+      {agreeModal && (
+        <Modal>
+          <div className="modal_content_2">
+            <p>
+              기존 장소와 새로운 장소의 이동거리 차이가
+              <br />
+              <span style={{ color: "var(--main-color)" }}>
+                {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) < 1
+                  ? "별로 없어요!"
+                  : tempData &&
+                    `${tempData.newDistance - tempData.oldDistance > 0 ? "+" : "-"}${Math.abs(tempData.newDistance - tempData.oldDistance).toFixed(0)}m`}
+              </span>
+              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "변화가 생겨요!"}
+            </p>
+            <div>
+              <div className="item_img flexCenter">
+                {tempData.newData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                {tempData.newData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                {tempData.newData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+              </div>
+              <div className="item_info">
+                <p className="item_name">{tempData.newData.name}</p>
+                <p className="item_address">{tempData.newData.address}</p>
+                <p className="item_benefit">{tempData.newData.benefit}</p>
+              </div>
+            </div>
+            <div className="flexBetween">
+              <div
+                onClick={() => {
+                  setTempData(null);
+                  setTempDatas(null);
+                  setAgreeModal(false);
+                }}
+                className="flexCenter">
+                최소하기
+              </div>
+              <div
+                onClick={() => {
+                  onClickReplace();
+                }}
+                className="flexCenter">
+                번경하기
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       {isPc && (
         <section className="recsResultPage">
           {firstVisitMode && (
@@ -117,7 +371,7 @@ const RecsResult = () => {
                 setFirstVisit("3");
                 localStorage.setItem("firstVisit", "3");
               }}>
-              <BoxButton bgColor="--point-color-1" color="--black-6">
+              <BoxButton bgColor="--point-color-1" color="--black-6" padding="12px 16px">
                 설명 건너뛰기
               </BoxButton>
             </div>
@@ -135,7 +389,7 @@ const RecsResult = () => {
                 <br />
                 모아왔어요!
               </p>
-              <button className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+              <button onClick={onChangeReverse} className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""} flexCenter`}>
                 되돌리기
                 <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
                   실수해도 놀라지 마세요!
@@ -145,12 +399,25 @@ const RecsResult = () => {
               </button>
             </div>
             <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
-              {recommendations.map((rec, index) => (
-                <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+              {recommendations?.map((rec, index) => (
+                <li
+                  key={rec.id}
+                  onClick={() => {
+                    setCenter({ lat: rec.lat, lng: rec.lng });
+                  }}
+                  className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                   <div className="item_number">{index + 1}</div>
                   <div className="item_card">
-                    <div className="item_content">
-                      <div className="item_img"></div>
+                    <div
+                      className="item_content"
+                      onClick={() => {
+                        onClickModal(rec);
+                      }}>
+                      <div className="item_img flexCenter">
+                        {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                        {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                        {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                      </div>
                       <div className="item_info">
                         <p className="item_name">{rec.name}</p>
                         <p className="item_address">{rec.address}</p>
@@ -186,16 +453,21 @@ const RecsResult = () => {
 
           {/* naver map */}
           <div className="recsResult_map">
-            <NaverMap recommendations={recommendations} />
+            <NaverMap center={center} recommendations={recommendations} />
           </div>
 
           {/* 팝업 */}
           {popoverData && (
             <Popover onClose={handleClosePopover} position={popoverData.position}>
               <div className="popover_item_options">
-                <button>다시 추천</button>
+                <button
+                  onClick={() => {
+                    onClickRecommend(popoverData.rec);
+                  }}>
+                  다시 추천
+                </button>
                 <div className="pop-line"></div>
-                <button>삭제하기</button>
+                <button onClick={() => onClickDelete(popoverData.rec)}>삭제하기</button>
               </div>
             </Popover>
           )}
@@ -218,7 +490,7 @@ const RecsResult = () => {
                   setFirstVisit("3");
                   localStorage.setItem("firstVisit", "3");
                 }}>
-                <BoxButton bgColor="--point-color-1" color="--black-6">
+                <BoxButton padding="12px 16px" bgColor="--point-color-1" color="--black-6">
                   설명 건너뛰기
                 </BoxButton>
               </div>
@@ -263,7 +535,9 @@ const RecsResult = () => {
                     <br />
                     모아왔어요!
                   </p>
-                  <button className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""}`}>
+                  <button
+                    onClick={onChangeReverse}
+                    className={`list_header_backBtn ${firstVisitMode && firstVisit === "1" ? "firstVisitMode" : ""} flexCenter`}>
                     되돌리기
                     <span className={`${firstVisitMode && firstVisit === "1" ? "firstVisitModeDesc1" : "none"}`}>
                       실수해도 놀라지 마세요!
@@ -278,12 +552,25 @@ const RecsResult = () => {
                   삭제할 수 있어요.
                 </span>
                 <ul className={`list_items`}>
-                  {recommendations.map((rec, index) => (
-                    <li key={rec.id} className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                  {recommendations?.map((rec, index) => (
+                    <li
+                      key={rec.id}
+                      onClick={() => {
+                        setCenter({ lat: rec.lat, lng: rec.lng });
+                      }}
+                      className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
                       <div className="item_card">
-                        <div className="item_content">
-                          <div className="item_img"></div>
+                        <div
+                          className="item_content"
+                          onClick={() => {
+                            onClickModal(rec);
+                          }}>
+                          <div className="item_img">
+                            {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                            {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                            {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                          </div>
                           <div className="item_info">
                             <p className="item_name">{rec.name}</p>
                             <p className="item_address">{rec.address}</p>
@@ -300,6 +587,21 @@ const RecsResult = () => {
                     </li>
                   ))}
                 </ul>
+                {/* 팝업 */}
+                {popoverData && (
+                  <Popover onClose={handleClosePopover} position={popoverData.position}>
+                    <div className="popover_item_options">
+                      <button
+                        onClick={() => {
+                          onClickRecommend(popoverData.rec);
+                        }}>
+                        다시 추천
+                      </button>
+                      <div className="pop-line"></div>
+                      <button onClick={() => onClickDelete(popoverData.rec)}>삭제하기</button>
+                    </div>
+                  </Popover>
+                )}
               </div>
             </Resizable>
           </div>
@@ -316,19 +618,8 @@ const RecsResult = () => {
 
           {/* naver map */}
           <div className="recsResult_map">
-            <NaverMap recommendations={recommendations} />
+            <NaverMap center={center} recommendations={recommendations} />
           </div>
-
-          {/* 팝업 */}
-          {popoverData && (
-            <Popover onClose={handleClosePopover} position={popoverData.position}>
-              <div className="popover_item_options">
-                <button>다시 추천</button>
-                <div className="pop-line"></div>
-                <button>삭제하기</button>
-              </div>
-            </Popover>
-          )}
         </section>
       )}
     </div>
