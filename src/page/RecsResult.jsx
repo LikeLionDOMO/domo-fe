@@ -325,7 +325,7 @@ const RecsResult = () => {
                   : tempData &&
                     `${tempData.newDistance - tempData.oldDistance > 0 ? "+" : "-"}${Math.abs(tempData.newDistance - tempData.oldDistance).toFixed(0)}m`}
               </span>
-              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "정도 차이가 생겨요!"}
+              {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "변화가 생겨요!"}
             </p>
             <div>
               <div className="item_img flexCenter">
@@ -354,7 +354,7 @@ const RecsResult = () => {
                   onClickReplace();
                 }}
                 className="flexCenter">
-                추가하기
+                번경하기
               </div>
             </div>
           </div>
