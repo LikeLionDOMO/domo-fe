@@ -11,6 +11,7 @@ import PcHeader from "../layout/PcHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
+import { recommend } from "../api/recommend";
 // import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
@@ -140,7 +141,6 @@ const RecsResult = () => {
     const targetIdx = recommendations.findIndex((r) => r.placeId === data.placeId);
     const prevForApi = targetIdx > 0 ? recommendations[targetIdx - 1] : data;
     try {
-      const { recommend } = await import("../api/recommend");
       const newRec = await recommend({
         ...data,
         exclude: excludeIds,
