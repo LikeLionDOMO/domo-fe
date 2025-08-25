@@ -95,7 +95,7 @@ const RecsInfo = () => {
       alert("예산은 0원 이상으로 입력해주세요.");
       return;
     }
-    if (parseInt(budgetStart, 10) >= 10000 && parseInt(budgetEnd, 10) >= 10000) {
+    if (parseInt(budgetStart, 10) <= 10000 && parseInt(budgetEnd, 10) <= 10000) {
       alert("예산은 10000원 이상으로 입력해주세요.");
       return;
     }
