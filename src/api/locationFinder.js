@@ -1,5 +1,4 @@
 import axios from "axios";
-import { API_URL } from "./_common";
 
 /**
  * 매장 개별 조회
