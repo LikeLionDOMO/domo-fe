@@ -7,6 +7,7 @@ import MainLayout from '../layout/MainLayout';
 import { useMedia } from '../hook/useMedia';
 import MobileSearchModal from '../component/MobileSearchModal';
 import { fetchBenefits } from '../api/config';
+import MobileSort from '../component/MobileSort';
 
 const ITEMS_PER_PAGE = 20; // API 페이지 사이즈에 맞춤
 
@@ -157,9 +158,15 @@ const Benefix = () => {
       </section>
 
       <div className="benefix-container">
-        <h2 className="benefix-title">
-          <span className="span-domo-blue">도모</span>가 도와주는 혜택 모아보기!
-        </h2>
+        <div className="benefix-title-row">
+          <h2 className="benefix-title">
+            <span className="span-domo-blue">도모</span>가 도와주는 혜택
+            모아보기!
+          </h2>
+          {isMobile && (
+            <MobileSort value={sortType} onChange={onChangeFilter} />
+          )}
+        </div>
 
         <Suspense fallback={<div>필터 로딩중...</div>}>
           <Filter

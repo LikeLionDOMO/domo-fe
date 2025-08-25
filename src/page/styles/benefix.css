@@ -19,6 +19,13 @@
   text-align: start;
 }
 
+.benefix-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 /* 혜택 목록 스타일 */
 .benefits-list {
   display: flex;
@@ -83,8 +90,16 @@
 
 /* 반응형 스타일 */
 @media (max-width: 768px) {
+  .benefix-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
   .benefix-title {
     margin-top: 16px;
+    margin-bottom: 20px;
     font-size: 20px;
   }
 
@@ -124,5 +139,11 @@
     color: #b7bbcf;
     font-size: 24px;
     font-family: 'pre-semibold';
+  }
+
+  .benefix-title-row .benefix-title {
+    margin-bottom: 0;
+    font-size: 20px;
+    flex: 1;
   }
 }
