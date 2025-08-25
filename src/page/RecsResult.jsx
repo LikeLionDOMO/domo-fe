@@ -156,16 +156,41 @@ const RecsResult = () => {
       // 거리 계산
       const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
       const nextForDistance = targetIdx < recommendations.length - 1 ? recommendations[targetIdx + 1] : null;
+
+      console.log("=== 거리 계산 디버깅 ===");
+      console.log("targetIdx:", targetIdx);
+      console.log("prevForDistance:", prevForDistance);
+      console.log("nextForDistance:", nextForDistance);
+      console.log("newRec 좌표:", { lat: newRec.lat, lng: newRec.lng });
+      console.log("data(기존) 좌표:", { lat: data.lat, lng: data.lng });
+
       // 신규 장소 기준 거리 (미터)
       let newDistance = 0;
-      if (prevForDistance) newDistance += distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
-      if (nextForDistance) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
+      if (prevForDistance) {
+        const prevToNew = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
+        console.log("이전->새장소 거리:", prevToNew);
+        newDistance += prevToNew;
+      }
+      if (nextForDistance) {
+        const newToNext = distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("새장소->다음 거리:", newToNext);
+        newDistance += newToNext;
+      }
+
       // 기존 장소 기준 거리 (미터)
       let oldDistance = 0;
-      if (prevForDistance) oldDistance += distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
-      if (nextForDistance) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
+      if (prevForDistance) {
+        const prevToOld = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
+        console.log("이전->기존장소 거리:", prevToOld);
+        oldDistance += prevToOld;
+      }
+      if (nextForDistance) {
+        const oldToNext = distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
+        console.log("기존장소->다음 거리:", oldToNext);
+        oldDistance += oldToNext;
+      }
 
-      console.log(newDistance, oldDistance);
+      console.log("최종 거리:", newDistance, oldDistance);
       //   // 단일 데이터
       setTempData({
         newData: newRec,
@@ -303,15 +328,15 @@ const RecsResult = () => {
               {tempData && Math.abs(tempData.oldDistance - tempData.newDistance) >= 1 && "정도 차이가 생겨요!"}
             </p>
             <div>
-              <div>
+              <div className="item_img flexCenter">
                 {tempData.newData.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
                 {tempData.newData.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
                 {tempData.newData.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
               </div>
-              <div>
-                <p>{tempData.newData.name}</p>
-                <p>{tempData.newData.address}</p>
-                <p>{tempData.newData.benefit}</p>
+              <div className="item_info">
+                <p className="item_name">{tempData.newData.name}</p>
+                <p className="item_address">{tempData.newData.address}</p>
+                <p className="item_benefit">{tempData.newData.benefit}</p>
               </div>
               <div className="flexBetween">
                 <div
