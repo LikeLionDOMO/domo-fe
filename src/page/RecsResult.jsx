@@ -338,23 +338,23 @@ const RecsResult = () => {
                 <p className="item_address">{tempData.newData.address}</p>
                 <p className="item_benefit">{tempData.newData.benefit}</p>
               </div>
-              <div className="flexBetween">
-                <div
-                  onClick={() => {
-                    setTempData(null);
-                    setTempDatas(null);
-                    setAgreeModal(false);
-                  }}
-                  className="flexCenter">
-                  최소하기
-                </div>
-                <div
-                  onClick={() => {
-                    onClickReplace();
-                  }}
-                  className="flexCenter">
-                  추가하기
-                </div>
+            </div>
+            <div className="flexBetween">
+              <div
+                onClick={() => {
+                  setTempData(null);
+                  setTempDatas(null);
+                  setAgreeModal(false);
+                }}
+                className="flexCenter">
+                최소하기
+              </div>
+              <div
+                onClick={() => {
+                  onClickReplace();
+                }}
+                className="flexCenter">
+                추가하기
               </div>
             </div>
           </div>
