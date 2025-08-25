@@ -9,8 +9,8 @@ export const recommend = async (data) => {
       `https://domo.syu-likelion.org/api/recommend/again`,
       {
         address: recsInfo.address, // 사용자가 입력한 주소
-        budgetStart: recsInfo.budgetStart, // 사용자가 입력한 예산 시작 값
-        budgetEnd: recsInfo.budgetEnd, // 사용자가 입력한 예산 끝 값
+        budgetStart: Number(recsInfo.budgetStart), // 사용자가 입력한 예산 시작 값
+        budgetEnd: Number(recsInfo.budgetEnd), // 사용자가 입력한 예산 끝 값
         subject: recsInfo.subject, // 사용자가 선택한 키워드 배열
         code: data.placeId, // 반려당한 장소의 placeId
         exclude: data.exclude || [], // 현재 일정에 포함된 장소 ID 배열
