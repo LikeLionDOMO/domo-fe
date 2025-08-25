@@ -1,4 +1,13 @@
-import { recommend } from "../api/recommend";
+// Haversine 거리 계산 함수 (미터)
+function distanceInMeterByHaversine(lat1, lng1, lat2, lng2) {
+  const radius = 6371000; // m
+  const toRadian = Math.PI / 180;
+  const deltaLat = (lat2 - lat1) * toRadian;
+  const deltaLng = (lng2 - lng1) * toRadian;
+  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
+  const c = 2 * Math.asin(Math.sqrt(a));
+  return radius * c;
+}
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import "./styles/recsResult.css";
@@ -43,17 +52,6 @@ const RecsResult = () => {
   const [agreeModal, setAgreeModal] = useState(false);
 
   const nav = useNavigate();
-
-  // Haversine 거리 계산 함수 (미터)
-  const distanceInMeterByHaversine = (lat1, lng1, lat2, lng2) => {
-    const radius = 6371000; // m
-    const toRadian = Math.PI / 180;
-    const deltaLat = (lat2 - lat1) * toRadian;
-    const deltaLng = (lng2 - lng1) * toRadian;
-    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
-    const c = 2 * Math.asin(Math.sqrt(a));
-    return radius * c;
-  };
 
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
@@ -134,48 +132,52 @@ const RecsResult = () => {
     }
   };
 
+  console.log(isPc);
+
   // 다시 찾기
   const onClickRecommend = async (data) => {
-    const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
-    const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
-    const prev = idx > 0 ? recommendations[idx - 1] : data;
-    try {
-      const newRec = await recommend({
-        ...data,
-        exclude: excludeIds,
-        lat: prev.lat,
-        lng: prev.lng,
-      });
-      if (newRec === null) {
-        return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
-      }
-      // 전체 데이터
-      setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
-      // 거리 계산
-      const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
-      const prev = idx > 0 ? recommendations[idx - 1] : null;
-      const next = idx < recommendations.length - 1 ? recommendations[idx + 1] : null;
-      // 신규 장소 기준 거리 (미터)
-      let newDistance = 0;
-      if (prev) newDistance += distanceInMeterByHaversine(prev.lat, prev.lng, newRec.lat, newRec.lng);
-      if (next) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, next.lat, next.lng);
-      // 기존 장소 기준 거리 (미터)
-      let oldDistance = 0;
-      if (prev) oldDistance += distanceInMeterByHaversine(prev.lat, prev.lng, data.lat, data.lng);
-      if (next) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, next.lat, next.lng);
-      // 단일 데이터
-      setTempData({
-        newData: newRec,
-        oldData: data,
-        newDistance,
-        oldDistance,
-      });
-      handleClosePopover();
-      setAgreeModal(true);
-    } catch (err) {
-      console.log(err);
-      alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
-    }
+    console.log("작동확인");
+    // const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
+    // const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
+    // const prev = idx > 0 ? recommendations[idx - 1] : data;
+    // try {
+    //   const { recommend } = await import("../api/recommend");
+    //   const newRec = await recommend({
+    //     ...data,
+    //     exclude: excludeIds,
+    //     lat: prev.lat,
+    //     lng: prev.lng,
+    //   });
+    //   if (newRec === null) {
+    //     return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
+    //   }
+    //   // 전체 데이터
+    //   setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+    //   // 거리 계산
+    //   const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
+    //   const prev = idx > 0 ? recommendations[idx - 1] : null;
+    //   const next = idx < recommendations.length - 1 ? recommendations[idx + 1] : null;
+    //   // 신규 장소 기준 거리 (미터)
+    //   let newDistance = 0;
+    //   if (prev) newDistance += distanceInMeterByHaversine(prev.lat, prev.lng, newRec.lat, newRec.lng);
+    //   if (next) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, next.lat, next.lng);
+    //   // 기존 장소 기준 거리 (미터)
+    //   let oldDistance = 0;
+    //   if (prev) oldDistance += distanceInMeterByHaversine(prev.lat, prev.lng, data.lat, data.lng);
+    //   if (next) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, next.lat, next.lng);
+    //   // 단일 데이터
+    //   setTempData({
+    //     newData: newRec,
+    //     oldData: data,
+    //     newDistance,
+    //     oldDistance,
+    //   });
+    //   handleClosePopover();
+    //   setAgreeModal(true);
+    // } catch (err) {
+    //   console.log(err);
+    //   alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    // }
     // setAgreeModal(true);
   };
 
@@ -528,6 +530,7 @@ const RecsResult = () => {
                       key={rec.id}
                       onClick={() => {
                         setCenter({ lat: rec.lat, lng: rec.lng });
+                        onClickModal(rec);
                       }}
                       className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
