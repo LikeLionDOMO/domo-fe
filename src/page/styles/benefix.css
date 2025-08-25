@@ -88,6 +88,38 @@
   line-height: 1.4;
 }
 
+/* 더보기 버튼 스타일 */
+.mobile-load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+
+.load-more-button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'pre-semibold';
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.load-more-button:hover:not(:disabled) {
+  background-color: #004690;
+  transform: translateY(-2px);
+}
+
+.load-more-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .benefix-title {
@@ -122,6 +154,17 @@
 
   .card-title {
     font-size: 14px;
+  }
+
+  .mobile-load-more {
+    margin-top: 24px;
+    margin-bottom: 16px;
+  }
+
+  .load-more-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 8px;
   }
 
   .recsResultPageMain .isMobile .list_item .item_card .item_info .item_benefit {

@@ -20,6 +20,10 @@ const Benefix = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // 모바일 더보기 상태
+  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
+  const [mobileHasMore, setMobileHasMore] = useState(true);
+
   // 검색 및 필터 상태
   const [displayValue, setDisplayValue] = useState('');
   const [sortType, setSortType] = useState('benefit');
@@ -87,6 +91,23 @@ const Benefix = () => {
     setMobileSearchToggle(true);
   };
 
+  // 모바일 더보기 버튼 클릭 핸들러
+  const handleMobileLoadMore = () => {
+    const newCount = mobileDisplayCount + 5;
+    setMobileDisplayCount(newCount);
+
+    // 더 이상 로드할 데이터가 없으면 더보기 버튼 숨김
+    if (newCount >= benefitsData.length) {
+      setMobileHasMore(false);
+    }
+  };
+
+  // 검색어나 정렬 변경 시 모바일 더보기 상태 초기화
+  useEffect(() => {
+    setMobileDisplayCount(5);
+    setMobileHasMore(benefitsData.length > 5);
+  }, [displayValue, sortType, benefitsData.length]);
+
   // API 데이터를 UI에 맞게 변환
   const transformedData = benefitsData.map((item, index) => {
     // 혜택 종류 분류 로직
@@ -120,6 +141,11 @@ const Benefix = () => {
       lng: item.lng || 0,
     };
   });
+
+  // 모바일에서는 처음 5개만 표시, PC에서는 전체 표시
+  const displayData = isMobile
+    ? transformedData.slice(0, mobileDisplayCount)
+    : transformedData;
 
   return (
     <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
@@ -159,7 +185,7 @@ const Benefix = () => {
 
         {/* 혜택 목록 */}
         <div className="benefits-list">
-          {transformedData.map((item) => (
+          {displayData.map((item) => (
             <div key={item.id} className="benefit-card">
               <div className="card-tags">
                 <span className="tag-blue">{item.region}</span>
@@ -178,20 +204,35 @@ const Benefix = () => {
         </div>
 
         {/* 데이터가 없을 때 메시지 */}
-        {!isLoading && transformedData.length === 0 && !error && (
+        {!isLoading && displayData.length === 0 && !error && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
             검색 결과가 없습니다.
           </div>
         )}
 
-        {/* 페이지네이션 */}
-        {totalPages > 1 && (
+        {/* 페이지네이션 - PC에서만 표시 */}
+        {!isMobile && (totalPages > 1 || benefitsData.length > 0) && (
           <Pagination
-            pageCount={totalPages}
+            pageCount={totalPages > 1 ? totalPages : 1}
             onPageChange={handlePageClick}
             currentPage={currentPage}
           />
         )}
+
+        {/* 모바일 더보기 버튼 */}
+        {isMobile &&
+          mobileHasMore &&
+          (benefitsData.length > 5 || benefitsData.length > 0) && (
+            <div className="mobile-load-more">
+              <button
+                className="load-more-button"
+                onClick={handleMobileLoadMore}
+                disabled={isLoading}
+              >
+                {isLoading ? '로딩중...' : '더보기'}
+              </button>
+            </div>
+          )}
       </div>
     </MainLayout>
   );
