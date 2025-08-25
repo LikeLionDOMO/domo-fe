@@ -27,7 +27,7 @@ const Benefix = () => {
 
   // 검색 및 필터 상태
   const [displayValue, setDisplayValue] = useState('');
-  const [sortType, setSortType] = useState('benefit');
+  const [sortType, setSortType] = useState('benefix');
   const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
 
   // 혜택 데이터 가져오기 함수 (append 가능)

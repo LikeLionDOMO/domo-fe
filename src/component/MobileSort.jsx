@@ -4,7 +4,9 @@ import { Select, MenuItem } from '@mui/material';
 const MobileSort = ({ value, onChange }) => {
   return (
     <Select
-      value={value}
+      value={value || 'benefix'} // 기본값을 할인순으로 설정
+      defaultValue="benefix" // 기본값 명시적 설정
+      displayEmpty // 빈 값일 때도 표시
       size="small"
       variant="outlined"
       onChange={(e) => onChange(e.target.value)}
