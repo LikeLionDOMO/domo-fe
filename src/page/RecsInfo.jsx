@@ -106,8 +106,8 @@ const RecsInfo = () => {
     const userGps = await addressToCoords(address);
     const infoData = {
       address: address,
-      addressLat: userGps.lat,
-      addressLng: userGps.lng,
+      userLat: userGps.lat,
+      userLng: userGps.lng,
       budgetStart: budgetStart,
       budgetEnd: budgetEnd,
       subject: subject,
