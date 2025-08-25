@@ -4,7 +4,7 @@
 }
 
 .swiper-slide {
-  height: 636px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,17 +14,29 @@
   background-position: center;
 }
 
+.swiper-slide {
+  cursor: pointer;
+}
+
 .slide-1 {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('../../assets/img/home.png');
+  background-image: url("/images/banner/busan.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slide-2 {
-  background-color: #3498db;
+  background-image: url("/images/banner/ddp.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slide-3 {
-  background-color: #9b59b6;
+  background-image: url("/images/banner/chuncheon.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slide-content {
@@ -35,7 +47,7 @@
 .slide-content h2 {
   font-size: 64px;
   font-weight: bold;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
   margin-bottom: 32px;
   line-height: 1.4;
 }
@@ -47,7 +59,7 @@
   padding: 16px 42px;
   font-size: 36px;
   font-weight: 600;
-  font-family: 'pre-semibold';
+  font-family: "pre-semibold";
   border-radius: 42px;
   cursor: pointer;
   transition: background-color 0.3s ease;
