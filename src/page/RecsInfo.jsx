@@ -121,7 +121,7 @@ const RecsInfo = () => {
     <section className="recsInfoPage recsPage">
       {isPc ? <PcHeader /> : <MobileHeader />}
       {/* 메인 */}
-      <section className="context flexCol">
+      <section className="context flexCol" style={{ overflowY: loading ? "hidden" : "auto" }}>
         {/* 로딩 */}
         {loading && <RecsLoading />}
         <div>

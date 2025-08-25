@@ -8,6 +8,8 @@ function distanceInMeterByHaversine(lat1, lng1, lat2, lng2) {
   const c = 2 * Math.asin(Math.sqrt(a));
   return radius * c;
 }
+
+import { recommend } from "../api/recommend";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import "./styles/recsResult.css";
@@ -140,7 +142,6 @@ const RecsResult = () => {
     const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
     const prev = idx > 0 ? recommendations[idx - 1] : data;
     try {
-      const { recommend } = await import("../api/recommend");
       const newRec = await recommend({
         ...data,
         exclude: excludeIds,
@@ -529,7 +530,6 @@ const RecsResult = () => {
                       key={rec.id}
                       onClick={() => {
                         setCenter({ lat: rec.lat, lng: rec.lng });
-                        onClickModal(rec);
                       }}
                       className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
