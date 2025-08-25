@@ -1,12 +1,12 @@
-import { useCallback, useState, lazy, Suspense, useEffect } from 'react';
-import CustomSwiper from '../component/Swiper';
-const Filter = lazy(() => import('../component/Filter'));
-import Pagination from '../component/Pagination';
-import './styles/benefix.css';
-import MainLayout from '../layout/MainLayout';
-import { useMedia } from '../hook/useMedia';
-import MobileSearchModal from '../component/MobileSearchModal';
-import { fetchBenefits } from '../api/config';
+import { useCallback, useState, lazy, Suspense, useEffect } from "react";
+import CustomSwiper from "../component/Swiper";
+const Filter = lazy(() => import("../component/Filter"));
+import Pagination from "../component/Pagination";
+import "./styles/benefix.css";
+import MainLayout from "../layout/MainLayout";
+import { useMedia } from "../hook/useMedia";
+import MobileSearchModal from "../component/MobileSearchModal";
+import { fetchBenefits } from "../api/config";
 
 const ITEMS_PER_PAGE = 20; // API 페이지 사이즈에 맞춤
 
@@ -21,37 +21,34 @@ const Benefix = () => {
   const [error, setError] = useState(null);
 
   // 검색 및 필터 상태
-  const [displayValue, setDisplayValue] = useState('');
-  const [sortType, setSortType] = useState('benefit');
+  const [displayValue, setDisplayValue] = useState("");
+  const [sortType, setSortType] = useState("benefit");
   const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
 
   // 혜택 데이터 가져오기 함수
-  const loadBenefits = useCallback(
-    async (search = '', sort = 'benefit', page = 1) => {
-      setIsLoading(true);
-      setError(null);
+  const loadBenefits = useCallback(async (search = "", sort = "benefit", page = 1) => {
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        const response = await fetchBenefits({ search, sort, page });
+    try {
+      const response = await fetchBenefits({ search, sort, page });
 
-        if (response.data) {
-          setBenefitsData(response.data.items || []);
-          setTotalPages(response.data.totalPages || 0);
-          setCurrentPage(page - 1); // API는 1부터, 컴포넌트는 0부터
-        }
-      } catch (err) {
-        setError('데이터를 가져오는데 실패했습니다.');
-        console.error('혜택 데이터 로드 실패:', err);
-      } finally {
-        setIsLoading(false);
+      if (response.data) {
+        setBenefitsData(response.data.items || []);
+        setTotalPages(response.data.totalPages || 0);
+        setCurrentPage(page - 1); // API는 1부터, 컴포넌트는 0부터
       }
-    },
-    []
-  );
+    } catch (err) {
+      setError("데이터를 가져오는데 실패했습니다.");
+      console.error("혜택 데이터 로드 실패:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   // 컴포넌트 마운트 시 초기 데이터 로드
   useEffect(() => {
-    loadBenefits('', sortType, 1);
+    loadBenefits("", sortType, 1);
   }, [loadBenefits, sortType]);
 
   // 검색어 변경 시 데이터 재로드
@@ -59,7 +56,7 @@ const Benefix = () => {
     if (displayValue) {
       loadBenefits(displayValue, sortType, 1);
     } else {
-      loadBenefits('', sortType, 1);
+      loadBenefits("", sortType, 1);
     }
   }, [displayValue, sortType, loadBenefits]);
 
@@ -87,15 +84,26 @@ const Benefix = () => {
     setMobileSearchToggle(true);
   };
 
+  // 모바일 더보기: 초기 5개, 클릭 시 5개씩 추가
+  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
+  const handleMobileLoadMore = () => {
+    setMobileDisplayCount((prev) => prev + 5);
+  };
+
+  // 검색/정렬/데이터 변경 시 모바일 카운트 초기화
+  useEffect(() => {
+    setMobileDisplayCount(5);
+  }, [displayValue, sortType, benefitsData]);
+
   // API 데이터를 UI에 맞게 변환
   const transformedData = benefitsData.map((item, index) => ({
     id: item.placeId || index,
-    title: item.name || '혜택 이름',
-    region: displayValue || '지역 이름',
+    title: item.name || "혜택 이름",
+    region: displayValue || "지역 이름",
     kind: `${item.discountPercent || 0}% 할인`,
     discountPercent: item.discountPercent || 0,
     popularity: item.popularity || 0,
-    address: item.address || '주소 정보 없음',
+    address: item.address || "주소 정보 없음",
     lat: item.lat || 0,
     lng: item.lng || 0,
   }));
@@ -130,39 +138,43 @@ const Benefix = () => {
         </Suspense>
 
         {/* 에러 메시지 */}
-        {error && (
-          <div style={{ color: 'red', textAlign: 'center', padding: '20px' }}>
-            {error}
-          </div>
-        )}
+        {error && <div style={{ color: "red", textAlign: "center", padding: "20px" }}>{error}</div>}
 
         {/* 혜택 목록 */}
         <div className="benefits-list">
           {transformedData.map((item) => (
-            <div key={item.id} className="benefit-card">
-              <div className="card-tags">
-                <span className="tag-blue">{item.region}</span>
-                <span className="tag-yellow">{item.kind}</span>
+            <a
+              key={item.id}
+              href={`https://map.naver.com/p/search/${encodeURIComponent(`${item.address || ""} ${item.title || ""}`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}>
+              <div className="benefit-card">
+                <div className="card-tags">
+                  <span className="tag-blue">{item.region}</span>
+                  <span className="tag-yellow">{item.kind === "할인" ? `${item.discountPercent}% 할인` : item.kind}</span>
+                </div>
+                <p className="card-title">{item.title}</p>
               </div>
-              <p className="card-title">{item.title}</p>
-            </div>
+            </a>
           ))}
         </div>
 
         {/* 데이터가 없을 때 메시지 */}
         {!isLoading && transformedData.length === 0 && !error && (
-          <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
-            검색 결과가 없습니다.
-          </div>
+          <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>검색 결과가 없습니다.</div>
         )}
 
-        {/* 페이지네이션 */}
-        {totalPages > 1 && (
-          <Pagination
-            pageCount={totalPages}
-            onPageChange={handlePageClick}
-            currentPage={currentPage}
-          />
+        {/* 페이지네이션 - PC에서 항상 표시 */}
+        {!isMobile && <Pagination pageCount={Math.max(totalPages || 1, 1)} onPageChange={handlePageClick} currentPage={currentPage} />}
+
+        {/* 모바일 더보기 버튼 - 항상 표시 */}
+        {isMobile && (
+          <div>
+            <button className="m-more-button" onClick={handleMobileLoadMore} disabled={isLoading}>
+              더보기
+            </button>
+          </div>
         )}
       </div>
     </MainLayout>
