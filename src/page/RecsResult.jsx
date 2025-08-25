@@ -1,14 +1,3 @@
-// Haversine 거리 계산 함수 (미터)
-function distanceInMeterByHaversine(lat1, lng1, lat2, lng2) {
-  const radius = 6371000; // m
-  const toRadian = Math.PI / 180;
-  const deltaLat = (lat2 - lat1) * toRadian;
-  const deltaLng = (lng2 - lng1) * toRadian;
-  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
-  const c = 2 * Math.asin(Math.sqrt(a));
-  return radius * c;
-}
-
 import { recommend } from "../api/recommend";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
@@ -54,6 +43,17 @@ const RecsResult = () => {
   const [agreeModal, setAgreeModal] = useState(false);
 
   const nav = useNavigate();
+
+  // Haversine 거리 계산 함수 (미터)
+  const distanceInMeterByHaversine = (lat1, lng1, lat2, lng2) => {
+    const radius = 6371000; // m
+    const toRadian = Math.PI / 180;
+    const deltaLat = (lat2 - lat1) * toRadian;
+    const deltaLng = (lng2 - lng1) * toRadian;
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
+    const c = 2 * Math.asin(Math.sqrt(a));
+    return radius * c;
+  };
 
   // firstVisit 0 - 장소변경
   // firstVisit 1 - 되돌리기
