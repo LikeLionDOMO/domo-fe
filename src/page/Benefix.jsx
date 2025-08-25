@@ -88,17 +88,38 @@ const Benefix = () => {
   };
 
   // API 데이터를 UI에 맞게 변환
-  const transformedData = benefitsData.map((item, index) => ({
-    id: item.placeId || index,
-    title: item.name || '혜택 이름',
-    region: displayValue || '지역 이름',
-    kind: `${item.discountPercent || 0}% 할인`,
-    discountPercent: item.discountPercent || 0,
-    popularity: item.popularity || 0,
-    address: item.address || '주소 정보 없음',
-    lat: item.lat || 0,
-    lng: item.lng || 0,
-  }));
+  const transformedData = benefitsData.map((item, index) => {
+    // 혜택 종류 분류 로직
+    let benefitType = '쿠폰';
+    let benefitDetail = '';
+
+    if (item.discountPercent && item.discountPercent > 0) {
+      benefitType = '할인';
+      benefitDetail = `${item.discountPercent}%`;
+    } else if (item.benefit && item.benefit.includes('지원금')) {
+      benefitType = '지원금';
+      benefitDetail = item.benefit;
+    } else if (item.benefit && item.benefit.includes('쿠폰')) {
+      benefitType = '쿠폰';
+      benefitDetail = item.benefit;
+    } else {
+      // 기본값: 쿠폰
+      benefitDetail = item.benefit || '혜택 제공';
+    }
+
+    return {
+      id: item.placeId || index,
+      title: item.name || '혜택 이름',
+      region: displayValue || '지역 이름',
+      kind: benefitType,
+      benefitDetail: benefitDetail,
+      discountPercent: item.discountPercent || 0,
+      popularity: item.popularity || 0,
+      address: item.address || '주소 정보 없음',
+      lat: item.lat || 0,
+      lng: item.lng || 0,
+    };
+  });
 
   return (
     <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
@@ -142,9 +163,16 @@ const Benefix = () => {
             <div key={item.id} className="benefit-card">
               <div className="card-tags">
                 <span className="tag-blue">{item.region}</span>
-                <span className="tag-yellow">{item.kind}</span>
+                <span className="tag-yellow">
+                  {item.kind === '할인'
+                    ? `${item.benefitDetail} 할인`
+                    : item.kind}
+                </span>
               </div>
               <p className="card-title">{item.title}</p>
+              {item.benefitDetail && item.kind !== '할인' && (
+                <p className="card-detail">{item.benefitDetail}</p>
+              )}
             </div>
           ))}
         </div>

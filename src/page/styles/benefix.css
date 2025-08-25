@@ -73,19 +73,28 @@
 
 .card-title {
   font-family: 'pre-semibold';
-
-  font-size: 24px;
+  font-size: 1.1rem;
   color: #2c2f33;
   font-weight: 600;
   margin: 0 auto;
   flex: 1;
 }
 
+.card-detail {
+  font-family: 'pre-regular';
+  font-size: 0.9rem;
+  color: #666;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+}
+
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .benefix-title {
     margin-top: 16px;
+    margin-bottom: 0;
     font-size: 20px;
+    flex: 1;
   }
 
   .benefits-list {
@@ -113,5 +122,15 @@
 
   .card-title {
     font-size: 14px;
+  }
+
+  .recsResultPageMain .isMobile .list_item .item_card .item_info .item_benefit {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .recsResultPageMain .isMobile .list_item .item_card .item_info .card-detail {
+    font-size: 0.8rem;
+    margin: 6px 0 0 0;
   }
 }
