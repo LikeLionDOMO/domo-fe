@@ -189,6 +189,7 @@ const RecsResult = () => {
       setIsLoading(false);
       setAgreeModal(true);
     } catch (err) {
+      setIsLoading(false);
       console.log(err);
       alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
     }
