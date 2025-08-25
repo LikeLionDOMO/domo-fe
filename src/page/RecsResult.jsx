@@ -144,8 +144,8 @@ const RecsResult = () => {
       const newRec = await recommend({
         ...data,
         exclude: excludeIds,
-        lat: prevForApi.lat,
-        lng: prevForApi.lng,
+        userLat: prevForApi.lat,
+        userLng: prevForApi.lng,
       });
       if (newRec === null) {
         return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");

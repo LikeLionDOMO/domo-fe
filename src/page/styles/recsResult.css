@@ -98,6 +98,8 @@
 }
 
 .recsResultPageMain .item_number {
+  display: inline-block;
+  width: 25px;
   font-size: 40px;
   font-weight: 400;
   margin-right: 16px;
