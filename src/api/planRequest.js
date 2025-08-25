@@ -14,7 +14,7 @@ import { locationFinder } from "./locationFinder";
  */
 export const planRequest = async (data) => {
   try {
-    const res = await axios.post(`${API_URL}/api/plan/full-ids`, data, {
+    const res = await axios.post(`https://domo.syu-likelion.org/api/plan/full-ids`, data, {
       headers: { "Content-Type": "application/json" },
     });
     const uuids = Object.values(res.data?.data || res.data);

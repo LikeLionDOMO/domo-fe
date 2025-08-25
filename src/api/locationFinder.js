@@ -8,7 +8,7 @@ import { API_URL } from "./_common";
  */
 export const locationFinder = async (code) => {
   try {
-    const response = await axios.get(`${API_URL}/api/place?code=${code}`);
+    const response = await axios.get(`https://domo.syu-likelion.org/api/place?code=${code}`);
     return {
       placeId: response.data.data.placeId,
       name: response.data.data.name,

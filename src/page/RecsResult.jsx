@@ -134,8 +134,6 @@ const RecsResult = () => {
     }
   };
 
-  console.log(isPc);
-
   // 다시 찾기
   const onClickRecommend = async (data) => {
     const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);

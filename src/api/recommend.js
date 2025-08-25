@@ -6,7 +6,7 @@ export const recommend = async (data) => {
   const recsInfo = JSON.parse(localStorage.getItem("recsInfo")) || null;
   try {
     const response = await axios.post(
-      `${API_URL}/api/recommend/again`,
+      `https://domo.syu-likelion.org/api/recommend/again`,
       {
         address: recsInfo.address, // 사용자가 입력한 주소
         budgetStart: recsInfo.budgetStart, // 사용자가 입력한 예산 시작 값
