@@ -90,8 +90,6 @@ const Recs = () => {
   }, [gpsAgree]);
 
   const isPc = useMedia().isPc;
-  console.log(isPc);
-
   return (
     <section className="recsPage flexCenter">
       {isPc && <PcHeader />}

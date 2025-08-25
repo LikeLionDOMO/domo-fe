@@ -167,12 +167,12 @@
   font-family: "pre-semibold";
 }
 
-.modal_background > div > div:nth-child(1) {
+.recsPage .modal_background > div > div:nth-child(1) {
   font-size: 1.75rem;
   margin-bottom: 4.875rem;
 }
 
-.modal_background > div > div:nth-child(2) {
+.recsPage .modal_background > div > div:nth-child(2) {
   font-size: 16px;
   border-radius: 12px;
   width: 100%;

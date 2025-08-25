@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
 import { recommend } from "../api/recommend";
+import ModalLoading from "../component/modalLoading";
 // import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
@@ -41,6 +42,7 @@ const RecsResult = () => {
   const [tempData, setTempData] = useState();
   // 사용자 동의 구하는 모달창
   const [agreeModal, setAgreeModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const nav = useNavigate();
 
@@ -55,10 +57,6 @@ const RecsResult = () => {
   // 튜토리얼 단계 클릭 이벤트
   // 튜토리얼 단계 클릭 이벤트 관리
   useEffect(() => {
-    // 현재 튜토리얼 모드와 단계 콘솔 출력(디버깅용)
-    console.log("firstVisitMode:", firstVisitMode);
-    console.log("firstVisit:", firstVisit);
-
     // 튜토리얼 모드가 아니면 아무 동작하지 않음
     if (!firstVisitMode) return;
 
@@ -136,7 +134,7 @@ const RecsResult = () => {
 
   // 다시 찾기
   const onClickRecommend = async (data) => {
-    console.log("작동확인");
+    setIsLoading(true);
     const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
     const targetIdx = recommendations.findIndex((r) => r.placeId === data.placeId);
     const prevForApi = targetIdx > 0 ? recommendations[targetIdx - 1] : data;
@@ -157,23 +155,14 @@ const RecsResult = () => {
       const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
       const nextForDistance = targetIdx < recommendations.length - 1 ? recommendations[targetIdx + 1] : null;
 
-      console.log("=== 거리 계산 디버깅 ===");
-      console.log("targetIdx:", targetIdx);
-      console.log("prevForDistance:", prevForDistance);
-      console.log("nextForDistance:", nextForDistance);
-      console.log("newRec 좌표:", { lat: newRec.lat, lng: newRec.lng });
-      console.log("data(기존) 좌표:", { lat: data.lat, lng: data.lng });
-
       // 신규 장소 기준 거리 (미터)
       let newDistance = 0;
       if (prevForDistance) {
         const prevToNew = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
-        console.log("이전->새장소 거리:", prevToNew);
         newDistance += prevToNew;
       }
       if (nextForDistance) {
         const newToNext = distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
-        console.log("새장소->다음 거리:", newToNext);
         newDistance += newToNext;
       }
 
@@ -181,16 +170,14 @@ const RecsResult = () => {
       let oldDistance = 0;
       if (prevForDistance) {
         const prevToOld = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
-        console.log("이전->기존장소 거리:", prevToOld);
         oldDistance += prevToOld;
       }
       if (nextForDistance) {
         const oldToNext = distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
-        console.log("기존장소->다음 거리:", oldToNext);
+
         oldDistance += oldToNext;
       }
 
-      console.log("최종 거리:", newDistance, oldDistance);
       //   // 단일 데이터
       setTempData({
         newData: newRec,
@@ -198,10 +185,11 @@ const RecsResult = () => {
         newDistance,
         oldDistance,
       });
-      console.log(newRec);
       handleClosePopover();
+      setIsLoading(false);
       setAgreeModal(true);
     } catch (err) {
+      setIsLoading(false);
       console.log(err);
       alert("추천 요청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
     }
@@ -258,8 +246,6 @@ const RecsResult = () => {
     }
   };
 
-  console.log(recommendations);
-
   const onClickModal = (rec) => {
     setModalData(rec);
     setIsModal(true);
@@ -270,10 +256,10 @@ const RecsResult = () => {
     return nav("/recs/info");
   }
 
-  console.log("modalData" + modalData, isModal);
   return (
     <div className="recsResultPageMain">
       {isPc && <PcHeader />}
+      {isLoading && <ModalLoading />}
       {isModal && (
         <Modal>
           <div className="modal_content_">
@@ -300,7 +286,7 @@ const RecsResult = () => {
             <div>
               <p>{modalData.name}</p>
               <p>{modalData.address}</p>
-              <p>{modalData.benefit}</p>
+              {modalData.benefit && <p>{modalData.benefit}</p>}
             </div>
             <div>
               <a href={`https://map.naver.com/p/search/${modalData.address} ${modalData.name}`} target="_blank" rel="noopener noreferrer">
@@ -336,7 +322,7 @@ const RecsResult = () => {
               <div className="item_info">
                 <p className="item_name">{tempData.newData.name}</p>
                 <p className="item_address">{tempData.newData.address}</p>
-                <p className="item_benefit">{tempData.newData.benefit}</p>
+                {tempData.newData.benefit && <p className="item_benefit">{tempData.newData.benefit}</p>}
               </div>
             </div>
             <div className="flexBetween">
@@ -347,14 +333,14 @@ const RecsResult = () => {
                   setAgreeModal(false);
                 }}
                 className="flexCenter">
-                최소하기
+                취소하기
               </div>
               <div
                 onClick={() => {
                   onClickReplace();
                 }}
                 className="flexCenter">
-                번경하기
+                변경하기
               </div>
             </div>
           </div>
@@ -399,45 +385,46 @@ const RecsResult = () => {
               </button>
             </div>
             <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
-              {recommendations?.map((rec, index) => (
-                <li
-                  key={rec.id}
-                  onClick={() => {
-                    setCenter({ lat: rec.lat, lng: rec.lng });
-                  }}
-                  className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
-                  <div className="item_number">{index + 1}</div>
-                  <div className="item_card">
-                    <div
-                      className="item_content"
-                      onClick={() => {
-                        onClickModal(rec);
-                      }}>
-                      <div className="item_img flexCenter">
-                        {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                        {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                        {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
-                      </div>
-                      <div className="item_info">
-                        <p className="item_name">{rec.name}</p>
-                        <p className="item_address">{rec.address}</p>
-                        <span className="item_benefit">{rec.benefit}</span>
+              {recommendations &&
+                recommendations?.map((rec, index) => (
+                  <li
+                    key={rec.id}
+                    onClick={() => {
+                      setCenter({ lat: rec.lat, lng: rec.lng });
+                    }}
+                    className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                    <div className="item_number">{index + 1}</div>
+                    <div className="item_card">
+                      <div
+                        className="item_content"
+                        onClick={() => {
+                          onClickModal(rec);
+                        }}>
+                        <div className="item_img flexCenter">
+                          {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                          {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                          {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                        </div>
+                        <div className="item_info">
+                          <p className="item_name">{rec.name}</p>
+                          <p className="item_address">{rec.address}</p>
+                          {rec.benefit && <span className="item_benefit">{rec.benefit}</span>}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
-                    여기서 장소를 변경하거나
-                    <br />
-                    삭제할 수 있어요.
-                  </span>
-                </li>
-              ))}
+                    <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
+                      여기서 장소를 변경하거나
+                      <br />
+                      삭제할 수 있어요.
+                    </span>
+                  </li>
+                ))}
             </ul>
             <div className="list_footer">
               <button className={`list_footer-btn ${firstVisitMode && firstVisit === "2" ? "firstVisitMode" : ""}`} onClick={onSaveToNextHandler}>
@@ -552,40 +539,41 @@ const RecsResult = () => {
                   삭제할 수 있어요.
                 </span>
                 <ul className={`list_items`}>
-                  {recommendations?.map((rec, index) => (
-                    <li
-                      key={rec.id}
-                      onClick={() => {
-                        setCenter({ lat: rec.lat, lng: rec.lng });
-                      }}
-                      className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
-                      <div className="item_number">{index + 1}</div>
-                      <div className="item_card">
-                        <div
-                          className="item_content"
-                          onClick={() => {
-                            onClickModal(rec);
-                          }}>
-                          <div className="item_img">
-                            {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                            {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                            {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
-                          </div>
-                          <div className="item_info">
-                            <p className="item_name">{rec.name}</p>
-                            <p className="item_address">{rec.address}</p>
-                            <span className="item_benefit">{rec.benefit}</span>
+                  {recommendations &&
+                    recommendations?.map((rec, index) => (
+                      <li
+                        key={rec.id}
+                        onClick={() => {
+                          setCenter({ lat: rec.lat, lng: rec.lng });
+                        }}
+                        className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                        <div className="item_number">{index + 1}</div>
+                        <div className="item_card">
+                          <div
+                            className="item_content"
+                            onClick={() => {
+                              onClickModal(rec);
+                            }}>
+                            <div className="item_img">
+                              {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                              {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                              {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                            </div>
+                            <div className="item_info">
+                              <p className="item_name">{rec.name}</p>
+                              <p className="item_address">{rec.address}</p>
+                              {rec.benefit && <span className="item_benefit">{rec.benefit}</span>}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                    </li>
-                  ))}
+                        <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </li>
+                    ))}
                 </ul>
                 {/* 팝업 */}
                 {popoverData && (
