@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 // API 기본 설정 - 개발 환경에서는 프록시 사용
-const API_BASE_URL =
-  process.env.NODE_ENV === 'production' ? 'https://domo.syu-likelion.org' : ''; // 개발 환경에서는 프록시 사용
+const API_BASE_URL = 'https://domo.syu-likelion.org'; // 개발 환경에서는 프록시 사용
 
 // axios 인스턴스 생성
 const apiClient = axios.create({
