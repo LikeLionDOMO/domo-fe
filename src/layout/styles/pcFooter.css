@@ -1,5 +1,6 @@
 .footers-pc {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -10,6 +11,10 @@
   font-size: 24px;
   font-weight: 400;
   margin-top: 200px;
+}
+
+.footers-pc p {
+  margin-bottom: 20px;
 }
 
 .footers-mob {
