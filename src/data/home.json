@@ -4,83 +4,431 @@
     "short_description": "무료 해설 투어와 고궁 산책, 서울 대표 명소",
     "region_name": "서울특별시",
     "activity_keyword": "역사",
-    "image": "/images/home/gyeongbokgung.jpg"
+    "image": "/images/home/gyeongbokgung.jpg",
+    "data": [
+      {
+        "placeId": 1,
+        "name": "널담은공간 경복궁점",
+        "address": "서울 종로구 삼청로 24",
+        "benefit": "뷰가 멋있는 카페",
+        "lat": 37.5780762187482,
+        "lng": 126.979846783213,
+        "category": "카페"
+      },
+      {
+        "placeId": 2,
+        "name": "무구옥 한식당",
+        "address": "서울 종로구 사간동 126-1",
+        "benefit": "단체 이용 가능",
+        "lat": 37.5763910081434,
+        "lng": 126.979900330561,
+        "category": "음식점"
+      },
+      {
+        "placeId": 3,
+        "name": "경복궁길 미술관의거리",
+        "address": "서울 종로구 소격동 165-6",
+        "benefit": "야간 투어 30% 할인",
+        "lat": 37.5787120287105,
+        "lng": 126.979720723927,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "서울숲",
     "short_description": "넓은 공원에서 산책과 자전거, 가족 나들이에 적합",
     "region_name": "서울특별시",
     "activity_keyword": "자연",
-    "image": "/images/home/seoulForest.jpg"
+    "image": "/images/home/seoulForest.jpg",
+    "data": [
+      {
+        "placeId": 4,
+        "name": "라프레플루트 성수",
+        "address": "서울 성동구 성수동1가 685-495",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.5472480752265,
+        "lng": 127.039455944883,
+        "category": "카페"
+      },
+      {
+        "placeId": 5,
+        "name": "뽈로파스타 성수",
+        "address": "서울 성동구 성수동1가 685-467",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.5472721817609,
+        "lng": 127.040374598514,
+        "category": "음식점"
+      },
+      {
+        "placeId": 6,
+        "name": "성수문화예술마당",
+        "address": "서울 성동구 고산자로 71",
+        "benefit": "전시 운영 중",
+        "lat": 37.5456933072032,
+        "lng": 127.036089109561,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "명동 1992 덮밥&짜글이",
     "short_description": "합리적인 가격의 한식 덮밥, 혼밥·가족 모두 만족",
     "region_name": "서울특별시",
     "activity_keyword": "음식",
-    "image": "/images/home/1992.jpg"
+    "image": "/images/home/1992.jpg",
+    "data": [
+      {
+        "placeId": 7,
+        "name": "우지커피 명동점",
+        "address": "서울 중구 명동2가 25-1",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.5630687329938,
+        "lng": 126.985615219578,
+        "category": "카페"
+      },
+      {
+        "placeId": 8,
+        "name": "더식당 명동본점",
+        "address": "서울 중구 명동2가 31-4",
+        "benefit": "칼국수 무료 리필",
+        "lat": 37.5622467320486,
+        "lng": 126.985437339753,
+        "category": "음식점"
+      },
+      {
+        "placeId": 9,
+        "name": "엠플라자",
+        "address": "서울 중구 명동8길 27",
+        "benefit": "가이드 투어 무료",
+        "lat": 37.5625312330845,
+        "lng": 126.985166774442,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "Seoul City Tour Bus",
     "short_description": "저렴한 가격에 서울 주요 관광지 버스 투어",
     "region_name": "서울특별시",
     "activity_keyword": "투어",
-    "image": "/images/home/seoulcitytour.jpg"
+    "image": "/images/home/seoulcitytour.jpg",
+    "data": [
+      {
+        "placeId": 10,
+        "name": "토프레소 태평로점",
+        "address": "서울 중구 세종대로21길 49",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.5687547173597,
+        "lng": 126.975609180105,
+        "category": "카페"
+      },
+      {
+        "placeId": 11,
+        "name": "육대장 광화문점",
+        "address": "서울 종로구 당주동 37-6",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.5709889787176,
+        "lng": 126.975048466601,
+        "category": "음식점"
+      },
+      {
+        "placeId": 12,
+        "name": "서울시티투어버스",
+        "address": "서울 중구 세종대로 135-7",
+        "benefit": "서울 투어",
+        "lat": 37.5684231908598,
+        "lng": 126.976246677914,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "국립과천과학관",
     "short_description": "가족 단위로 즐기는 인터랙티브 과학 체험",
     "region_name": "경기도",
     "activity_keyword": "체험",
-    "image": "/images/home/scipia.jpg"
+    "image": "/images/home/scipia.jpg",
+    "data": [
+      {
+        "placeId": 13,
+        "name": "뚜레쥬르 과천부림점",
+        "address": "경기 과천시 부림3길 6-8",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.4379074154103,
+        "lng": 126.997845389966,
+        "category": "카페"
+      },
+      {
+        "placeId": 14,
+        "name": "청계산화로구이",
+        "address": "경기 과천시 경마공원대로 118",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 37.4431853418415,
+        "lng": 127.007537370623,
+        "category": "음식점"
+      },
+      {
+        "placeId": 15,
+        "name": "한국 카메라박물관",
+        "address": "경기 과천시 막계동 330",
+        "benefit": "어린이는 3000원",
+        "lat": 37.4350727941232,
+        "lng": 127.005653773666,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "설악산",
     "short_description": "당일치기 등산과 절경 감상 가능한 자연 명소",
     "region_name": "강원특별자치도",
     "activity_keyword": "트래킹",
-    "image": "/images/home/seoraksan.jpg"
+    "image": "/images/home/seoraksan.jpg",
+    "data": [
+      {
+        "placeId": 16,
+        "name": "봉쥬르카페 속초본점",
+        "address": "강원 속초시 노학동 1011-401",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 38.2057143818338,
+        "lng": 128.529018118487,
+        "category": "카페"
+      },
+      {
+        "placeId": 17,
+        "name": "설악산 닭갈비",
+        "address": "강원 속초시 노학동 1013-37",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 38.2061778934921,
+        "lng": 128.524458178027,
+        "category": "음식점"
+      },
+      {
+        "placeId": 18,
+        "name": "한화리조트 설악 워터피아",
+        "address": "강원 속초시 설악동 1",
+        "benefit": "영/유아 무료",
+        "lat": 38.2098694627461,
+        "lng": 128.528544602933,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "충북알프스자연휴양림",
     "short_description": "숲속에서 피크닉, 바베큐, 하이킹까지 즐기는 휴양지",
     "region_name": "충청북도",
     "activity_keyword": "휴양",
-    "image": "/images/home/foresttrip.jpg"
+    "image": "/images/home/foresttrip.jpg",
+    "data": [
+      {
+        "placeId": 19,
+        "name": "자연휴양림풍차정원",
+        "address": "충북 보은군 산외면 장갑리 산 18-3",
+        "benefit": "휴양림 이용객 할인",
+        "lat": 36.5753091038313,
+        "lng": 127.783262801135,
+        "category": "놀거리"
+      },
+      {
+        "placeId": 20,
+        "name": "자연휴양림인공폭포",
+        "address": "충북 보은군 산외면 장갑리 산15",
+        "benefit": "휴양림 이용객 할인",
+        "lat": 36.5698823878861,
+        "lng": 127.789814859299,
+        "category": "놀거리"
+      },
+      {
+        "placeId": 21,
+        "name": "자연휴양림시크릿정원",
+        "address": "충북 보은군 산외면 장갑리 산15",
+        "benefit": "휴양림 이용객 할인",
+        "lat": 36.5698823878862,
+        "lng": 127.789814859311,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "안면도 자연휴양림",
     "short_description": "저렴하게 숲과 바다를 동시에 느끼는 자연휴양공간",
     "region_name": "충청남도",
     "activity_keyword": "산책",
-    "image": "/images/home/anmyonhuyang.jpg"
+    "image": "/images/home/anmyonhuyang.jpg",
+    "data": [
+      {
+        "placeId": 22,
+        "name": "마카롱카페꼬끄시니",
+        "address": "충남 태안군 안면읍 안면대로 3175-7",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 36.4980300306046,
+        "lng": 126.358649800053,
+        "category": "카페"
+      },
+      {
+        "placeId": 23,
+        "name": "휴양림꽃게집",
+        "address": "충남 태안군 안면읍 승언리 95",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 36.4988620715466,
+        "lng": 126.358418258252,
+        "category": "음식점"
+      },
+      {
+        "placeId": 24,
+        "name": "아기자기랜드",
+        "address": "충남 태안군 안면읍 승언리 88-1",
+        "benefit": "75세 이상/36개월 미만 무료",
+        "lat": 36.4983968893945,
+        "lng": 126.358365619322,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "국립전주박물관",
     "short_description": "전통문화와 역사 체험, 저렴한 입장료",
     "region_name": "전북특별자치도",
     "activity_keyword": "문화",
-    "image": "/images/home/museum.jpg"
+    "image": "/images/home/museum.jpg",
+    "data": [
+      {
+        "placeId": 25,
+        "name": "국립전주박물관카페",
+        "address": "전북 전주시 완산구 효자동2가 900 2층",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 35.8013913197311,
+        "lng": 127.089596290467,
+        "category": "카페"
+      },
+      {
+        "placeId": 26,
+        "name": "시니어카페 바로곁애",
+        "address": "전북 전주시 완산구 효자동2가 900",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 35.8013913197311,
+        "lng": 127.089596290467,
+        "category": "카페"
+      },
+      {
+        "placeId": 27,
+        "name": "원클럽골프연습장",
+        "address": "전북 전주시 완산구 삼천동3가 1",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 35.7999145714824,
+        "lng": 127.089996000002,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "전라우수영 국민관광지",
     "short_description": "경치 좋은 자연공원, 가족 나들이로 적합",
     "region_name": "전라남도",
     "activity_keyword": "피크닉",
-    "image": "/images/home/wosu.jpg"
+    "image": "/images/home/wosu.jpg",
+    "data": [
+      {
+        "placeId": 28,
+        "name": "퍼팩트아이스&명량어묵",
+        "address": "전남 해남군 문내면 학동리 1025-3",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 34.5728023316167,
+        "lng": 126.308725162726,
+        "category": "카페"
+      },
+      {
+        "placeId": 29,
+        "name": "한옥 경양식",
+        "address": "전남 해남군 문내면 학동리 1024-1",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 34.5737137891635,
+        "lng": 126.309638048166,
+        "category": "음식점"
+      },
+      {
+        "placeId": 30,
+        "name": "명량대첩해전사기념전시관",
+        "address": "전남 해남군 문내면 학동리 1021-3",
+        "benefit": "무료",
+        "lat": 34.5727336485208,
+        "lng": 126.308503309325,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "하회마을",
     "short_description": "한국 전통마을 탐방, 문화체험과 산책 추천",
     "region_name": "경상북도",
     "activity_keyword": "전통체험",
-    "image": "/images/home/hahoe.jpg"
+    "image": "/images/home/hahoe.jpg",
+    "data": [
+      {
+        "placeId": 31,
+        "name": "탈빙고",
+        "address": "경북 안동시 풍천면 하회리 287",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 36.5488004789481,
+        "lng": 128.527636743035,
+        "category": "카페"
+      },
+      {
+        "placeId": 32,
+        "name": "이화식당 안동점",
+        "address": "경북 안동시 풍천면 하회리 276",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 36.549475204531,
+        "lng": 128.527438729933,
+        "category": "음식점"
+      },
+      {
+        "placeId": 33,
+        "name": "하회세계탈박물관",
+        "address": "경북 안동시 풍천면 하회리 287",
+        "benefit": "무료",
+        "lat": 36.5488004789481,
+        "lng": 128.527636743035,
+        "category": "놀거리"
+      }
+    ]
   },
   {
     "course_name": "진주성",
     "short_description": "남강변 산책과 진주 역사 체험, 저렴한 입장료",
     "region_name": "경상남도",
     "activity_keyword": "역사산책",
-    "image": "/images/home/jinjucitywall.jpg"
+    "image": "/images/home/jinjucitywall.jpg",
+    "data": [
+      {
+        "placeId": 34,
+        "name": "수복빵집",
+        "address": "경남 진주시 평안동 151",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 35.1966043692162,
+        "lng": 128.083754208395,
+        "category": "카페"
+      },
+      {
+        "placeId": 35,
+        "name": "천황식당",
+        "address": "경남 진주시 대안동 4-1",
+        "benefit": "민생회복 소비쿠폰",
+        "lat": 35.1960774520355,
+        "lng": 128.084440700717,
+        "category": "음식점"
+      },
+      {
+        "placeId": 36,
+        "name": "진주대첩 역사공원",
+        "address": "경남 진주시 본성동 8-1",
+        "benefit": "24시간 연중무휴",
+        "lat": 35.1909156238987,
+        "lng": 128.083694903146,
+        "category": "놀거리"
+      }
+    ]
   }
 ]
