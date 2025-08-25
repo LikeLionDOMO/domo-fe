@@ -300,7 +300,7 @@ const RecsResult = () => {
             <div>
               <p>{modalData.name}</p>
               <p>{modalData.address}</p>
-              <p>{modalData.benefit}</p>
+              {modalData.benefit && <p>{modalData.benefit}</p>}
             </div>
             <div>
               <a href={`https://map.naver.com/p/search/${modalData.address} ${modalData.name}`} target="_blank" rel="noopener noreferrer">
@@ -336,7 +336,7 @@ const RecsResult = () => {
               <div className="item_info">
                 <p className="item_name">{tempData.newData.name}</p>
                 <p className="item_address">{tempData.newData.address}</p>
-                <p className="item_benefit">{tempData.newData.benefit}</p>
+                {tempData.newData.benefit && <p className="item_benefit">{tempData.newData.benefit}</p>}
               </div>
             </div>
             <div className="flexBetween">
@@ -354,7 +354,7 @@ const RecsResult = () => {
                   onClickReplace();
                 }}
                 className="flexCenter">
-                번경하기
+                변경하기
               </div>
             </div>
           </div>
@@ -422,7 +422,7 @@ const RecsResult = () => {
                         <div className="item_info">
                           <p className="item_name">{rec.name}</p>
                           <p className="item_address">{rec.address}</p>
-                          <span className="item_benefit">{rec.benefit}</span>
+                          {rec.benefit && <span className="item_benefit">{rec.benefit}</span>}
                         </div>
                       </div>
                     </div>
@@ -576,7 +576,7 @@ const RecsResult = () => {
                             <div className="item_info">
                               <p className="item_name">{rec.name}</p>
                               <p className="item_address">{rec.address}</p>
-                              <span className="item_benefit">{rec.benefit}</span>
+                              {rec.benefit && <span className="item_benefit">{rec.benefit}</span>}
                             </div>
                           </div>
                         </div>
