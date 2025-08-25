@@ -20,14 +20,18 @@ const Benefix = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // 모바일 더보기 상태
+  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
+  const [mobileApiPage, setMobileApiPage] = useState(1);
+
   // 검색 및 필터 상태
   const [displayValue, setDisplayValue] = useState('');
   const [sortType, setSortType] = useState('benefit');
   const [mobileSearchToggle, setMobileSearchToggle] = useState(false);
 
-  // 혜택 데이터 가져오기 함수
+  // 혜택 데이터 가져오기 함수 (append 가능)
   const loadBenefits = useCallback(
-    async (search = '', sort = 'benefit', page = 1) => {
+    async (search = '', sort = 'benefit', page = 1, append = false) => {
       setIsLoading(true);
       setError(null);
 
@@ -35,7 +39,10 @@ const Benefix = () => {
         const response = await fetchBenefits({ search, sort, page });
 
         if (response.data) {
-          setBenefitsData(response.data.items || []);
+          const newItems = response.data.items || [];
+          setBenefitsData((prev) =>
+            append ? [...prev, ...newItems] : newItems
+          );
           setTotalPages(response.data.totalPages || 0);
           setCurrentPage(page - 1); // API는 1부터, 컴포넌트는 0부터
         }
@@ -51,21 +58,24 @@ const Benefix = () => {
 
   // 컴포넌트 마운트 시 초기 데이터 로드
   useEffect(() => {
-    loadBenefits('', sortType, 1);
+    loadBenefits('', sortType, 1, false);
+    setMobileApiPage(1);
   }, [loadBenefits, sortType]);
 
   // 검색어 변경 시 데이터 재로드
   useEffect(() => {
     if (displayValue) {
-      loadBenefits(displayValue, sortType, 1);
+      loadBenefits(displayValue, sortType, 1, false);
     } else {
-      loadBenefits('', sortType, 1);
+      loadBenefits('', sortType, 1, false);
     }
+    setMobileApiPage(1);
+    setMobileDisplayCount(5);
   }, [displayValue, sortType, loadBenefits]);
 
   const handlePageClick = (event) => {
     const page = event.selected + 1; // 컴포넌트는 0부터, API는 1부터
-    loadBenefits(displayValue, sortType, page);
+    loadBenefits(displayValue, sortType, page, false);
   };
 
   const onChangeDisplayValue = useCallback(
@@ -80,23 +90,38 @@ const Benefix = () => {
   const onChangeFilter = (value) => {
     setSortType(value);
     // 정렬 변경 시 첫 페이지부터 다시 로드
-    loadBenefits(displayValue, value, 1);
+    loadBenefits(displayValue, value, 1, false);
+    setMobileApiPage(1);
+    setMobileDisplayCount(5);
   };
 
   const onChangeMobileToggle = () => {
     setMobileSearchToggle(true);
   };
 
-  // 모바일 더보기: 초기 5개, 클릭 시 5개씩 추가
-  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
-  const handleMobileLoadMore = () => {
-    setMobileDisplayCount((prev) => prev + 5);
-  };
+  // 모바일 더보기: 부족하면 다음 페이지를 불러와 누적
+  const handleMobileLoadMore = async () => {
+    // 현재 보이는 개수를 5 늘리는 시도
+    const target = mobileDisplayCount + 5;
 
-  // 검색/정렬/데이터 변경 시 모바일 카운트 초기화
-  useEffect(() => {
-    setMobileDisplayCount(5);
-  }, [displayValue, sortType, benefitsData]);
+    // 현재 보유 데이터로 충분하면 카운트만 증가
+    if (target <= benefitsData.length) {
+      setMobileDisplayCount(target);
+      return;
+    }
+
+    // 더 불러올 페이지가 있으면 다음 페이지 로드 후 증가
+    if (mobileApiPage < totalPages && !isLoading) {
+      const nextPage = mobileApiPage + 1;
+      await loadBenefits(displayValue, sortType, nextPage, true);
+      setMobileApiPage(nextPage);
+      setMobileDisplayCount((prev) => prev + 5);
+      return;
+    }
+
+    // 더 불러올 데이터가 없으면 보유 데이터 범위까지만 확장
+    setMobileDisplayCount(Math.min(target, benefitsData.length));
+  };
 
   // API 데이터를 UI에 맞게 변환
   const transformedData = benefitsData.map((item, index) => ({
@@ -110,6 +135,11 @@ const Benefix = () => {
     lat: item.lat || 0,
     lng: item.lng || 0,
   }));
+
+  // 표시 데이터: 모바일은 슬라이스, PC는 전체
+  const displayData = isMobile
+    ? transformedData.slice(0, mobileDisplayCount)
+    : transformedData;
 
   return (
     <MainLayout onChangeMobileToggle={onChangeMobileToggle}>
@@ -149,7 +179,7 @@ const Benefix = () => {
 
         {/* 혜택 목록 */}
         <div className="benefits-list">
-          {transformedData.map((item) => (
+          {displayData.map((item) => (
             <a
               key={item.id}
               href={`https://map.naver.com/p/search/${encodeURIComponent(
@@ -175,7 +205,7 @@ const Benefix = () => {
         </div>
 
         {/* 데이터가 없을 때 메시지 */}
-        {!isLoading && transformedData.length === 0 && !error && (
+        {!isLoading && displayData.length === 0 && !error && (
           <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
             검색 결과가 없습니다.
           </div>
