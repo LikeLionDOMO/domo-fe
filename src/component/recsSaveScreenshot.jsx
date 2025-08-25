@@ -1,5 +1,7 @@
 import React from "react";
 import "./styles/recsSaveScreenshot.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGamepad, faMugHot, faUtensils } from "@fortawesome/free-solid-svg-icons";
 
 const RecsSaveScreenshot = React.forwardRef(({ recommendations }, ref) => {
   return (
@@ -17,7 +19,12 @@ const RecsSaveScreenshot = React.forwardRef(({ recommendations }, ref) => {
             <div className="item_number">{index + 1}</div>
             <div className="item_card">
               <div className="item_content">
-                <div className="item_img"></div>
+                <div className="item_img flexCenter">
+                  {/* FIXME: 카테고리 별로 아이콘 정하게 하기 */}
+                  {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                  {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                  {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                </div>
                 <div className="item_info">
                   <p className="item_name">{rec.name}</p>
                   <p className="item_address">{rec.address}</p>

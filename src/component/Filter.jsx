@@ -10,7 +10,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import './styles/filter.css';
 
-const regions = [
+// regions 데이터를 export하여 다른 컴포넌트에서 사용 가능
+export const regions = [
   {
     name: '서울특별시',
     subregions: [
@@ -119,11 +120,23 @@ const regions = [
   },
 ];
 
-const Filter = () => {
+const Filter = ({
+  display,
+  onChangeDisplayValue,
+  onChangeFilter,
+  onChangeMobileToggle,
+}) => {
   const [regionOpen, setRegionOpen] = useState(false);
   const [selectedProvince, setSelectedProvince] = useState(null);
-  const [displayValue, setDisplayValue] = useState('');
+  const [displayValue, setDisplayValue] = useState(display);
   const dropdownRef = useRef(null);
+
+  // 모바일에서 "지역 찾기" 버튼 클릭 시 부모 컴포넌트에 알림
+  const handleMobileRegionSearch = () => {
+    if (onChangeMobileToggle) {
+      onChangeMobileToggle(true);
+    }
+  };
 
   const handleProvinceSelect = (province) => {
     setSelectedProvince(province);
@@ -131,6 +144,7 @@ const Filter = () => {
 
   const handleRegionSelect = (region) => {
     setDisplayValue(`${selectedProvince.name} ${region}`);
+    onChangeDisplayValue(`${selectedProvince.name} ${region}`);
     setRegionOpen(false);
     setSelectedProvince(null);
   };
@@ -151,7 +165,12 @@ const Filter = () => {
   return (
     <div className="filter-container">
       <div className="filter-left">
-        <Button variant="text" className="region-search-btn">
+        {/* 모바일에서 "지역 찾기" 버튼 클릭 시 모달 열기 */}
+        <Button
+          variant="text"
+          className="region-search-btn"
+          onClick={handleMobileRegionSearch}
+        >
           지역 찾기
         </Button>
         <div className="region-filter" ref={dropdownRef}>
@@ -204,9 +223,10 @@ const Filter = () => {
           )}
         </div>
         <Select
-          defaultValue="latest"
+          defaultValue="benefix"
           className="filter-select sort-select"
           IconComponent={KeyboardArrowUpIcon}
+          onChange={(e) => onChangeFilter(e.target.value)}
           MenuProps={{
             PaperProps: {
               sx: {
@@ -216,7 +236,6 @@ const Filter = () => {
             },
           }}
         >
-          <MenuItem value="latest">최신순</MenuItem>
           <MenuItem value="benefix">할인순</MenuItem>
           <MenuItem value="popular">인기순</MenuItem>
         </Select>

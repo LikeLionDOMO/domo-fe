@@ -154,3 +154,24 @@
 .region-dropdown::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
+
+@media (max-width: 768px) {
+  .filter-container {
+    display: none;
+  }
+
+  /* 모바일에서 "지역 찾기" 버튼만 보이도록 */
+  .filter-container .region-search-btn {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: #0052e9;
+    color: white;
+    border-radius: 50px;
+    padding: 16px 24px;
+    box-shadow: 0 4px 12px rgba(0, 82, 233, 0.3);
+    font-size: 16px;
+  }
+}

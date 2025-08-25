@@ -28,6 +28,7 @@ const BoxButton = ({
         borderRadius: `${radius}`,
         width: `${width}`,
         height: `${height}`,
+        minHeight: `${height}`,
         padding: `${padding}`,
         color: `var(${color})`,
         backgroundColor: `var(${bgColor})`,
