@@ -87,6 +87,17 @@ const Benefix = () => {
     setMobileSearchToggle(true);
   };
 
+  // 모바일 더보기: 초기 5개, 클릭 시 5개씩 추가
+  const [mobileDisplayCount, setMobileDisplayCount] = useState(5);
+  const handleMobileLoadMore = () => {
+    setMobileDisplayCount((prev) => prev + 5);
+  };
+
+  // 검색/정렬/데이터 변경 시 모바일 카운트 초기화
+  useEffect(() => {
+    setMobileDisplayCount(5);
+  }, [displayValue, sortType, benefitsData]);
+
   // API 데이터를 UI에 맞게 변환
   const transformedData = benefitsData.map((item, index) => ({
     id: item.placeId || index,
@@ -139,13 +150,27 @@ const Benefix = () => {
         {/* 혜택 목록 */}
         <div className="benefits-list">
           {transformedData.map((item) => (
-            <div key={item.id} className="benefit-card">
-              <div className="card-tags">
-                <span className="tag-blue">{item.region}</span>
-                <span className="tag-yellow">{item.kind}</span>
+            <a
+              key={item.id}
+              href={`https://map.naver.com/p/search/${encodeURIComponent(
+                `${item.address || ''} ${item.title || ''}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="benefit-card">
+                <div className="card-tags">
+                  <span className="tag-blue">{item.region}</span>
+                  <span className="tag-yellow">
+                    {item.kind === '할인'
+                      ? `${item.discountPercent}% 할인`
+                      : item.kind}
+                  </span>
+                </div>
+                <p className="card-title">{item.title}</p>
               </div>
-              <p className="card-title">{item.title}</p>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -156,13 +181,26 @@ const Benefix = () => {
           </div>
         )}
 
-        {/* 페이지네이션 */}
-        {totalPages > 1 && (
+        {/* 페이지네이션 - PC에서 항상 표시 */}
+        {!isMobile && (
           <Pagination
-            pageCount={totalPages}
+            pageCount={Math.max(totalPages || 1, 1)}
             onPageChange={handlePageClick}
             currentPage={currentPage}
           />
+        )}
+
+        {/* 모바일 더보기 버튼 - 항상 표시 */}
+        {isMobile && (
+          <div>
+            <button
+              className="m-more-button"
+              onClick={handleMobileLoadMore}
+              disabled={isLoading}
+            >
+              더보기
+            </button>
+          </div>
         )}
       </div>
     </MainLayout>
