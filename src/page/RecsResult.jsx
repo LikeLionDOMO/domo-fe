@@ -347,7 +347,7 @@ const RecsResult = () => {
                   setAgreeModal(false);
                 }}
                 className="flexCenter">
-                최소하기
+                취소하기
               </div>
               <div
                 onClick={() => {
