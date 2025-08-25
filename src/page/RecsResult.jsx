@@ -399,45 +399,46 @@ const RecsResult = () => {
               </button>
             </div>
             <ul className={`list_items ${firstVisitMode && firstVisit ? "firstVisitModeBg" : ""}`}>
-              {recommendations?.map((rec, index) => (
-                <li
-                  key={rec.id}
-                  onClick={() => {
-                    setCenter({ lat: rec.lat, lng: rec.lng });
-                  }}
-                  className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
-                  <div className="item_number">{index + 1}</div>
-                  <div className="item_card">
-                    <div
-                      className="item_content"
-                      onClick={() => {
-                        onClickModal(rec);
-                      }}>
-                      <div className="item_img flexCenter">
-                        {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                        {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                        {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
-                      </div>
-                      <div className="item_info">
-                        <p className="item_name">{rec.name}</p>
-                        <p className="item_address">{rec.address}</p>
-                        <span className="item_benefit">{rec.benefit}</span>
+              {recommendations &&
+                recommendations?.map((rec, index) => (
+                  <li
+                    key={rec.id}
+                    onClick={() => {
+                      setCenter({ lat: rec.lat, lng: rec.lng });
+                    }}
+                    className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                    <div className="item_number">{index + 1}</div>
+                    <div className="item_card">
+                      <div
+                        className="item_content"
+                        onClick={() => {
+                          onClickModal(rec);
+                        }}>
+                        <div className="item_img flexCenter">
+                          {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                          {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                          {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                        </div>
+                        <div className="item_info">
+                          <p className="item_name">{rec.name}</p>
+                          <p className="item_address">{rec.address}</p>
+                          <span className="item_benefit">{rec.benefit}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                  <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
-                    여기서 장소를 변경하거나
-                    <br />
-                    삭제할 수 있어요.
-                  </span>
-                </li>
-              ))}
+                    <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <span className={`${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitModeDesc0" : "none"}`}>
+                      여기서 장소를 변경하거나
+                      <br />
+                      삭제할 수 있어요.
+                    </span>
+                  </li>
+                ))}
             </ul>
             <div className="list_footer">
               <button className={`list_footer-btn ${firstVisitMode && firstVisit === "2" ? "firstVisitMode" : ""}`} onClick={onSaveToNextHandler}>
@@ -552,40 +553,41 @@ const RecsResult = () => {
                   삭제할 수 있어요.
                 </span>
                 <ul className={`list_items`}>
-                  {recommendations?.map((rec, index) => (
-                    <li
-                      key={rec.id}
-                      onClick={() => {
-                        setCenter({ lat: rec.lat, lng: rec.lng });
-                      }}
-                      className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
-                      <div className="item_number">{index + 1}</div>
-                      <div className="item_card">
-                        <div
-                          className="item_content"
-                          onClick={() => {
-                            onClickModal(rec);
-                          }}>
-                          <div className="item_img">
-                            {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
-                            {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
-                            {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
-                          </div>
-                          <div className="item_info">
-                            <p className="item_name">{rec.name}</p>
-                            <p className="item_address">{rec.address}</p>
-                            <span className="item_benefit">{rec.benefit}</span>
+                  {recommendations &&
+                    recommendations?.map((rec, index) => (
+                      <li
+                        key={rec.id}
+                        onClick={() => {
+                          setCenter({ lat: rec.lat, lng: rec.lng });
+                        }}
+                        className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
+                        <div className="item_number">{index + 1}</div>
+                        <div className="item_card">
+                          <div
+                            className="item_content"
+                            onClick={() => {
+                              onClickModal(rec);
+                            }}>
+                            <div className="item_img">
+                              {rec.category === "음식점" && <FontAwesomeIcon icon={faUtensils} />}
+                              {rec.category === "놀거리" && <FontAwesomeIcon icon={faGamepad} />}
+                              {rec.category === "카페" && <FontAwesomeIcon icon={faMugHot} />}
+                            </div>
+                            <div className="item_info">
+                              <p className="item_name">{rec.name}</p>
+                              <p className="item_address">{rec.address}</p>
+                              <span className="item_benefit">{rec.benefit}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
-                    </li>
-                  ))}
+                        <div className="item_dots" onClick={(event) => handleTogglePopover(rec, event)}>
+                          <span></span>
+                          <span></span>
+                          <span></span>
+                        </div>
+                      </li>
+                    ))}
                 </ul>
                 {/* 팝업 */}
                 {popoverData && (
