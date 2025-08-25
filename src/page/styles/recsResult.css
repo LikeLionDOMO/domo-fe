@@ -747,7 +747,7 @@
   text-align: center;
 }
 
-.modal_background > div > div:nth-child(1) {
+.recsResultPageMain .modal_background > div > div:nth-child(1) {
   margin-bottom: unset !important;
 }
 

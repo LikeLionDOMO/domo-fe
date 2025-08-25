@@ -90,6 +90,15 @@ const RecsInfo = () => {
       alert("예산의 시작 값이 끝값보다 클 수 없습니다.");
       return;
     }
+
+    if (parseInt(budgetStart, 10) < 0 || parseInt(budgetEnd, 10) < 0) {
+      alert("예산은 0원 이상으로 입력해주세요.");
+      return;
+    }
+    if (parseInt(budgetStart, 10) >= 10000 && parseInt(budgetEnd, 10) >= 10000) {
+      alert("예산은 10000원 이상으로 입력해주세요.");
+      return;
+    }
     if (subject.length === 0) {
       alert("키워드를 선택해주세요.");
       return;
