@@ -1,13 +1,3 @@
-// Haversine 거리 계산 함수 (미터)
-function distanceInMeterByHaversine(lat1, lng1, lat2, lng2) {
-  const radius = 6371000; // m
-  const toRadian = Math.PI / 180;
-  const deltaLat = (lat2 - lat1) * toRadian;
-  const deltaLng = (lng2 - lng1) * toRadian;
-  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
-  const c = 2 * Math.asin(Math.sqrt(a));
-  return radius * c;
-}
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import "./styles/recsResult.css";
@@ -132,7 +122,16 @@ const RecsResult = () => {
     }
   };
 
-  console.log(isPc);
+  // Haversine 거리 계산 함수 (미터)
+  const distanceInMeterByHaversine = (lat1, lng1, lat2, lng2) => {
+    const radius = 6371000; // m
+    const toRadian = Math.PI / 180;
+    const deltaLat = (lat2 - lat1) * toRadian;
+    const deltaLng = (lng2 - lng1) * toRadian;
+    const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(lat1 * toRadian) * Math.cos(lat2 * toRadian) * Math.sin(deltaLng / 2) ** 2;
+    const c = 2 * Math.asin(Math.sqrt(a));
+    return radius * c;
+  };
 
   // 다시 찾기
   const onClickRecommend = async (data) => {
@@ -148,11 +147,12 @@ const RecsResult = () => {
         lat: prev.lat,
         lng: prev.lng,
       });
-      //   if (newRec === null) {
-      //     return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
-      //   }
-      //   // 전체 데이터
-      //   setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+      if (newRec === null) {
+        return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
+      }
+      // 전체 데이터
+      setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+
       //   // 거리 계산
       //   const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
       //   const prev = idx > 0 ? recommendations[idx - 1] : null;
@@ -531,7 +531,6 @@ const RecsResult = () => {
                       key={rec.id}
                       onClick={() => {
                         setCenter({ lat: rec.lat, lng: rec.lng });
-                        onClickModal(rec);
                       }}
                       className={`list_item ${firstVisitMode && firstVisit === "0" && index === 0 ? "firstVisitMode" : ""}`}>
                       <div className="item_number">{index + 1}</div>
