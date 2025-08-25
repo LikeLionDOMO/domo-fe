@@ -153,18 +153,20 @@ const RecsResult = () => {
       // 전체 데이터
       setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
 
-      //   // 거리 계산
-      //   const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
-      //   const prev = idx > 0 ? recommendations[idx - 1] : null;
-      //   const next = idx < recommendations.length - 1 ? recommendations[idx + 1] : null;
-      //   // 신규 장소 기준 거리 (미터)
-      //   let newDistance = 0;
-      //   if (prev) newDistance += distanceInMeterByHaversine(prev.lat, prev.lng, newRec.lat, newRec.lng);
-      //   if (next) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, next.lat, next.lng);
-      //   // 기존 장소 기준 거리 (미터)
-      //   let oldDistance = 0;
-      //   if (prev) oldDistance += distanceInMeterByHaversine(prev.lat, prev.lng, data.lat, data.lng);
-      //   if (next) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, next.lat, next.lng);
+      // 거리 계산
+      const idx = recommendations.findIndex((r) => r.placeId === data.placeId);
+      const prev = idx > 0 ? recommendations[idx - 1] : null;
+      const next = idx < recommendations.length - 1 ? recommendations[idx + 1] : null;
+      // 신규 장소 기준 거리 (미터)
+      let newDistance = 0;
+      if (prev) newDistance += distanceInMeterByHaversine(prev.lat, prev.lng, newRec.lat, newRec.lng);
+      if (next) newDistance += distanceInMeterByHaversine(newRec.lat, newRec.lng, next.lat, next.lng);
+      // 기존 장소 기준 거리 (미터)
+      let oldDistance = 0;
+      if (prev) oldDistance += distanceInMeterByHaversine(prev.lat, prev.lng, data.lat, data.lng);
+      if (next) oldDistance += distanceInMeterByHaversine(data.lat, data.lng, next.lat, next.lng);
+
+      console.log(newDistance, oldDistance);
       //   // 단일 데이터
       //   setTempData({
       //     newData: newRec,
