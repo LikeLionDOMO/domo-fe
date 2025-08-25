@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGamepad, faMugHot, faUtensils, faXmark } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../component/modal";
 import { recommend } from "../api/recommend";
+import ModalLoading from "../component/modalLoading";
 // import { mapMockData } from "../data/mockData";
 
 const RecsResult = () => {
@@ -41,6 +42,7 @@ const RecsResult = () => {
   const [tempData, setTempData] = useState();
   // 사용자 동의 구하는 모달창
   const [agreeModal, setAgreeModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const nav = useNavigate();
 
@@ -55,10 +57,6 @@ const RecsResult = () => {
   // 튜토리얼 단계 클릭 이벤트
   // 튜토리얼 단계 클릭 이벤트 관리
   useEffect(() => {
-    // 현재 튜토리얼 모드와 단계 콘솔 출력(디버깅용)
-    console.log("firstVisitMode:", firstVisitMode);
-    console.log("firstVisit:", firstVisit);
-
     // 튜토리얼 모드가 아니면 아무 동작하지 않음
     if (!firstVisitMode) return;
 
@@ -136,7 +134,7 @@ const RecsResult = () => {
 
   // 다시 찾기
   const onClickRecommend = async (data) => {
-    console.log("작동확인");
+    setIsLoading(true);
     const excludeIds = recommendations.filter((r) => r.placeId !== data.placeId).map((r) => r.placeId);
     const targetIdx = recommendations.findIndex((r) => r.placeId === data.placeId);
     const prevForApi = targetIdx > 0 ? recommendations[targetIdx - 1] : data;
@@ -157,23 +155,14 @@ const RecsResult = () => {
       const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
       const nextForDistance = targetIdx < recommendations.length - 1 ? recommendations[targetIdx + 1] : null;
 
-      console.log("=== 거리 계산 디버깅 ===");
-      console.log("targetIdx:", targetIdx);
-      console.log("prevForDistance:", prevForDistance);
-      console.log("nextForDistance:", nextForDistance);
-      console.log("newRec 좌표:", { lat: newRec.lat, lng: newRec.lng });
-      console.log("data(기존) 좌표:", { lat: data.lat, lng: data.lng });
-
       // 신규 장소 기준 거리 (미터)
       let newDistance = 0;
       if (prevForDistance) {
         const prevToNew = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, newRec.lat, newRec.lng);
-        console.log("이전->새장소 거리:", prevToNew);
         newDistance += prevToNew;
       }
       if (nextForDistance) {
         const newToNext = distanceInMeterByHaversine(newRec.lat, newRec.lng, nextForDistance.lat, nextForDistance.lng);
-        console.log("새장소->다음 거리:", newToNext);
         newDistance += newToNext;
       }
 
@@ -181,16 +170,14 @@ const RecsResult = () => {
       let oldDistance = 0;
       if (prevForDistance) {
         const prevToOld = distanceInMeterByHaversine(prevForDistance.lat, prevForDistance.lng, data.lat, data.lng);
-        console.log("이전->기존장소 거리:", prevToOld);
         oldDistance += prevToOld;
       }
       if (nextForDistance) {
         const oldToNext = distanceInMeterByHaversine(data.lat, data.lng, nextForDistance.lat, nextForDistance.lng);
-        console.log("기존장소->다음 거리:", oldToNext);
+
         oldDistance += oldToNext;
       }
 
-      console.log("최종 거리:", newDistance, oldDistance);
       //   // 단일 데이터
       setTempData({
         newData: newRec,
@@ -198,8 +185,8 @@ const RecsResult = () => {
         newDistance,
         oldDistance,
       });
-      console.log(newRec);
       handleClosePopover();
+      setIsLoading(false);
       setAgreeModal(true);
     } catch (err) {
       console.log(err);
@@ -258,8 +245,6 @@ const RecsResult = () => {
     }
   };
 
-  console.log(recommendations);
-
   const onClickModal = (rec) => {
     setModalData(rec);
     setIsModal(true);
@@ -270,10 +255,10 @@ const RecsResult = () => {
     return nav("/recs/info");
   }
 
-  console.log("modalData" + modalData, isModal);
   return (
     <div className="recsResultPageMain">
       {isPc && <PcHeader />}
+      {isLoading && <ModalLoading />}
       {isModal && (
         <Modal>
           <div className="modal_content_">

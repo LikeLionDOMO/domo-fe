@@ -1,0 +1,48 @@
+.modal_background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0000007d;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+}
+
+.modal_background > div {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.modal_background > div > .modal_dots {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--black-2);
+  animation: dotAnimation 3s infinite;
+}
+
+.modal_background > div > .modal_dots:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.modal_background > div > .modal_dots:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes dotAnimation {
+  0%,
+  66.67%,
+  100% {
+    background-color: var(--black-2);
+  }
+  33.33% {
+    background-color: var(--black-1);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .modal_background {
+    padding: 0 16px;
+  }
+}
