@@ -151,7 +151,7 @@ const RecsResult = () => {
         return alert("오류가 발생하였습니다.<br/>다시 시도해 주세요.");
       }
       // 전체 데이터
-      setTempDatas((list) => list.map((r) => (r.placeId === data.placeId ? newRec : r)));
+      setTempDatas(recommendations.map((r) => (r.placeId === data.placeId ? newRec : r)));
 
       // 거리 계산
       const prevForDistance = targetIdx > 0 ? recommendations[targetIdx - 1] : null;
