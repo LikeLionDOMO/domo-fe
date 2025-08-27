@@ -747,7 +747,7 @@
   text-align: center;
 }
 
-.modal_background > div > div:nth-child(1) {
+.recsResultPageMain .modal_background > div > div:nth-child(1) {
   margin-bottom: unset !important;
 }
 
@@ -807,10 +807,12 @@
 
 .recsResultPageMain .modal_content_2 > div:nth-child(3) > div:nth-child(1) {
   background-color: var(--black-1);
+  cursor: pointer;
   color: var(--black-2);
 }
 
 .recsResultPageMain .modal_content_2 > div:nth-child(3) > div:nth-child(2) {
   background-color: var(--main-color);
+  cursor: pointer;
   color: var(--black-0);
 }
